@@ -12,6 +12,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- html2canvas 截圖函式庫 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     body {
@@ -81,6 +83,27 @@
     ::-webkit-scrollbar-thumb {
       background: #cbd5e1;
       border-radius: 9999px;
+    }
+
+    /* 專屬列印樣式：僅列印榮譽證書，其餘介面皆隱藏 */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #certificateCard, #certificateCard * {
+        visibility: visible !important;
+      }
+      #certificateCard {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 24px !important;
+        box-shadow: none !important;
+        border: 2px solid #b45309 !important;
+      }
     }
   </style>
 </head>
@@ -648,6 +671,170 @@
           <!-- 選項容器（JS 隨機洗牌注入） -->
           <div id="optionsGrid" class="grid grid-cols-1 gap-3">
             <!-- 按鈕項目 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 【新增】畢業旅行安全宣誓與數位簽名承諾書區塊 (滿分100分解鎖) -->
+      <div id="pledgeSection" class="hidden bg-white rounded-3xl shadow-xl border-2 border-amber-300 overflow-hidden space-y-6 p-6 sm:p-8">
+        <div class="text-center space-y-2 border-b border-slate-200 pb-5">
+          <span class="bg-amber-100 text-amber-900 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+            ★ 畢旅出發前最終法定儀式 ★
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            臺東縣立國小 六年級畢業旅行【安全紀律承諾宣言】
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
+            恭喜你已以 100 分滿分通過安全檢定！請在下方親筆簽署安全承諾，立下安全誓約後方可生成正式安全准考證書。
+          </p>
+        </div>
+
+        <!-- 學生基本資料輸入 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">班級</label>
+            <input type="text" id="pledgeClass" placeholder="例如：六年甲班" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">座號</label>
+            <input type="number" id="pledgeSeat" placeholder="例如：08" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">學生姓名</label>
+            <input type="text" id="pledgeName" placeholder="請輸入本名" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+          </div>
+        </div>
+
+        <!-- 正式誓詞內容 -->
+        <div class="bg-amber-50/70 border-2 border-amber-200 rounded-2xl p-5 sm:p-6 space-y-3.5 text-slate-800 text-xs sm:text-sm leading-relaxed">
+          <p class="font-bold text-base text-amber-950">
+            我 <span id="pledgeEchoName" class="underline underline-offset-4 decoration-amber-600 font-black text-blue-700">______</span> 在此鄭重承諾：
+          </p>
+          <p class="text-slate-700">
+            在本次畢業旅行期間（臺東出發、臺北捷運、故宮、世貿書展、兒童樂園、夜市百貨、動物園貓纜、天文館），我會以身作則，絕對自律遵守以下重大安全紀律守則：
+          </p>
+          <ul class="space-y-2 list-none text-slate-700 font-medium pl-1">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-shield-cat text-amber-600 mt-1"></i>
+              <span><strong>落實三人成行：</strong> 隨時隨地與同組組員集體行動，絕對不以任何理由私自脫隊、落單冒險。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-train-subway text-amber-600 mt-1"></i>
+              <span><strong>大眾運輸鐵律：</strong> 捷運黃線內不飲食、不搶門卡門、手扶梯站穩握扶手、後背包一律改前背。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-mobile-screen-button text-amber-600 mt-1"></i>
+              <span><strong>夜間手機集中保管：</strong> 晚間查房點名時準時繳交手機由老師集中保管，絕不熬夜玩手遊、杜絕不良用途；翌日早餐點名統一領回。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-hotel text-amber-600 mt-1"></i>
+              <span><strong>飯店門禁與防護：</strong> 進房即扣緊安全防盜鏈、確認逃生梯；房內嚴禁跳床與枕頭戰；嚴禁私自開門串門換房與偷溜外出。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-kit-medical text-amber-600 mt-1"></i>
+              <span><strong>緊急黃金自救：</strong> 遇到突發狀況或走散時，留在原地並立即向制服服務人員或打電話向老師求助。</span>
+            </li>
+          </ul>
+          <p class="text-rose-700 font-black text-xs sm:text-sm pt-2 border-t border-amber-200">
+            若有違反上述任何一條安全規矩，我自願接受重大校規處分、停權後續自由活動及安全紀律再教育，絕無任何異議！
+          </p>
+        </div>
+
+        <!-- 手寫數位簽名板 -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-signature text-blue-600 text-sm"></i>
+              <span>立約人親筆數位手寫簽名（請用手指、觸控筆或滑鼠在此手寫全名）：</span>
+            </label>
+            <button onclick="clearSignature()" type="button" class="text-xs text-rose-600 hover:text-rose-800 font-bold underline">
+              清除重簽
+            </button>
+          </div>
+          <div class="border-2 border-dashed border-slate-300 rounded-2xl bg-slate-50 relative overflow-hidden h-36">
+            <canvas id="signatureCanvas" class="w-full h-full block cursor-crosshair"></canvas>
+            <div id="signPlaceholder" class="absolute inset-0 flex items-center justify-center pointer-events-none text-slate-400 text-xs sm:text-sm font-medium">
+              <i class="fa-solid fa-pencil mr-1"></i> 在此框線內親筆手寫簽名
+            </div>
+          </div>
+        </div>
+
+        <!-- 勾選確認條款與送出 -->
+        <div class="space-y-4 pt-2">
+          <label class="flex items-center gap-2.5 p-3 rounded-xl bg-blue-50 border border-blue-200 cursor-pointer">
+            <input type="checkbox" id="pledgeCheckbox" class="rounded text-blue-600 focus:ring-blue-500 w-4 h-4 flex-shrink-0">
+            <span class="text-xs sm:text-sm text-blue-950 font-bold">
+              我已逐字詳細閱讀全部安全誓詞，並承諾在四天畢旅中全力遵守，做一個自律負責的成熟畢業生！
+            </span>
+          </label>
+
+          <button onclick="generateCertificate()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 active:scale-98 text-white font-black text-base py-3.5 px-6 rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-stamp"></i>
+            <span>完成宣誓！生成畢業旅行安全榮譽准考證書</span>
+          </button>
+        </div>
+
+        <!-- 最終正式榮譽證書 (生成後顯示) -->
+        <div id="certificateContainer" class="hidden pt-6">
+          <div id="printableCertificate" class="bg-gradient-to-b from-amber-50/50 via-white to-amber-50/40 border-8 border-double border-amber-600 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            <!-- 證書角裝飾 -->
+            <div class="absolute top-2 left-2 text-amber-500/30 text-4xl"><i class="fa-solid fa-certificate"></i></div>
+            <div class="absolute top-2 right-2 text-amber-500/30 text-4xl"><i class="fa-solid fa-certificate"></i></div>
+            <div class="text-center space-y-4">
+              <div class="inline-flex items-center gap-2 bg-amber-500 text-white font-black text-xs px-3 py-1 rounded-full uppercase">
+                ★ 畢旅安全檢定最高榮譽 ★
+              </div>
+              <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-wide font-serif">
+                畢業旅行安全通關榮譽證書
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500">Certificate of Graduation Trip Safety Qualification</p>
+              
+              <div class="py-4 space-y-2 border-y border-amber-200">
+                <p class="text-sm sm:text-lg text-slate-800">
+                  茲證明 <span id="certClassText" class="font-bold text-indigo-700">六年甲班</span> 
+                  座號 <span id="certSeatText" class="font-bold text-indigo-700">01</span> 號 
+                  學生 <span id="certNameText" class="text-xl sm:text-2xl font-black text-blue-900 underline underline-offset-4 decoration-amber-500">王小明</span> 同學
+                </p>
+                <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                  順利通過本次畢業旅行全部 10 道大眾運輸、故宮、晚間收手機查房、夜市百貨與高空貓纜之安全紀律考驗，獲得 <b>100 分滿分</b>，並已親筆宣誓落實團隊自律守則，特頒此證，准予參加畢業旅行！
+                </p>
+              </div>
+
+              <div class="flex flex-wrap items-end justify-between gap-4 pt-4 px-2">
+                <div class="text-left text-xs text-slate-600 space-y-1">
+                  <p><strong>核發單位：</strong>六年級畢業旅行安全小組</p>
+                  <p><strong>誓約簽署日：</strong><span id="certDateText">2026 年 11 月 04 日</span></p>
+                  <p><strong>安全認證碼：</strong><span class="font-mono text-slate-400">SAFE-2026-TRIP-100</span></p>
+                </div>
+
+                <!-- 學生親筆簽名輸出區 -->
+                <div class="text-center">
+                  <div class="border-b-2 border-slate-700 w-44 h-16 flex items-center justify-center overflow-hidden">
+                    <img id="certSignatureImage" class="max-h-full max-w-full object-contain" alt="親筆簽名">
+                  </div>
+                  <span class="text-xs text-slate-500 font-bold block mt-1">【立誓人數位親筆簽名】</span>
+                </div>
+
+                <!-- 審核合格印章 -->
+                <div class="w-20 h-20 rounded-full border-4 border-rose-600 text-rose-600 flex flex-col items-center justify-center font-black transform -rotate-12 select-none shadow-sm mx-auto sm:mx-0">
+                  <span class="text-[10px]">畢旅檢定</span>
+                  <span class="text-sm">滿分合格</span>
+                  <span class="text-[9px]">安全出發</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 列印或儲存操作 -->
+          <div class="pt-5 flex flex-wrap justify-center gap-3">
+            <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow flex items-center gap-2">
+              <i class="fa-solid fa-print"></i>
+              <span>列印 / 另存為 PDF 證書</span>
+            </button>
+            <button onclick="alert('提示：請使用手機或平板內建截圖功能（電源鍵+音量下鍵），將證書截圖傳給老師檢查並出示給家長！')" class="bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow flex items-center gap-2">
+              <i class="fa-solid fa-camera"></i>
+              <span>截圖交給老師檢查</span>
+            </button>
           </div>
         </div>
       </div>
@@ -1392,32 +1579,32 @@
     let hasFailedAny = false;    // 是否曾有答錯扣分記錄 (用以判斷能否拿 100 分)
     let autoNextTimeout = null;  // 自動跳下一題計時器
 
-    // 【新增】六年級學生違規懲罰庫 (必定包含抄寫規矩)
+    // 【班級行前宣講專用】教室內可立即執行之紀律懲罰庫
     const penaltyRulesList = [
       {
         title: "罰抄寫本關安全規矩 3 遍",
-        desc: "拿出筆記本，將本關違反的【安全守則與正確做法】工整手抄 3 遍，於今晚查房時交由老師檢查簽名！",
+        desc: "拿出隨堂筆記本，立刻將本關違反的【安全守則與正確做法】工整手抄 3 遍，抄寫完畢立刻呈交講台老師檢查簽名！",
         icon: "fa-pen-nib"
       },
       {
-        title: "擔任全隊『安全提醒長』一整天",
-        desc: "在接下來的參觀行程中，每到一個新地點必須大聲向同組組員宣導：三人成行、背包前背、嚴禁落單！",
-        icon: "fa-bullhorn"
-      },
-      {
-        title: "罰抄寫『捷運大眾運輸五不原則』完整 1 遍",
-        desc: "將不飲食、不衝門、不低頭、不碰緊急鈕、不大聲喧嘩完整手抄一遍，加深大眾運輸紀律記憶！",
+        title: "罰抄寫大眾運輸五不原則 5 遍",
+        desc: "在筆記本上手抄 5 遍：『捷運黃線內不飲食、不搶門卡門、手扶梯不奔跑、背包一律改前背、三人成行嚴禁落單』，下課前收繳！",
         icon: "fa-book"
       },
       {
-        title: "晚上查房時第一位主動繳交手機",
-        desc: "今晚查房點名一開始，立刻主動關機並端正雙手繳交手機給老師保管，絕不藉故拖延或藏匿備用機！",
+        title: "起立面向全班大聲朗讀 1 遍",
+        desc: "請起立面向全班同學，用清楚宏亮的聲音大聲朗讀本關安全規矩及剛才的錯誤選項分析，提醒所有同學引以為戒！",
+        icon: "fa-bullhorn"
+      },
+      {
+        title: "罰抄寫夜間查房收手機規定 3 遍",
+        desc: "手抄 3 遍：『晚間查房點名時手機全數關機繳交老師集中保管，翌日早餐時間統一發放，嚴禁藏匿備用機』，字體需端正！",
         icon: "fa-mobile-screen-button"
       },
       {
-        title: "負責今晚小組房間睡前 4 大安全檢查",
-        desc: "今晚就寢前，必須逐項檢查室友防盜門鏈是否扣上、浴室防滑墊是否鋪妥、水龍頭是否鎖緊！",
-        icon: "fa-clipboard-check"
+        title: "上講台示範大眾運輸禮儀",
+        desc: "請走到講台前，背上書包向全班同學示範正確的『背包胸前背負防碰撞』以及『捷運候車排隊先下後上』標準動作！",
+        icon: "fa-person-chalkboard"
       }
     ];
 
@@ -1684,7 +1871,7 @@
       const container = document.getElementById('quizContainer');
 
       if (teamScore === 100 && !hasFailedAny) {
-        // 滿分合格！準許參加畢業旅行
+        // 滿分合格！準許進入安全宣言承諾書
         try {
           confetti({
             particleCount: 120,
@@ -1703,7 +1890,7 @@
                 10關 100分 完美通關・審查合格
               </span>
               <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
-                恭喜！獲頒【畢旅全能安全小隊長】最高榮譽證書！
+                恭喜！獲頒【畢旅全能安全小隊長】最高資格！
               </h2>
               <p class="text-base font-bold text-emerald-600 mt-1">最終安全信譽評分：100 / 100 滿分</p>
             </div>
@@ -1711,13 +1898,13 @@
               太厲害了！面對大眾捷運、故宮、晚間收手機與防盜鏈、國際書展、兒童樂園、夜市防燙防竊、百貨手扶梯以及高空貓纜等全部 10 大考驗，你全程保持高度自律與警戒，答題零失誤！你們已經完全具備保護自己與同伴的能力，<strong>准予搭上火車出發參加畢業旅行！</strong>
             </p>
             <div class="pt-4 flex flex-wrap justify-center gap-3">
+              <button onclick="openPledgeModal()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-sm px-7 py-3 rounded-2xl transition shadow-lg active:scale-95 flex items-center gap-2 animate-bounce">
+                <i class="fa-solid fa-file-signature text-lg"></i>
+                <span>簽署安全宣言並領取榮譽證書 ➔</span>
+              </button>
               <button onclick="location.reload()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow active:scale-95 flex items-center gap-2">
                 <i class="fa-solid fa-rotate-left"></i>
                 <span>重新模擬挑戰</span>
-              </button>
-              <button onclick="switchTab('hotel')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow active:scale-95 flex items-center gap-2">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <span>查看夜間收手機守則</span>
               </button>
             </div>
           </div>
@@ -1765,6 +1952,138 @@
       }
     }
 
+    // 解鎖安全宣言區塊並初始化手寫簽名板
+    function unlockPledgeSection() {
+      const pledge = document.getElementById('pledgeSection');
+      pledge.classList.remove('hidden');
+      pledge.scrollIntoView({ behavior: 'smooth' });
+
+      // 即時同步姓名到宣言文字中
+      const nameInput = document.getElementById('pledgeName');
+      nameInput.addEventListener('input', (e) => {
+        document.getElementById('pledgeEchoName').innerText = e.target.value.trim() || '______';
+      });
+
+      initSignaturePad();
+    }
+
+    // 手寫簽名板邏輯
+    let signCanvas, signCtx, isSigning = false, hasDrawnSignature = false;
+
+    function initSignaturePad() {
+      signCanvas = document.getElementById('signatureCanvas');
+      if (!signCanvas) return;
+      signCtx = signCanvas.getContext('2d');
+
+      // 依據容器寬高調整真實畫布解析度
+      signCanvas.width = signCanvas.parentElement.clientWidth;
+      signCanvas.height = signCanvas.parentElement.clientHeight;
+
+      signCtx.strokeStyle = '#1e3a8a';
+      signCtx.lineWidth = 3;
+      signCtx.lineCap = 'round';
+      signCtx.lineJoin = 'round';
+
+      function getPos(e) {
+        const rect = signCanvas.getBoundingClientRect();
+        if (e.touches && e.touches[0]) {
+          return {
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top
+          };
+        }
+        return {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        };
+      }
+
+      function startDraw(e) {
+        isSigning = true;
+        const pos = getPos(e);
+        signCtx.beginPath();
+        signCtx.moveTo(pos.x, pos.y);
+        document.getElementById('signPlaceholder').classList.add('hidden');
+        hasDrawnSignature = true;
+      }
+
+      function draw(e) {
+        if (!isSigning) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        signCtx.lineTo(pos.x, pos.y);
+        signCtx.stroke();
+      }
+
+      function endDraw() {
+        isSigning = false;
+      }
+
+      signCanvas.addEventListener('mousedown', startDraw);
+      signCanvas.addEventListener('mousemove', draw);
+      signCanvas.addEventListener('mouseup', endDraw);
+      signCanvas.addEventListener('mouseleave', endDraw);
+
+      signCanvas.addEventListener('touchstart', startDraw, { passive: false });
+      signCanvas.addEventListener('touchmove', draw, { passive: false });
+      signCanvas.addEventListener('touchend', endDraw);
+    }
+
+    function clearSignature() {
+      if (!signCtx || !signCanvas) return;
+      signCtx.clearRect(0, 0, signCanvas.width, signCanvas.height);
+      document.getElementById('signPlaceholder').classList.remove('hidden');
+      hasDrawnSignature = false;
+    }
+
+    // 生成正式安全榮譽證書
+    function generateCertificate() {
+      const cls = document.getElementById('pledgeClass').value.trim();
+      const seat = document.getElementById('pledgeSeat').value.trim();
+      const name = document.getElementById('pledgeName').value.trim();
+      const checked = document.getElementById('pledgeCheckbox').checked;
+
+      if (!cls || !seat || !name) {
+        alert('請完整輸入【班級、座號與學生姓名】！');
+        return;
+      }
+
+      if (!hasDrawnSignature) {
+        alert('請在簽名框內完成【數位手寫簽名】，以示鄭重承諾！');
+        return;
+      }
+
+      if (!checked) {
+        alert('請勾選【我已逐字詳細閱讀全部安全誓詞】確認方塊！');
+        return;
+      }
+
+      // 將資料注入榮譽證書
+      document.getElementById('certClassText').innerText = cls;
+      document.getElementById('certSeatText').innerText = seat;
+      document.getElementById('certNameText').innerText = name;
+
+      const now = new Date();
+      document.getElementById('certDateText').innerText = 
+        `${now.getFullYear()} 年 ${now.getMonth() + 1} 月 ${now.getDate()} 日`;
+
+      // 轉換簽名為圖片放入證書
+      const sigData = signCanvas.toDataURL('image/png');
+      document.getElementById('certSignatureImage').src = sigData;
+
+      const certBox = document.getElementById('certificateContainer');
+      certBox.classList.remove('hidden');
+      certBox.scrollIntoView({ behavior: 'smooth' });
+
+      try {
+        confetti({
+          particleCount: 150,
+          spread: 90,
+          origin: { y: 0.7 }
+        });
+      } catch(e){}
+    }
+
     // 頁籤切換邏輯
     function switchTab(tabId) {
       const tabs = ['itinerary', 'hotel', 'transit', 'simulation'];
@@ -1788,6 +2107,354 @@
     }
     function closeSosModal() {
       document.getElementById('sosModal').classList.add('hidden');
+    }
+
+    // 儲存已簽名圖片資料與學生資訊
+    let currentSignatureDataUrl = '';
+    let pledgeStudentInfo = { className: '', seatNum: '', studentName: '' };
+
+    // 開啟安全宣言與簽名 Modal
+    function openPledgeModal() {
+      let modal = document.getElementById('pledgeModal');
+      if (!modal) {
+        createPledgeModalDOM();
+        modal = document.getElementById('pledgeModal');
+      }
+      modal.classList.remove('hidden');
+      initSignaturePad();
+    }
+
+    // 關閉安全宣言 Modal
+    function closePledgeModal() {
+      const modal = document.getElementById('pledgeModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // 動態建立安全宣言與證書的 Modal 結構
+    function createPledgeModalDOM() {
+      const wrapper = document.createElement('div');
+      wrapper.id = 'pledgeModal';
+      wrapper.className = "fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto";
+      wrapper.innerHTML = `
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-slate-200 space-y-6 my-auto">
+          
+          <!-- 步驟一：簽署介面 -->
+          <div id="pledgeSignStep" class="space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold">
+                  <i class="fa-solid fa-file-signature"></i>
+                </div>
+                <div>
+                  <h3 class="text-lg font-black text-slate-900">畢業旅行安全紀律承諾書</h3>
+                  <p class="text-xs text-slate-500">落實誠信簽署・做個成熟自律的小六畢業生</p>
+                </div>
+              </div>
+              <button onclick="closePledgeModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <!-- 基本資料輸入 -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">班級</label>
+                <input id="inputClass" type="text" placeholder="例：六年甲班" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">座號</label>
+                <input id="inputSeat" type="text" placeholder="例：05 號" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-600 mb-1">學生姓名</label>
+                <input id="inputName" oninput="updatePledgePreviewName()" type="text" placeholder="例：陳小明" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none font-bold">
+              </div>
+            </div>
+
+            <!-- 誓詞內文 -->
+            <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 text-xs sm:text-sm text-amber-950 space-y-2 leading-relaxed">
+              <p class="font-black text-amber-900 text-sm">
+                我，<span id="pledgeNamePreview" class="underline decoration-amber-600 decoration-2 font-black text-rose-600">__________</span>，即將代表學校出發前往臺北參加畢業旅行，在此鄭重承諾：
+              </p>
+              <ul class="list-disc list-inside space-y-1 text-xs text-slate-700">
+                <li>全程落實<strong>「三人成行、絕不脫隊」</strong>，互相關照提醒安全。</li>
+                <li>搭乘臺鐵、捷運與大眾運輸，遵守排隊先下後上、<strong>後背包一律前背</strong>。</li>
+                <li>夜間查房點名時，<strong>主動準時繳交手機由師長保管</strong>，翌日早餐時間領回，絕不私藏備用機通宵遊玩。</li>
+                <li>回飯店進房立即<strong>扣上防盜門鏈</strong>，不私自外出、不串門、不跳床、注意浴室防滑。</li>
+                <li>若有違規或投機行為，願坦然接受校規處分與抄寫懲罰，絕無異議。</li>
+              </ul>
+            </div>
+
+            <!-- 數位手寫簽名板 -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <i class="fa-solid fa-signature text-amber-600"></i> 立誓人親筆簽名（請在下方手寫或用滑鼠簽名）：
+                </label>
+                <button onclick="clearSignaturePad()" class="text-[11px] text-slate-500 hover:text-rose-600 font-bold underline">
+                  清除重寫
+                </button>
+              </div>
+              <div class="border-2 border-dashed border-amber-300 rounded-2xl bg-amber-50/30 overflow-hidden relative touch-none">
+                <canvas id="signatureCanvas" class="w-full h-32 block bg-transparent cursor-crosshair"></canvas>
+                <div id="signHint" class="absolute inset-0 flex items-center justify-center text-slate-400 text-xs pointer-events-none">
+                  請在此區域簽名（手指觸控或滑鼠）
+                </div>
+              </div>
+            </div>
+
+            <button onclick="generateCertificate()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-sm sm:text-base py-3.5 px-6 rounded-2xl transition shadow-lg active:scale-95 flex items-center justify-center gap-2">
+              <i class="fa-solid fa-stamp"></i>
+              <span>立誓完成・生成榮譽安全證書 ➔</span>
+            </button>
+          </div>
+
+          <!-- 步驟二：正式榮譽證書展現介面 -->
+          <div id="pledgeCertStep" class="hidden space-y-5">
+            <!-- 證書卡片本體 -->
+            <div id="certificateCard" class="bg-gradient-to-b from-amber-50 via-white to-amber-50 p-6 sm:p-8 rounded-3xl border-4 border-amber-600 shadow-xl relative overflow-hidden">
+              <!-- 雙線內框 -->
+              <div class="border-2 border-amber-400/80 rounded-2xl p-5 sm:p-7 relative z-10 space-y-4 text-center">
+                
+                <div class="flex items-center justify-center gap-2 text-amber-700 font-black text-xs sm:text-sm tracking-widest uppercase">
+                  <i class="fa-solid fa-star"></i>
+                  <span>六年級畢業旅行・安全認證金榜</span>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+
+                <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-wide">
+                  安全誓言榮譽證書
+                </h2>
+
+                <p class="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+                  茲證明 <span id="certClassText" class="font-black text-amber-900 underline">六年甲班</span> 
+                  座號 <span id="certSeatText" class="font-black text-amber-900 underline">01</span> 
+                  學生 <span id="certNameText" class="font-black text-rose-600 text-base sm:text-lg underline">王小明</span>，
+                  已全數通過畢業旅行 10 關嚴格安全檢定，獲得 100 分滿分，並親筆完成安全誓約簽署，具備高度自律與自我防護能力，獲准參加畢業旅行！
+                </p>
+
+                <!-- 誓言簽署與印章 -->
+                <div class="pt-4 border-t border-amber-200/80 flex flex-wrap items-end justify-between gap-4 text-left">
+                  <div>
+                    <span class="text-[10px] text-slate-400 block font-mono">CERTIFICATE ID: SAF-2026-100</span>
+                    <span class="text-xs text-slate-500">立誓日期：<span id="certDateText">2026-11-04</span></span>
+                  </div>
+
+                  <!-- 簽名圖案與蓋印 -->
+                  <div class="flex items-center gap-3">
+                    <div class="text-right">
+                      <span class="text-[10px] text-slate-400 block font-bold">立誓人親筆簽署：</span>
+                      <img id="certSignatureImg" class="h-10 sm:h-12 border-b-2 border-slate-700 inline-block" alt="親筆簽名">
+                    </div>
+                    <!-- 仿印章效果 -->
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-rose-600 text-rose-600 flex flex-col items-center justify-center font-black text-[10px] sm:text-xs rotate-[-12deg] shadow-inner select-none flex-shrink-0">
+                      <span>安全審查</span>
+                      <span class="text-xs sm:text-sm font-black">合格</span>
+                      <span class="text-[8px]">准予出發</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 裝飾浮水印 -->
+              <i class="fa-solid fa-award absolute -right-6 -bottom-8 text-9xl text-amber-500/10 pointer-events-none"></i>
+            </div>
+
+            <!-- 操作按鈕列 -->
+            <div class="flex flex-wrap items-center justify-between gap-2.5 pt-1">
+              <button onclick="backToPledgeSign()" class="text-xs text-slate-500 hover:text-slate-800 font-bold px-3 py-2">
+                <i class="fa-solid fa-arrow-left mr-1"></i> 修改資料或重簽
+              </button>
+              <div class="flex items-center gap-2">
+                <button onclick="printCertificate()" id="printCertBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition active:scale-95 flex items-center gap-1.5">
+                  <i class="fa-solid fa-print"></i>
+                  <span>列印 / 另存為 PDF 證書</span>
+                </button>
+                <button onclick="downloadCertificateImage()" id="downloadCertBtn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition active:scale-95 flex items-center gap-1.5">
+                  <i class="fa-solid fa-camera"></i>
+                  <span id="downloadCertBtnText">截圖交給老師檢查</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      `;
+      document.body.appendChild(wrapper);
+    }
+
+    // 簽名板畫布繪圖邏輯
+    let signCanvas, signCtx, isDrawing = false, hasSigned = false;
+
+    function initSignaturePad() {
+      signCanvas = document.getElementById('signatureCanvas');
+      if (!signCanvas) return;
+      signCtx = signCanvas.getContext('2d');
+
+      // 依據容器寬高設定實際畫布解析度
+      const rect = signCanvas.getBoundingClientRect();
+      signCanvas.width = rect.width * 2;
+      signCanvas.height = rect.height * 2;
+      signCtx.scale(2, 2);
+      signCtx.lineCap = 'round';
+      signCtx.lineJoin = 'round';
+      signCtx.lineWidth = 2.5;
+      signCtx.strokeStyle = '#0f172a'; // 深色筆觸
+
+      // 滑鼠事件
+      signCanvas.onmousedown = (e) => startDrawing(getPos(e));
+      signCanvas.onmousemove = (e) => draw(getPos(e));
+      window.addEventListener('mouseup', stopDrawing);
+
+      // 觸控事件
+      signCanvas.ontouchstart = (e) => {
+        e.preventDefault();
+        if (e.touches.length > 0) startDrawing(getTouchPos(e.touches[0]));
+      };
+      signCanvas.ontouchmove = (e) => {
+        e.preventDefault();
+        if (e.touches.length > 0) draw(getTouchPos(e.touches[0]));
+      };
+      window.addEventListener('touchend', stopDrawing);
+    }
+
+    function getPos(e) {
+      const rect = signCanvas.getBoundingClientRect();
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function getTouchPos(touch) {
+      const rect = signCanvas.getBoundingClientRect();
+      return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+    }
+
+    function startDrawing(pos) {
+      isDrawing = true;
+      hasSigned = true;
+      const hint = document.getElementById('signHint');
+      if (hint) hint.classList.add('hidden');
+      signCtx.beginPath();
+      signCtx.moveTo(pos.x, pos.y);
+    }
+
+    function draw(pos) {
+      if (!isDrawing) return;
+      signCtx.lineTo(pos.x, pos.y);
+      signCtx.stroke();
+    }
+
+    function stopDrawing() {
+      if (isDrawing) {
+        signCtx.closePath();
+        isDrawing = false;
+      }
+    }
+
+    function clearSignaturePad() {
+      if (!signCtx || !signCanvas) return;
+      signCtx.clearRect(0, 0, signCanvas.width, signCanvas.height);
+      hasSigned = false;
+      const hint = document.getElementById('signHint');
+      if (hint) hint.classList.remove('hidden');
+    }
+
+    function updatePledgePreviewName() {
+      const name = document.getElementById('inputName').value.trim();
+      document.getElementById('pledgeNamePreview').innerText = name || '__________';
+    }
+
+    // 驗證並產生證書
+    function generateCertificate() {
+      const className = document.getElementById('inputClass').value.trim();
+      const seatNum = document.getElementById('inputSeat').value.trim();
+      const name = document.getElementById('inputName').value.trim();
+
+      if (!name) {
+        alert("請在學生姓名欄位填寫你的姓名！");
+        document.getElementById('inputName').focus();
+        return;
+      }
+      if (!hasSigned) {
+        alert("請在下方簽名板親筆簽署你的姓名！");
+        return;
+      }
+
+      pledgeStudentInfo = {
+        className: className || "六年級",
+        seatNum: seatNum || "00",
+        studentName: name
+      };
+
+      currentSignatureDataUrl = signCanvas.toDataURL("image/png");
+
+      // 填入證書文字與圖片
+      document.getElementById('certClassText').innerText = pledgeStudentInfo.className;
+      document.getElementById('certSeatText').innerText = pledgeStudentInfo.seatNum;
+      document.getElementById('certNameText').innerText = pledgeStudentInfo.studentName;
+      document.getElementById('certSignatureImg').src = currentSignatureDataUrl;
+      
+      const today = new Date();
+      const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      document.getElementById('certDateText').innerText = dateStr;
+
+      // 切換至證書步驟
+      document.getElementById('pledgeSignStep').classList.add('hidden');
+      document.getElementById('pledgeCertStep').classList.remove('hidden');
+
+      try {
+        confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+      } catch(e){}
+    }
+
+    function backToPledgeSign() {
+      document.getElementById('pledgeCertStep').classList.add('hidden');
+      document.getElementById('pledgeSignStep').classList.remove('hidden');
+    }
+
+    // 1. 列印 / 另存為 PDF
+    function printCertificate() {
+      window.print();
+    }
+
+    // 2. 截圖交給老師檢查（使用 html2canvas 產生 PNG 並觸發下載）
+    async function downloadCertificateImage() {
+      const card = document.getElementById('certificateCard');
+      const btn = document.getElementById('downloadCertBtn');
+      const btnText = document.getElementById('downloadCertBtnText');
+      if (!card || !window.html2canvas) return;
+
+      const originalText = btnText.innerText;
+      btn.disabled = true;
+      btnText.innerText = "截圖生成中...";
+
+      try {
+        const canvas = await html2canvas(card, {
+          scale: 2, // 高解析度
+          useCORS: true,
+          backgroundColor: '#fffbeb'
+        });
+
+        const imageUri = canvas.toDataURL("image/png");
+        const downloadLink = document.createElement('a');
+        const fileName = `畢旅安全證書_${pledgeStudentInfo.className}_${pledgeStudentInfo.seatNum}號_${pledgeStudentInfo.studentName}.png`;
+        
+        downloadLink.href = imageUri;
+        downloadLink.download = fileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        btnText.innerText = "截圖已下載！";
+        setTimeout(() => {
+          btnText.innerText = originalText;
+          btn.disabled = false;
+        }, 2000);
+      } catch (err) {
+        console.error("截圖生成失敗:", err);
+        alert("截圖產生失敗，建議直接使用手機或平板內建截圖功能保留畫面！");
+        btnText.innerText = originalText;
+        btn.disabled = false;
+      }
     }
   </script>
 </body>
