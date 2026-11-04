@@ -583,9 +583,30 @@
       </div>
 
       <!-- 地圖軌道可視化進度條 (Map Progress Track) -->
+      <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between text-xs text-slate-500 font-bold border-b border-slate-100 pb-2">
+          <span class="flex items-center gap-1.5 text-blue-700">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>臺東 ➔ 臺北 畢旅安全推進行程圖</span>
+          </span>
+          <span id="mapProgressText" class="text-indigo-600 font-mono">當前進度：臺東火車站 (站點 0 / 10)</span>
+        </div>
 
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+        <!-- 橫向滾動軌道 -->
+        <div class="overflow-x-auto pb-4 pt-2">
+          <div class="min-w-[850px] relative px-6">
+            <!-- 底層灰線 -->
+            <div class="absolute top-5 left-10 right-10 h-1.5 bg-slate-200 rounded-full z-0"></div>
+            <!-- 前進高亮進度藍線 -->
+            <div id="mapTrackLine" class="absolute top-5 left-10 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 rounded-full z-0 transition-all duration-500" style="width: 0%;"></div>
+            <!-- 站點節點容器 (由 JS 動態注入) -->
+            <div id="mapStationsContainer" class="flex justify-between items-start relative z-10">
+              <!-- JS 會生成各站點節點 -->
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 闖關主卡片 -->
       <div id="quizContainer" class="bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden relative">
         <!-- 頂部情境標籤與計數器 -->
@@ -600,6 +621,68 @@
             </span>
             目標站點：<span id="targetStationName" class="text-amber-400 font-bold text-sm">臺北捷運</span> 
             (答對題數: <span id="correctCounter" class="text-emerald-400 font-bold">0</span>)
+          </div>
+        </div>
+
+        <!-- 題目與選項區域 -->
+        <div class="p-6 sm:p-8 space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div id="scenarioIconBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-blue-50 border-2 border-blue-200 flex items-center justify-center text-4xl sm:text-5xl text-blue-600 flex-shrink-0 transition-transform">
+              <i class="fa-solid fa-train"></i>
+            </div>
+            <div class="space-y-1.5 flex-grow">
+              <div class="flex items-center gap-2">
+                <span id="scenarioCategory" class="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+                  乘車秩序
+                </span>
+                <span id="retryBadge" class="hidden text-[11px] font-black text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200 animate-pulse">
+                  <i class="fa-solid fa-rotate-left mr-1"></i>退後救援補考題
+                </span>
+              </div>
+              <h3 id="scenarioQuestion" class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                <!-- 題幹文字 -->
+              </h3>
+            </div>
+          </div>
+
+          <!-- 選項容器（JS 隨機洗牌注入） -->
+          <div id="optionsGrid" class="grid grid-cols-1 gap-3">
+            <!-- 按鈕項目 -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- SOS 緊急應變彈窗 Modal -->
+  <div id="sosModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-lg font-black text-rose-600 flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          緊急走失與意外應變卡
+        </h3>
+        <button onclick="closeSosModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+        <div class="p-3 bg-rose-50 rounded-2xl border border-rose-200 space-y-1">
+          <span class="font-bold text-rose-900 block">走失黃金三守則：</span>
+          <p>1. <strong>留在原地不亂跑</strong>：停止移動，千萬不要自行搭車或走出大樓。</p>
+          <p>2. <strong>尋求穿制服人員</strong>：找捷運站務員、博物館服務台或警察協助。</p>
+          <p>3. <strong>電話直撥老師或帶隊組長</strong>：說出身旁柱子編號或明顯招牌。</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-500 block">緊急救護 / 報案</span>
+            <span class="font-bold text-slate-800 text-sm">119 / 110</span>
+          </div>
+          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="text-slate-500 block">臺北捷運 24H 客服</span>
+            <span class="font-bold text-slate-800 text-sm">02-218-12345</span>
           </div>
         </div>
 
