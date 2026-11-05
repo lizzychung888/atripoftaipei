@@ -3,89 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>臺東出發！畢旅安全冒險指南與守則互動檢定</title>
+  <title>臺東 ➔ 臺北 畢業旅行陽光安全冒險記</title>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Noto Sans TC & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- html2canvas 截圖函式庫 -->
+  <!-- html2canvas 截圖下載庫 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
+    :root {
+      --bg-creamy: #fdfbf7;
+    }
     body {
       font-family: 'Noto Sans TC', sans-serif;
-      background-color: #f8fafc;
+      background-color: var(--bg-creamy);
+      color: #334155;
+      font-size: 1.125rem;
+      line-height: 1.8;
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+        radial-gradient(at 90% 15%, rgba(251, 191, 36, 0.09) 0px, transparent 50%),
+        radial-gradient(at 50% 95%, rgba(52, 211, 153, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
     }
-    
-    /* 搖晃與違規警告動畫 */
+
+    .font-eng {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* 溫暖彌散柔光陰影 (Ambient Glow Shadows) */
+    .glow-sunny {
+      box-shadow: 0 14px 35px -8px rgba(245, 158, 11, 0.25);
+    }
+    .glow-sky {
+      box-shadow: 0 14px 35px -8px rgba(14, 165, 233, 0.22);
+    }
+    .glow-mint {
+      box-shadow: 0 14px 35px -8px rgba(16, 185, 129, 0.22);
+    }
+    .glow-coral {
+      box-shadow: 0 14px 35px -8px rgba(244, 63, 94, 0.22);
+    }
+    .glow-soft {
+      box-shadow: 0 10px 30px -6px rgba(100, 116, 139, 0.08), 0 4px 10px -2px rgba(100, 116, 139, 0.04);
+    }
+
+    /* 律動與動畫 */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
+    }
+    .anim-float {
+      animation: gentleFloat 3.8s ease-in-out infinite;
+    }
+
     @keyframes shakeAnimation {
       0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-8px) rotate(-1deg); }
-      40%, 80% { transform: translateX(8px) rotate(1deg); }
+      20%, 60% { transform: translateX(-9px) rotate(-1deg); }
+      40%, 80% { transform: translateX(9px) rotate(1deg); }
     }
     .shake-danger {
       animation: shakeAnimation 0.5s ease-in-out;
     }
 
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
-      50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); }
-    }
-    .warning-glow {
-      animation: pulseGlow 1.2s infinite;
-    }
-
-    /* 彈跳成功動畫 */
-    @keyframes bounceSuccess {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-12px); }
-      60% { transform: translateY(-6px); }
-    }
-    .bounce-safe {
-      animation: bounceSuccess 0.8s ease;
-    }
-
-    /* 浮動效果 */
-    @keyframes floatEffect {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-    }
-    .floating-badge {
-      animation: floatEffect 3s ease-in-out infinite;
-    }
-
-    /* 平滑過渡 */
-    .tab-transition {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* 抽卡翻轉動畫 */
     @keyframes cardFlip {
-      0% { transform: scale(0.8) rotateY(90deg); opacity: 0; }
+      0% { transform: scale(0.85) rotateY(70deg); opacity: 0; }
       100% { transform: scale(1) rotateY(0deg); opacity: 1; }
     }
     .penalty-card-anim {
       animation: cardFlip 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
-    
-    /* 自訂捲軸 */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
 
-    /* 專屬列印樣式：僅列印榮譽證書，其餘介面皆隱藏 */
+    /* 列印專用樣式 */
     @media print {
       body * {
         visibility: hidden !important;
@@ -100,873 +97,639 @@
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 !important;
-        padding: 24px !important;
+        padding: 32px !important;
         box-shadow: none !important;
-        border: 2px solid #b45309 !important;
+        border: 4px solid #f59e0b !important;
+        background: white !important;
       }
     }
   </style>
 </head>
-<body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-amber-200">
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-200 selection:text-amber-900">
 
-  <!-- 頂部導覽列 -->
-  <header class="bg-gradient-to-r from-blue-700 via-indigo-700 to-emerald-600 text-white shadow-lg sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3 sm:px-6 flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center space-x-3">
-        <div class="w-11 h-11 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-xl shadow-inner border border-white/30">
-          <i class="fa-solid fa-train-subway text-yellow-300"></i>
+  <!-- 頂部正向活力 Header -->
+  <header class="bg-white/85 backdrop-blur-xl border-b border-amber-100/80 sticky top-0 z-40 transition-all">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 sm:px-6 flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- 主視覺 Logo 與標題 -->
+      <div class="flex items-center space-x-3.5">
+        <div class="w-13 h-13 p-3 bg-gradient-to-br from-amber-400 via-orange-400 to-rose-400 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md glow-sunny">
+          <i class="fa-solid fa-compass anim-float"></i>
         </div>
         <div>
-          <h1 class="text-lg sm:text-xl font-black tracking-wide flex items-center gap-2">
-            臺東 ➔ 臺北 畢旅安全地圖大冒險
-            <span class="text-xs bg-rose-500 text-white font-bold px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse">10關・滿分合格制</span>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-black tracking-wider uppercase bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full border border-amber-300">
+              六年級陽光行前營
+            </span>
+            <span class="text-xs font-black bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-300">
+              滿分100合格制
+            </span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-black text-slate-800 tracking-tight mt-0.5 flex items-center gap-2">
+            臺東 ➔ 臺北 畢旅安全探索地圖
           </h1>
-          <p class="text-xs text-blue-100 hidden sm:block">大眾運輸・晚上收手機・安全無折扣・沒有 100 分不准出發！</p>
         </div>
       </div>
-      
-      <!-- 隊伍安全分數與進度 -->
+
+      <!-- 右側信譽分數與一鍵求助按鈕 -->
       <div class="flex items-center gap-3">
-        <div class="bg-black/25 backdrop-blur-md rounded-xl px-3 py-1.5 flex items-center gap-2 border border-white/10">
-          <span class="text-xs text-slate-200">安全信譽分</span>
-          <span id="scoreBadge" class="font-black text-amber-300 text-lg sm:text-xl">100</span>
-          <span class="text-xs text-slate-300">分</span>
+        <!-- 信譽分數膠囊 -->
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200/80 rounded-2xl px-4 py-1.5 flex items-center gap-2.5 shadow-sm">
+          <div class="w-7 h-7 rounded-full bg-amber-400 text-white flex items-center justify-center text-sm shadow-inner font-bold">
+            <i class="fa-solid fa-shield-heart"></i>
+          </div>
+          <div class="flex items-baseline gap-1">
+            <span class="text-xs font-bold text-amber-800">安全信譽</span>
+            <span id="scoreBadge" class="font-eng font-extrabold text-amber-600 text-2xl sm:text-3xl leading-none">100</span>
+            <span class="text-xs text-amber-700 font-bold">分</span>
+          </div>
         </div>
-        <button onclick="openSosModal()" class="bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-bold text-xs sm:text-sm px-3.5 py-2 rounded-xl shadow-md transition flex items-center gap-1.5 border border-rose-400">
-          <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
-          <span>緊急應變卡</span>
+
+        <!-- 緊急求助 SOS 按鈕 -->
+        <button onclick="openSosModal()" class="bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-black text-sm sm:text-base px-4 py-2.5 rounded-2xl shadow-md glow-coral transition flex items-center gap-2 border border-rose-400">
+          <i class="fa-solid fa-life-ring animate-spin" style="animation-duration: 9s;"></i>
+          <span>緊急應變求助</span>
         </button>
       </div>
     </div>
   </header>
 
   <!-- 主內容容器 -->
-  <main class="max-w-6xl mx-auto px-4 py-6 sm:px-6 w-full flex-grow space-y-6">
+  <main class="max-w-6xl mx-auto px-4 py-7 sm:px-6 w-full flex-grow space-y-7">
 
-    <!-- 行程導覽快速檢索與頁籤（調整順序：宣講在前，闖關在最後） -->
-    <div class="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 flex flex-wrap gap-1.5 sm:gap-2">
-      <button onclick="switchTab('itinerary')" id="tabBtn-itinerary" class="tab-btn flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 transition bg-blue-600 text-white shadow-sm">
-        <i class="fa-solid fa-route text-base"></i>
-        <span>1. 行程地點安全守則</span>
+    <!-- 正向活力導覽頁籤 (4 階段按鈕) -->
+    <nav class="bg-white/90 p-2 rounded-3xl shadow-sm border border-slate-200/80 flex flex-wrap gap-2 backdrop-blur-sm">
+      <button onclick="switchTab('itinerary')" id="tabBtn-itinerary" class="tab-btn flex-1 min-w-[140px] py-3.5 px-4 rounded-2xl font-black text-base text-center flex items-center justify-center gap-2.5 transition-all bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-md glow-sky">
+        <i class="fa-solid fa-map-marked-alt text-lg"></i>
+        <span>1. 行程守則宣講</span>
       </button>
-      <button onclick="switchTab('hotel')" id="tabBtn-hotel" class="tab-btn flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 transition text-slate-600 hover:bg-slate-100">
-        <i class="fa-solid fa-hotel text-base text-purple-600"></i>
-        <span>2. 夜間住宿安全須知</span>
+      <button onclick="switchTab('hotel')" id="tabBtn-hotel" class="tab-btn flex-1 min-w-[140px] py-3.5 px-4 rounded-2xl font-bold text-base text-center flex items-center justify-center gap-2.5 transition-all text-slate-600 hover:bg-amber-50/70 hover:text-amber-800">
+        <i class="fa-solid fa-moon text-lg text-amber-500"></i>
+        <span>2. 住宿與收手機須知</span>
       </button>
-      <button onclick="switchTab('transit')" id="tabBtn-transit" class="tab-btn flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 transition text-slate-600 hover:bg-slate-100">
-        <i class="fa-solid fa-train-tram text-base text-amber-500"></i>
+      <button onclick="switchTab('transit')" id="tabBtn-transit" class="tab-btn flex-1 min-w-[140px] py-3.5 px-4 rounded-2xl font-bold text-base text-center flex items-center justify-center gap-2.5 transition-all text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-800">
+        <i class="fa-solid fa-train-subway text-lg text-emerald-500"></i>
         <span>3. 捷運大眾運輸紀律</span>
       </button>
-      <button onclick="switchTab('simulation')" id="tabBtn-simulation" class="tab-btn flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 transition text-slate-600 hover:bg-slate-100">
-        <i class="fa-solid fa-map-location-dot text-base text-rose-500"></i>
-        <span>4. 地圖闖關考驗 (最終驗收)</span>
+      <button onclick="switchTab('simulation')" id="tabBtn-simulation" class="tab-btn flex-1 min-w-[140px] py-3.5 px-4 rounded-2xl font-bold text-base text-center flex items-center justify-center gap-2.5 transition-all text-slate-600 hover:bg-rose-50/70 hover:text-rose-800">
+        <i class="fa-solid fa-flag-checkered text-lg text-rose-500"></i>
+        <span>4. 地圖闖關驗收 (10關)</span>
       </button>
-    </div>
+    </nav>
 
-    <!-- 頁籤 1: 具體行程安全手冊 (改為第一步宣講) -->
+    <!-- 頁籤 1: 行程地點守則宣講 -->
     <section id="tab-itinerary" class="space-y-6">
-      <div class="border-b border-slate-200 pb-3 flex flex-wrap items-center justify-between gap-2">
-        <div>
-          <h2 class="text-xl font-black text-slate-900 flex items-center gap-2">
-            <i class="fa-solid fa-route text-emerald-600"></i>
-            【宣講第 1 站】各景點與移動點位安全細則
+      
+      <!-- 宣講導讀 Banner -->
+      <div class="bg-gradient-to-r from-sky-400 via-sky-500 to-blue-500 text-white p-7 sm:p-9 rounded-3xl shadow-lg glow-sky relative overflow-hidden">
+        <div class="relative z-10 max-w-3xl space-y-2">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-white/30 text-white">
+            <i class="fa-solid fa-sun text-amber-300"></i>
+            宣講第 1 站・四天探索全覽
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-black tracking-tight leading-snug">
+            從太平洋啟程，昂首探索首善之都
           </h2>
-          <p class="text-xs text-slate-500 mt-1">詳細研讀各景點的搭乘規範、人潮防護與防走散指標，讀完後才能參加最後闖關驗收！</p>
+          <p class="text-base sm:text-lg text-sky-100 font-medium leading-relaxed">
+            我們將從臺東出發，以大眾運輸作為雙腳，走訪故宮的千古風華、穿梭國際書展、暢玩兒童樂園、漫遊夜市與百貨商圈、俯瞰貓空茶山，最後仰望天文館群星。認真研讀以下關鍵指引，做自己與同伴的安全守護者！
+          </p>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full border border-emerald-200">
-            全程大眾運輸移動
-          </span>
-          <button onclick="switchTab('hotel')" class="text-xs bg-indigo-600 text-white font-bold px-3 py-1.5 rounded-xl hover:bg-indigo-700 transition flex items-center gap-1 shadow-sm">
-            <span>前往住宿宣講</span> <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
+        <i class="fa-solid fa-route absolute -right-6 -bottom-8 text-9xl text-white/10 pointer-events-none"></i>
       </div>
 
-      <div class="space-y-4">
-        <!-- 景點段落 1 -->
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-          <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-3">
-              <span class="bg-white/20 font-black px-3 py-1 rounded-lg text-sm">行程段落 A</span>
-              <h3 class="font-bold text-base sm:text-lg">臺東火車站 ➔ 臺北車站 ➔ 轉乘捷運 ➔ 故宮博物院 ➔ 住宿點</h3>
-            </div>
-            <span class="text-xs bg-amber-400 text-blue-950 font-bold px-2.5 py-0.5 rounded-full">長途火車與轉乘</span>
+      <!-- 四大段落行程卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- 段落 A -->
+        <div class="bg-white rounded-3xl p-6 sm:p-7 border border-sky-100 shadow-sm glow-soft space-y-4 hover:border-sky-300 transition group">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider bg-sky-100 text-sky-800 px-3 py-1 rounded-full border border-sky-200">
+              段落 A・長途與人文
+            </span>
+            <span class="text-sky-500 text-xl group-hover:scale-110 transition"><i class="fa-solid fa-train"></i></span>
           </div>
-          <div class="p-5 space-y-4 text-sm text-slate-600">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="border-l-2 border-blue-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-train text-blue-600"></i> 臺東-臺北火車規範
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>乘車時勿在車廂通道追逐嬉戲，車廂晃動極易撞傷或翻倒熱水。</li>
-                  <li>重要證件、健保卡、隨身零用錢貼身保管，切勿放置行李架無人看管。</li>
-                </ul>
-              </div>
-              <div class="border-l-2 border-emerald-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-landmark text-emerald-600"></i> 故宮博物院安全注意
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>搭乘捷運至士林站轉乘公車時，排隊上車不推擠。</li>
-                  <li>展館內嚴禁奔跑、嚴禁觸摸展櫃，降低音量，背包依規定前背或寄放。</li>
-                </ul>
-              </div>
-            </div>
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-900 flex items-center gap-2">
-              <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
-              <span><strong>北車轉乘大考驗：</strong> 臺北車站動線繁雜，請緊跟帶隊老師與隊長，若不慎被人群切斷，<b>留在原捷運閘門旁或服務台</b>，立即撥打隊長電話！</span>
-            </div>
+          <h3 class="text-xl font-black text-slate-800 group-hover:text-sky-600 transition">
+            臺東火車站 ➔ 臺北車站 ➔ 故宮博物院
+          </h3>
+          <div class="space-y-3 text-slate-600 text-base leading-relaxed">
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-sky-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>臺鐵長途紀律：</strong> 列車高速行駛與過彎時，嚴禁在走道跑跳追逐，倒熱水或走動時務必抓緊座椅扶手。</span>
+            </p>
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-sky-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>故宮觀展禮儀：</strong> 背包前背或依規定寄放，腳步放輕、語音壓低，絕對嚴禁伸手觸碰古物防護玻璃。</span>
+            </p>
           </div>
         </div>
 
-        <!-- 景點段落 2 -->
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-          <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-3">
-              <span class="bg-white/20 font-black px-3 py-1 rounded-lg text-sm">行程段落 B</span>
-              <h3 class="font-bold text-base sm:text-lg">臺北世貿國際書展 ➔ 兒童新樂園 ➔ 夜市美食與百貨商圈</h3>
-            </div>
-            <span class="text-xs bg-amber-400 text-emerald-950 font-bold px-2.5 py-0.5 rounded-full">展覽・樂園・夜市百貨</span>
+        <!-- 段落 B -->
+        <div class="bg-white rounded-3xl p-6 sm:p-7 border border-amber-100 shadow-sm glow-soft space-y-4 hover:border-amber-300 transition group">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider bg-amber-100 text-amber-900 px-3 py-1 rounded-full border border-amber-200">
+              段落 B・知識與歡樂
+            </span>
+            <span class="text-amber-500 text-xl group-hover:scale-110 transition"><i class="fa-solid fa-book-open-reader"></i></span>
           </div>
-          <div class="p-5 space-y-4 text-sm text-slate-600">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="border-l-2 border-teal-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-book-open text-teal-600"></i> 臺北國際書展（世貿一館）
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>捷運世貿/101站出站人潮極多，嚴禁單獨離隊購書。</li>
-                  <li>約定好集合時間與特定攤位柱號（如A區大門口），不私自離開展館。</li>
-                </ul>
-              </div>
-              <div class="border-l-2 border-amber-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-ticket text-amber-600"></i> 兒童新樂園遊樂設施安全
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>搭乘雲霄飛車、海盜船等設施務必依指示繫妥安全帶及壓桿。</li>
-                  <li>身體不適（心臟不適、眩暈）切勿逞強搭乘刺激設施，並立刻告知老師。</li>
-                  <li>口袋內手機與貴重物品於搭乘前必須收妥或由同伴保管，防止高空墜落。</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- 新增：夜市與百貨公司專屬安全守則 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
-              <div class="border-l-2 border-rose-500 pl-3 bg-rose-50/50 p-2.5 rounded-r-xl">
-                <h4 class="font-bold text-rose-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-utensils text-rose-600"></i> 夜市人潮防燙防竊守則
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-700">
-                  <li><strong>熱湯熱油防護：</strong> 夜市攤位油鍋、烤肉串竹籤多，行走不嬉鬧，避免撞翻熱湯或被尖銳竹籤戳傷。</li>
-                  <li><strong>禁止邊走邊吃：</strong> 買熱食（地瓜球、鹽酥雞、熱湯）請在定點或攤位座位區食用完畢再移動。</li>
-                  <li><strong>錢包背包前背：</strong> 人潮極擁擠，手機錢包收進拉鍊內袋，切勿放外套外側口袋以防扒竊。</li>
-                  <li><strong>定點守候集合：</strong> 隊長指定明顯地標（如夜市牌樓服務台），時間到未出現立即回報老師。</li>
-                </ul>
-              </div>
-              <div class="border-l-2 border-indigo-500 pl-3 bg-indigo-50/50 p-2.5 rounded-r-xl">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-bag-shopping text-indigo-600"></i> 百貨公司動線與禮儀安全
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-700">
-                  <li><strong>手扶梯防夾安全：</strong> 嚴禁在電扶梯上跨層拍照或反向奔跑，鞋帶綁緊防捲入梳齒板。</li>
-                  <li><strong>嚴禁落單與換樓層失聯：</strong> 三人同行行動，要換樓層必須向組長與老師群組報備。</li>
-                  <li><strong>玻璃與裝置愛護：</strong> 櫥窗、景觀天井圍欄嚴禁攀爬或倚靠推擠，公共空間降低交談音量。</li>
-                  <li><strong>走失應變點：</strong> 若在百貨內走散，直奔一樓「服務諮詢台(Information)」告知服務人員廣播。</li>
-                </ul>
-              </div>
-            </div>
+          <h3 class="text-xl font-black text-slate-800 group-hover:text-amber-600 transition">
+            臺北國際書展 ➔ 兒童新樂園遊樂設施
+          </h3>
+          <div class="space-y-3 text-slate-600 text-base leading-relaxed">
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-amber-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>國際書展定錨：</strong> 世貿展場人潮洶湧，同組 3 人形影不離，進場先約定柱號會合點（例如 A 區出口柱）。</span>
+            </p>
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-amber-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>樂園刺激設施安全：</strong> 搭乘海盜船、雲霄飛車務必繫牢安全帶，嚴禁手持手機自拍防甩落砸傷。</span>
+            </p>
           </div>
         </div>
 
-        <!-- 景點段落 3 -->
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-          <div class="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-3">
-              <span class="bg-white/20 font-black px-3 py-1 rounded-lg text-sm">行程段落 C</span>
-              <h3 class="font-bold text-base sm:text-lg">臺北市立動物園 ➔ 貓空纜車體驗</h3>
-            </div>
-            <span class="text-xs bg-white text-amber-900 font-bold px-2.5 py-0.5 rounded-full">高空纜車與戶外防護</span>
+        <!-- 段落 C：夜市與百貨公司 -->
+        <div class="bg-white rounded-3xl p-6 sm:p-7 border border-rose-100 shadow-sm glow-soft space-y-4 hover:border-rose-300 transition group">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider bg-rose-100 text-rose-800 px-3 py-1 rounded-full border border-rose-200">
+              段落 C・鬧區與商圈
+            </span>
+            <span class="text-rose-500 text-xl group-hover:scale-110 transition"><i class="fa-solid fa-utensils"></i></span>
           </div>
-          <div class="p-5 space-y-4 text-sm text-slate-600">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="border-l-2 border-amber-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-paw text-amber-600"></i> 木柵動物園戶外行動
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>園區廣闊坡道多，穿著舒適球鞋，切忌跨越護欄或投餵動物。</li>
-                  <li>隨時補充水分預防脫水，並與同組人員同行，勿落單於偏僻步道。</li>
-                </ul>
-              </div>
-              <div class="border-l-2 border-orange-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-mountain text-orange-600"></i> 貓空纜車高空規範
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>上下車廂隨引導人員指示快步進出，切勿在月台嬉笑卡門。</li>
-                  <li>在車廂內<b>嚴禁搖晃、跳躍、倚靠車門</b>，懼高同學請平穩呼吸目視前方。</li>
-                </ul>
-              </div>
-            </div>
+          <h3 class="text-xl font-black text-slate-800 group-hover:text-rose-600 transition">
+            觀光夜市美食 ➔ 百貨公司動線探索
+          </h3>
+          <div class="space-y-3 text-slate-600 text-base leading-relaxed">
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-rose-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>夜市熱湯與竹籤：</strong> 尖銳竹籤食品吃完再走，嚴禁邊走邊吃預防戳傷；錢包手機收進胸前暗袋防扒竊。</span>
+            </p>
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-rose-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>百貨手扶梯禮儀：</strong> 鞋帶繫緊、站穩踏階握緊扶手，嚴禁跨樓層嬉鬧奔跑，走失請至一樓服務台。</span>
+            </p>
           </div>
         </div>
 
-        <!-- 景點段落 4 -->
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition">
-          <div class="bg-gradient-to-r from-indigo-700 to-blue-900 text-white p-4 flex flex-wrap items-center justify-between gap-2">
-            <div class="flex items-center gap-3">
-              <span class="bg-white/20 font-black px-3 py-1 rounded-lg text-sm">行程段落 D</span>
-              <h3 class="font-bold text-base sm:text-lg">臺北天文科學教育館 ➔ 臺北車站 ➔ 平安回臺東</h3>
-            </div>
-            <span class="text-xs bg-amber-400 text-indigo-950 font-bold px-2.5 py-0.5 rounded-full">收假清點與返程</span>
+        <!-- 段落 D -->
+        <div class="bg-white rounded-3xl p-6 sm:p-7 border border-emerald-100 shadow-sm glow-soft space-y-4 hover:border-emerald-300 transition group">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">
+              段落 D・生態與星空
+            </span>
+            <span class="text-emerald-500 text-xl group-hover:scale-110 transition"><i class="fa-solid fa-mountain-sun"></i></span>
           </div>
-          <div class="p-5 space-y-4 text-sm text-slate-600">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="border-l-2 border-indigo-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-user-astronaut text-indigo-600"></i> 天文館參觀禮儀
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>宇宙劇場及展示區安靜聆聽解說，不破壞互動模型器材。</li>
-                  <li>離開前徹底檢查隨身外套、水壺是否遺留在座椅區。</li>
-                </ul>
-              </div>
-              <div class="border-l-2 border-rose-500 pl-3">
-                <h4 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-suitcase-rolling text-rose-600"></i> 返程大清點
-                </h4>
-                <ul class="list-disc list-inside text-xs space-y-1 text-slate-600">
-                  <li>在臺北火車站集合時，隊長逐一清點伴手禮、行李與小隊成員。</li>
-                  <li>火車到臺東站後，遵守引導依序下車，通知家長接送並回報班級群組。</li>
-                </ul>
-              </div>
-            </div>
+          <h3 class="text-xl font-black text-slate-800 group-hover:text-emerald-600 transition">
+            臺北市立動物園 ➔ 貓空高空纜車 ➔ 天文館返程
+          </h3>
+          <div class="space-y-3 text-slate-600 text-base leading-relaxed">
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>動物園與防脫水：</strong> 戶外坡道起伏大，落實三人結伴防走散，定時補充水分防中暑。</span>
+            </p>
+            <p class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-sm mt-1.5 flex-shrink-0"></i>
+              <span><strong>貓空纜車生命安全：</strong> 車廂內<b>嚴禁搖晃跳躍</b>，身體與相機絕不伸出車窗，下車俐落不推擠。</span>
+            </p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 頁籤 2: 晚上住宿注意事項（特別強調） -->
-    <section id="tab-hotel" class="hidden space-y-6">
-      <div class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg relative overflow-hidden">
-        <div class="relative z-10 max-w-2xl">
-          <span class="bg-purple-500/30 text-purple-200 border border-purple-400/40 text-xs px-3 py-1 rounded-full font-semibold">【宣講第 2 站】夜間守則・重中之重</span>
-          <h2 class="text-2xl sm:text-3xl font-black mt-2 mb-3">晚上住宿飯店安全守則與禁忌</h2>
-          <p class="text-sm text-purple-200 leading-relaxed">
-            回到飯店不是解散！飯店是公共場所，也是陌生環境。嚴格遵守以下門禁、逃生與生活禮貌規範，確保每位同學擁有充足睡眠與百分之百的安全保障。
-          </p>
-        </div>
-        <i class="fa-solid fa-hotel absolute right-4 -bottom-6 text-9xl text-white/5 pointer-events-none"></i>
       </div>
 
-      <!-- 新增：重要手機收發規範專區 -->
-      <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-5 shadow-sm space-y-2">
-        <div class="flex items-center gap-2 text-amber-900 font-black text-base">
-          <i class="fa-solid fa-mobile-screen-button text-rose-600 text-xl animate-pulse"></i>
-          <span>【重要紀律】夜間查房手機集中保管制度（杜絕熬夜打手遊與不良用途）</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-          為了維護同學視力健康、睡眠品質及預防不良網路使用行為，每天晚上<strong>查房點名時，由帶隊老師統一收齊全體同學之智慧型手機</strong>集中安全保管。
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-          <div class="bg-white p-3 rounded-xl border border-amber-200 flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-base flex-shrink-0">
-              <i class="fa-solid fa-moon"></i>
-            </div>
-            <div>
-              <span class="font-bold text-slate-800 block">晚間收取時間</span>
-              <span class="text-slate-600">晚間 21:30~22:00 查房點名時，關機或靜音繳交</span>
-            </div>
-          </div>
-          <div class="bg-white p-3 rounded-xl border border-amber-200 flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-base flex-shrink-0">
-              <i class="fa-solid fa-utensils"></i>
-            </div>
-            <div>
-              <span class="font-bold text-slate-800 block">隔日發放時間</span>
-              <span class="text-slate-600">隔天<strong>「早餐時間」</strong>由老師於餐廳點名後統一發放</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 六大住宿禁忌與規範格 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- 規則 1 -->
-        <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm hover:border-purple-300 transition">
-          <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg font-bold mb-3">
-            <i class="fa-solid fa-door-closed"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base mb-2">1. 房門常關・嚴禁外人進入</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-2">
-            進房後務必將門扣上、拉起防盜防護鏈。若有人敲門，先從貓眼查看，<strong>非本班師長或室友切勿任意開門</strong>。外送員或陌生人一律聯絡櫃檯與老師處理。
-          </p>
-          <span class="text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">絕對禁止私自串門換房</span>
-        </div>
-
-        <!-- 規則 2 -->
-        <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm hover:border-purple-300 transition">
-          <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-lg font-bold mb-3">
-            <i class="fa-solid fa-person-running"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base mb-2">2. 進房先看「逃生路線圖」</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-2">
-            放下行李的第一件事：檢視房門後方張貼的<b>火災緊急逃生平面圖</b>，與室友實際走到走廊確認逃生梯與滅火器位置，確保停電黑暗中也能摸索逃出。
-          </p>
-          <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">進房黃金第一步</span>
-        </div>
-
-        <!-- 規則 3 -->
-        <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm hover:border-purple-300 transition">
-          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold mb-3">
-            <i class="fa-solid fa-ban"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base mb-2">3. 宵禁查房後「嚴禁外出」</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-2">
-            晚間點名查房完畢後，<strong>嚴禁任何人偷偷溜出飯店買宵夜或去超商</strong>。飯店周邊夜間環境複雜，擅自外出將依重大校規處置並即刻聯絡家長。
-          </p>
-          <span class="text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">擅自外出記大過並通報</span>
-        </div>
-
-        <!-- 規則 4 -->
-        <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm hover:border-purple-300 transition">
-          <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg font-bold mb-3">
-            <i class="fa-solid fa-volume-xmark"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base mb-2">4. 走廊安寧・不跳床嘻鬧</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-2">
-            飯店隔音有限，走廊輕聲慢步，<strong>房內嚴禁跳床、枕頭戰或大聲喧嘩</strong>。跳床極易撞擊床角造成頭部撕裂傷；喧鬧遭投訴將影響整校聲譽。
-          </p>
-          <span class="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">晚間10:00後保持靜音</span>
-        </div>
-
-        <!-- 規則 5 -->
-        <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm hover:border-purple-300 transition">
-          <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg font-bold mb-3">
-            <i class="fa-solid fa-fire-burner"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base mb-2">5. 嚴禁任何明火與高功率電器</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-2">
-            房內禁止使用自帶之卡式爐、電磁爐、點香氛蠟燭或抽菸。煙霧感應器一旦啟動將觸發全棟火警灑水系統與消防隊出動，後果自負。
-          </p>
-          <span class="text-[11px] font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded">觸發火警將負賠償責任</span>
-        </div>
-
-        <!-- 規則 6 -->
-        <div class="bg-white rounded-2xl p-5 border border-purple-100 shadow-sm hover:border-purple-300 transition">
-          <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-lg font-bold mb-3">
-            <i class="fa-solid fa-shower"></i>
-          </div>
-          <h3 class="font-bold text-slate-900 text-base mb-2">6. 浴室防滑防燙與設備愛護</h3>
-          <p class="text-xs text-slate-600 leading-relaxed mb-2">
-            浴室地板潮濕容易滑倒，洗澡務必拉上浴簾或乾濕分離門，並踩在防滑地墊上。調試水溫先開冷水再開熱水，避免熱水燙傷。
-          </p>
-          <span class="text-[11px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">地墊鋪平・防跌倒燙傷</span>
-        </div>
-      </div>
-
-      <!-- 模擬房卡互動檢查點 -->
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 flex flex-wrap items-center justify-between gap-4">
-        <div class="flex-grow">
-          <h4 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-circle-check text-purple-600"></i>
-            每晚睡前 4 步驟自我檢查清單（組長巡查用）
-          </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-            <label class="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-purple-50 transition">
-              <input type="checkbox" class="rounded text-purple-600 focus:ring-purple-500 w-4 h-4">
-              <span>手機已關機/準備於查房時繳交</span>
-            </label>
-            <label class="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-purple-50 transition">
-              <input type="checkbox" class="rounded text-purple-600 focus:ring-purple-500 w-4 h-4">
-              <span>房門已鎖上並扣緊防盜鏈</span>
-            </label>
-            <label class="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-purple-50 transition">
-              <input type="checkbox" class="rounded text-purple-600 focus:ring-purple-500 w-4 h-4">
-              <span>浴室水龍頭關緊且鋪妥防滑地墊</span>
-            </label>
-            <label class="flex items-center gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-purple-50 transition">
-              <input type="checkbox" class="rounded text-purple-600 focus:ring-purple-500 w-4 h-4">
-              <span>錢包健保卡收妥在隨身包內</span>
-            </label>
-          </div>
-        </div>
-        <button onclick="switchTab('transit')" class="w-full sm:w-auto text-xs bg-purple-700 text-white font-bold px-4 py-2.5 rounded-xl hover:bg-purple-800 transition flex items-center justify-center gap-1.5 shadow-sm">
-          <span>繼續前往捷運宣講</span> <i class="fa-solid fa-arrow-right"></i>
+      <!-- 導引下一步按鈕 -->
+      <div class="flex justify-end pt-2">
+        <button onclick="switchTab('hotel')" class="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white font-black text-base px-6 py-3.5 rounded-2xl shadow-md glow-sunny transition flex items-center gap-2 active:scale-95">
+          <span>下一階段：研讀住宿與收手機守則</span>
+          <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </section>
 
-    <!-- 頁籤 3: 捷運大眾運輸團隊紀律 -->
-    <section id="tab-transit" class="hidden space-y-6">
-      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div class="max-w-2xl">
-            <span class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full uppercase">【宣講第 3 站】大眾交通工具安全總則</span>
-            <h2 class="text-2xl font-black text-slate-900 mt-2 mb-2">捷運與大眾運輸移動「五要五不」紀律</h2>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              我們全體自臺東出發搭乘臺鐵，抵達臺北後各點位均倚靠捷運與市區公車。我們代表學校與自己的素質，請銘記大眾運輸的社會禮儀與最高安全原則！
-            </p>
+    <!-- 頁籤 2: 夜間住宿與收手機宣講 -->
+    <section id="tab-hotel" class="hidden space-y-6">
+      
+      <!-- 溫暖晚安 Banner -->
+      <div class="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 text-white p-7 sm:p-9 rounded-3xl shadow-lg glow-sunny relative overflow-hidden">
+        <div class="relative z-10 max-w-3xl space-y-2">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-white/30 text-white">
+            <i class="fa-solid fa-shield-cat"></i>
+            宣講第 2 站・自律守護神
           </div>
-          <button onclick="switchTab('simulation')" class="bg-rose-600 hover:bg-rose-700 text-white font-black text-sm px-5 py-3 rounded-2xl shadow-lg transition active:scale-95 flex items-center gap-2 animate-bounce">
-            <i class="fa-solid fa-play"></i>
-            <span>宣講完畢！進入最後地圖闖關考驗</span>
-          </button>
+          <h2 class="text-2xl sm:text-4xl font-black tracking-tight leading-snug">
+            回到飯店不是放鬆防備，而是深度的自我修養
+          </h2>
+          <p class="text-base sm:text-lg text-amber-50 font-medium leading-relaxed">
+            一個值得信賴的六年級畢業生，懂得在公共旅館中維持寧靜與自律。晚間充足休息，才能讓隔天的探索神采奕奕！
+          </p>
+        </div>
+        <i class="fa-solid fa-hotel absolute -right-6 -bottom-8 text-9xl text-white/10 pointer-events-none"></i>
+      </div>
+
+      <!-- 查房收手機制度（正向宣導） -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-sm glow-soft space-y-5">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-400 text-white flex items-center justify-center text-xl shadow-md">
+            <i class="fa-solid fa-mobile-screen"></i>
+          </div>
+          <div>
+            <span class="text-xs font-black uppercase text-amber-700 bg-amber-100 px-2.5 py-0.5 rounded-full">
+              重中之重・全體合約
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black text-slate-800">
+              夜間查房「手機集中健康保管」制度
+            </h3>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <!-- 五要 -->
-          <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-5 space-y-3">
-            <h3 class="font-bold text-emerald-800 text-base flex items-center gap-2">
-              <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
-              大眾運輸【五個一定要】
-            </h3>
-            <ul class="text-xs sm:text-sm text-slate-700 space-y-2.5">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
-                <span><strong>後背大背包改前背或手提：</strong> 進入擁擠捷運車廂，避免後背包轉身撞到其他乘客。</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
-                <span><strong>黃線內依序排隊先下後上：</strong> 等候列車時在劃定排隊線內候車，車門開時先禮讓下車乘客。</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
-                <span><strong>搭電扶梯緊握扶手站穩踏階：</strong> 手扶梯嚴禁奔跑追趕，若攜帶大型行李廂務必改搭廂型電梯。</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
-                <span><strong>車廂內往內部移動：</strong> 不要在車門口聚堆停滯，讓其他旅客有順暢動線。</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
-                <span><strong>悠遊卡/學生卡隨手收好：</strong> 過閘門後立刻收妥票卡於口袋或掛帶，避免邊走邊翻找遺失。</span>
-              </li>
-            </ul>
+        <p class="text-slate-600 text-base leading-relaxed">
+          為了保護每位同學的眼睛、確保晚上 8 小時黃金睡眠，並杜絕深夜打手遊、看短影音或私下串房引起的紛擾，全體統一實施手機代管機制：
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200/80 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-400 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+              <i class="fa-solid fa-moon"></i>
+            </div>
+            <div>
+              <h4 class="font-black text-slate-800 text-base">晚間繳交時間（查房點名）</h4>
+              <p class="text-sm text-slate-600 mt-1">晚間 21:30~22:00 點名時，由室長收齊手機，向帶隊老師繳交集中放保險箱保管。</p>
+            </div>
           </div>
 
-          <!-- 五不 -->
-          <div class="bg-rose-50/60 border border-rose-200 rounded-2xl p-5 space-y-3">
-            <h3 class="font-bold text-rose-800 text-base flex items-center gap-2">
-              <i class="fa-solid fa-circle-xmark text-rose-600 text-lg"></i>
-              大眾運輸【五個絕不可】
-            </h3>
-            <ul class="text-xs sm:text-sm text-slate-700 space-y-2.5">
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-xmark text-rose-600 mt-1"></i>
-                <span><strong>捷運黃線內嚴禁飲食、嚼口香糖：</strong> 包含喝水、吃糖果均在禁止範圍，違者罰款 1500~7500 元。</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-xmark text-rose-600 mt-1"></i>
-                <span><strong>鈴響勿衝門卡門：</strong> 離站警鈴響起或車門閃燈時切勿硬衝搶進，等下一班即可。</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-xmark text-rose-600 mt-1"></i>
-                <span><strong>低頭看手機不看路：</strong> 上下月台、樓梯與過馬路嚴禁緊盯手機，極易摔落軌道或撞人。</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-xmark text-rose-600 mt-1"></i>
-                <span><strong>不可任意觸動緊急按鈕：</strong> 月台或車廂之緊急停止按鈕只在危及人命時使用，惡作劇者負刑責。</span>
-              </li>
-              <li class="fa-solid fa-xmark text-rose-600 mt-1 hidden"></li>
-              <li class="flex items-start gap-2">
-                <i class="fa-solid fa-xmark text-rose-600 mt-1"></i>
-                <span><strong>不可大聲嬉鬧喧嘩：</strong> 聊天請戴耳機或降低音量，展現臺東學生的良好風範。</span>
-              </li>
-            </ul>
+          <div class="bg-emerald-50/70 p-5 rounded-2xl border border-emerald-200/80 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+              <i class="fa-solid fa-mug-saucer"></i>
+            </div>
+            <div>
+              <h4 class="font-black text-slate-800 text-base">隔日領回時間（早餐活力點名）</h4>
+              <p class="text-sm text-slate-600 mt-1">隔天清晨於餐廳點名後<strong>「早餐時間」</strong>統一發還，補滿活力快樂出發！</p>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- 飯店 4 大生活安全守則 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-3">
+          <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <h4 class="font-black text-lg text-slate-800">1. 進房扣緊防盜鏈・不隨意開門</h4>
+          <p class="text-base text-slate-600">回房後第一時間關上門並扣牢防盜鏈。有人敲門務必透過貓眼確認，非帶隊老師絕不隨意開啟。</p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-3">
+          <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i>
+          </div>
+          <h4 class="font-black text-lg text-slate-800">2. 認清逃生路線與緊急出口</h4>
+          <p class="text-base text-slate-600">進房先看門背後的避難地圖，並與室友親自走出房門確認最近的逃生樓梯與滅火器位置。</p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-3">
+          <div class="w-11 h-11 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-ban"></i>
+          </div>
+          <h4 class="font-black text-lg text-slate-800">3. 點名後嚴禁外出・不串門跳床</h4>
+          <p class="text-base text-slate-600">宵禁查房後嚴禁偷偷溜出飯店或跑到其他房間。床上跳躍極易跌撞床角造成撕裂傷，嚴格禁止！</p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-3">
+          <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-shower"></i>
+          </div>
+          <h4 class="font-black text-lg text-slate-800">4. 浴室防滑防燙・愛護公物</h4>
+          <p class="text-base text-slate-600">洗澡務必鋪設吸水防滑地墊，先開冷水再調節熱水防止燙傷。保持走廊與客房安寧。</p>
+        </div>
+      </div>
+
+      <!-- 導引下一步按鈕 -->
+      <div class="flex justify-end pt-2">
+        <button onclick="switchTab('transit')" class="bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-500 hover:to-teal-600 text-white font-black text-base px-6 py-3.5 rounded-2xl shadow-md glow-mint transition flex items-center gap-2 active:scale-95">
+          <span>下一階段：研讀捷運大眾運輸紀律</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
       </div>
     </section>
 
-    <!-- 頁籤 4: 地圖前進與後退情境互動闖關 (移至最後驗收) -->
-    <section id="tab-simulation" class="hidden space-y-6">
+    <!-- 頁籤 3: 捷運大眾運輸紀律宣講 -->
+    <section id="tab-transit" class="hidden space-y-6">
       
-      <!-- 嚴肅提示橫幅：沒有 100 分不適合參加畢業旅行 -->
-      <div class="bg-gradient-to-r from-rose-600 via-rose-700 to-amber-700 text-white p-4 rounded-2xl shadow-md flex items-center justify-between flex-wrap gap-3">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl flex-shrink-0 animate-bounce">
-            <i class="fa-solid fa-hand"></i>
+      <!-- 捷運紀律 Banner -->
+      <div class="bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600 text-white p-7 sm:p-9 rounded-3xl shadow-lg glow-mint relative overflow-hidden">
+        <div class="relative z-10 max-w-3xl space-y-2">
+          <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs sm:text-sm font-black border border-white/30 text-white">
+            <i class="fa-solid fa-train"></i>
+            宣講第 3 站・捷運大眾運輸五要五不
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-black tracking-tight leading-snug">
+            大眾交通的優質風範：背包前背・先下後上
+          </h2>
+          <p class="text-base sm:text-lg text-emerald-50 font-medium leading-relaxed">
+            臺北捷運每天載運數百萬人次。我們遵守秩序、輕聲細語，不僅保障個人安全，更能展現臺東孩子的自信與素質！
+          </p>
+        </div>
+        <i class="fa-solid fa-train-tram absolute -right-6 -bottom-8 text-9xl text-white/10 pointer-events-none"></i>
+      </div>
+
+      <!-- 五要 vs 五不 正向對比卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- 五個一定要 -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-emerald-200/80 shadow-sm glow-soft space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-lg font-black">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-800">
+              大眾運輸【五個一定要】
+            </h3>
+          </div>
+          <ul class="space-y-3 text-slate-700 text-base leading-relaxed">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>後背包改前背或手提：</strong> 進入車廂將大背包抱在胸前，避免轉身揮擊到旁人。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>候車線排隊先下後上：</strong> 在黃線標示內排隊，讓下車乘客走完再依序踏入車廂。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>手扶梯握扶手站穩踏階：</strong> 手扶梯嚴禁奔跑追趕，攜帶大型拉桿行李改搭電梯。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>車廂內主動往中央靠攏：</strong> 不要在車門口聚集成團阻礙他人通行。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>票卡與零用錢收進暗袋：</strong> 感應進出站後立即將卡片收好，不拿在手上把玩防遺失。</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 五個絕不可 -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-rose-200/80 shadow-sm glow-soft space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center text-lg font-black">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-800">
+              大眾運輸【五個絕不可】
+            </h3>
+          </div>
+          <ul class="space-y-3 text-slate-700 text-base leading-relaxed">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-xmark text-rose-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>黃線內絕不飲食嚼糖：</strong> 進入付費區包含喝水、吃口香糖均受嚴格法律重罰。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-xmark text-rose-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>警鈴響絕不衝門搶進：</strong> 離站警鈴響起立即停步候車，切勿以肉身卡門。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-xmark text-rose-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>走路上下樓梯不滑手機：</strong> 低頭看螢幕極易踩空摔下樓梯或墜落月台。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-xmark text-rose-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>不任意碰觸緊急停止鈕：</strong> 月台緊急按鈕為生命危急時專用，不可嬉鬧觸碰。</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-circle-xmark text-rose-500 text-base mt-1 flex-shrink-0"></i>
+              <span><strong>不在公共車廂高分貝喧嘩：</strong> 輕聲交談，戴耳機不漏音，維護舒適環境。</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 導引進入闖關驗收大按鈕 -->
+      <div class="flex justify-center pt-4">
+        <button onclick="switchTab('simulation')" class="bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 hover:opacity-95 text-white font-black text-lg sm:text-xl px-9 py-4 rounded-3xl shadow-xl glow-coral transition active:scale-95 flex items-center gap-3 anim-float">
+          <i class="fa-solid fa-trophy text-amber-300 text-2xl"></i>
+          <span>宣講完畢！進入最後地圖闖關驗收 (10關挑戰)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 頁籤 4: 10 關卡地圖闖關考驗 (最終驗收) -->
+    <section id="tab-simulation" class="hidden space-y-6">
+
+      <!-- 挑戰狀態 Banner -->
+      <div class="bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 text-white p-6 sm:p-7 rounded-3xl shadow-md glow-sunny flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-13 h-13 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shadow-inner flex-shrink-0">
+            <i class="fa-solid fa-train"></i>
           </div>
           <div>
-            <h3 class="font-black text-sm sm:text-base tracking-wide flex items-center gap-2">
-              【宣講最終驗收】六年級安全地圖考驗・沒有 100 分不准出發！
+            <h3 class="text-xl sm:text-2xl font-black">
+              六年級畢旅安全全能驗收・10 關挑戰
             </h3>
-            <p class="text-xs text-rose-100 mt-0.5">
-              <b>防作弊機制已啟動：每個人選項皆為隨機亂數排列！</b>答對才能<b>前進 1 站</b>；答錯<b>強制退後 1 站</b>並抽換救援題補考！未拿 100 滿分視為尚未具備自律與安全能力，不適合參加畢業旅行！
+            <p class="text-sm sm:text-base text-amber-100 mt-0.5">
+              防作弊洗牌已啟用：<b>每個人選項亂數排列</b>！答對前進 1 站；答錯退後 1 站並抽懲罰卡補考！需達 <b>100 分滿分</b>才算合格！
             </p>
           </div>
         </div>
-        <span class="text-xs bg-amber-400 text-slate-950 font-black px-3 py-1 rounded-xl whitespace-nowrap shadow-sm">
-          全10關 ➔ 選項隨機亂數洗牌
-        </span>
+        <div class="bg-white/25 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/40 text-xs sm:text-sm font-black">
+          目標：全隊零失誤出發！
+        </div>
       </div>
 
-      <!-- 地圖軌道可視化進度條 (Map Progress Track) -->
-      <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-        <div class="flex items-center justify-between text-xs text-slate-500 font-bold border-b border-slate-100 pb-2">
-          <span class="flex items-center gap-1.5 text-blue-700">
-            <i class="fa-solid fa-map-location-dot"></i>
-            <span>臺東 ➔ 臺北 畢旅安全推進行程圖</span>
-          </span>
-          <span id="mapProgressText" class="text-indigo-600 font-mono">當前進度：臺東火車站 (站點 0 / 10)</span>
+      <!-- 地圖軌道推進可視化容器 -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm glow-soft space-y-4">
+        <div class="flex items-center justify-between text-sm sm:text-base font-bold pb-2 border-b border-slate-100">
+          <div class="flex items-center gap-2 text-sky-600 font-black">
+            <i class="fa-solid fa-map-location-dot text-lg"></i>
+            <span>臺東 ➔ 臺北 軌道前進路線</span>
+          </div>
+          <span id="mapProgressText" class="text-amber-600 font-eng font-bold">當前進度：臺東火車站 (站點 0 / 10)</span>
         </div>
 
-        <!-- 橫向滾動軌道 -->
-        <div class="overflow-x-auto pb-4 pt-2">
-          <div class="min-w-[850px] relative px-6">
-            <!-- 底層灰線 -->
-            <div class="absolute top-5 left-10 right-10 h-1.5 bg-slate-200 rounded-full z-0"></div>
-            <!-- 前進高亮進度藍線 -->
-            <div id="mapTrackLine" class="absolute top-5 left-10 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 rounded-full z-0 transition-all duration-500" style="width: 0%;"></div>
-            <!-- 站點節點容器 (由 JS 動態注入) -->
+        <!-- 橫向軌道 (滾動容器) -->
+        <div class="overflow-x-auto pb-4 pt-3">
+          <div class="min-w-[960px] relative px-6">
+            <!-- 底層淡軌道線 -->
+            <div class="absolute top-6 left-10 right-10 h-2.5 bg-slate-100 rounded-full z-0"></div>
+            <!-- 高亮推進軌道 (正向橙黃綠漸層) -->
+            <div id="mapTrackLine" class="absolute top-6 left-10 h-2.5 bg-gradient-to-r from-sky-400 via-amber-400 to-emerald-400 rounded-full z-0 transition-all duration-500 shadow-sm" style="width: 0%;"></div>
+            <!-- 站點節點清單 -->
             <div id="mapStationsContainer" class="flex justify-between items-start relative z-10">
-              <!-- JS 會生成各站點節點 -->
+              <!-- JS 自動動態產生 -->
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 闖關主卡片 -->
-      <div id="quizContainer" class="bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden relative">
-        <!-- 頂部情境標籤與計數器 -->
-        <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span id="scenarioDayTag" class="bg-blue-600 text-xs px-2.5 py-1 rounded-full font-bold">關卡 1</span>
-            <span id="scenarioLocation" class="text-slate-300 text-xs sm:text-sm font-medium">臺北捷運轉乘時</span>
-          </div>
-          <div class="flex items-center gap-2 text-xs text-slate-400 font-mono">
-            <span class="bg-slate-800 text-amber-300 px-2 py-0.5 rounded text-[11px] hidden sm:inline">
-              <i class="fa-solid fa-shuffle mr-1"></i>選項已防作弊亂數重排
+      <!-- 題目與互動選項主卡片 -->
+      <div id="quizContainer" class="bg-white rounded-3xl shadow-xl glow-soft border border-slate-200/80 overflow-hidden relative transition-all">
+        
+        <!-- 卡片頂部資訊列 -->
+        <div class="bg-gradient-to-r from-slate-800 to-slate-900 text-white px-6 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span id="scenarioDayTag" class="bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 font-black text-xs sm:text-sm px-3.5 py-1 rounded-full shadow-sm">
+              關卡 1
             </span>
-            目標站點：<span id="targetStationName" class="text-amber-400 font-bold text-sm">臺北捷運</span> 
-            (答對題數: <span id="correctCounter" class="text-emerald-400 font-bold">0</span>)
+            <span id="scenarioLocation" class="text-slate-200 text-sm sm:text-base font-bold">
+              臺鐵長途出發時
+            </span>
+          </div>
+          <div class="flex items-center gap-2.5 text-xs sm:text-sm text-slate-300 font-eng">
+            <span class="bg-slate-700/80 text-amber-300 px-3 py-1 rounded-xl text-xs font-bold border border-slate-600">
+              <i class="fa-solid fa-shuffle mr-1"></i>選項隨機排列
+            </span>
+            目標站點：<span id="targetStationName" class="text-amber-400 font-black text-sm sm:text-base">臺鐵長途車廂</span>
+            (答對: <span id="correctCounter" class="text-emerald-400 font-black text-base">0</span>)
           </div>
         </div>
 
-        <!-- 題目與選項區域 -->
-        <div class="p-6 sm:p-8 space-y-6">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div id="scenarioIconBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-blue-50 border-2 border-blue-200 flex items-center justify-center text-4xl sm:text-5xl text-blue-600 flex-shrink-0 transition-transform">
+        <!-- 題幹與選項核心區域 -->
+        <div class="p-6 sm:p-10 space-y-7">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
+            <div id="scenarioIconBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-amber-50 border-2 border-amber-200 flex items-center justify-center text-4xl sm:text-5xl text-amber-500 flex-shrink-0 shadow-inner">
               <i class="fa-solid fa-train"></i>
             </div>
-            <div class="space-y-1.5 flex-grow">
+            <div class="space-y-2 flex-grow">
               <div class="flex items-center gap-2">
-                <span id="scenarioCategory" class="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+                <span id="scenarioCategory" class="text-xs sm:text-sm font-black text-sky-700 bg-sky-50 px-3 py-0.5 rounded-full border border-sky-200">
                   乘車秩序
                 </span>
-                <span id="retryBadge" class="hidden text-[11px] font-black text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200 animate-pulse">
-                  <i class="fa-solid fa-rotate-left mr-1"></i>退後救援補考題
+                <span id="retryBadge" class="hidden text-xs sm:text-sm font-black text-rose-600 bg-rose-50 px-3 py-0.5 rounded-full border border-rose-200 animate-pulse">
+                  <i class="fa-solid fa-rotate-left mr-1"></i>退後救援題
                 </span>
               </div>
-              <h3 id="scenarioQuestion" class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
-                <!-- 題幹文字 -->
+              <h3 id="scenarioQuestion" class="text-xl sm:text-2xl font-black text-slate-800 leading-snug">
+                <!-- 題目內容 -->
               </h3>
             </div>
           </div>
 
-          <!-- 選項容器（JS 隨機洗牌注入） -->
-          <div id="optionsGrid" class="grid grid-cols-1 gap-3">
-            <!-- 按鈕項目 -->
+          <!-- 亂數選項容器 -->
+          <div id="optionsGrid" class="grid grid-cols-1 gap-4 pt-2">
+            <!-- 由 JS 隨機打亂產生 -->
           </div>
         </div>
+
       </div>
 
-      <!-- 【新增】畢業旅行安全宣誓與數位簽名承諾書區塊 (滿分100分解鎖) -->
-      <div id="pledgeSection" class="hidden bg-white rounded-3xl shadow-xl border-2 border-amber-300 overflow-hidden space-y-6 p-6 sm:p-8">
-        <div class="text-center space-y-2 border-b border-slate-200 pb-5">
-          <span class="bg-amber-100 text-amber-900 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block">
-            ★ 畢旅出發前最終法定儀式 ★
-          </span>
-          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            臺東縣立國小 六年級畢業旅行【安全紀律承諾宣言】
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-            恭喜你已以 100 分滿分通過安全檢定！請在下方親筆簽署安全承諾，立下安全誓約後方可生成正式安全准考證書。
-          </p>
-        </div>
-
-        <!-- 學生基本資料輸入 -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">班級</label>
-            <input type="text" id="pledgeClass" placeholder="例如：六年甲班" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">座號</label>
-            <input type="number" id="pledgeSeat" placeholder="例如：08" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">學生姓名</label>
-            <input type="text" id="pledgeName" placeholder="請輸入本名" class="w-full text-sm px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
-          </div>
-        </div>
-
-        <!-- 正式誓詞內容 -->
-        <div class="bg-amber-50/70 border-2 border-amber-200 rounded-2xl p-5 sm:p-6 space-y-3.5 text-slate-800 text-xs sm:text-sm leading-relaxed">
-          <p class="font-bold text-base text-amber-950">
-            我 <span id="pledgeEchoName" class="underline underline-offset-4 decoration-amber-600 font-black text-blue-700">______</span> 在此鄭重承諾：
-          </p>
-          <p class="text-slate-700">
-            在本次畢業旅行期間（臺東出發、臺北捷運、故宮、世貿書展、兒童樂園、夜市百貨、動物園貓纜、天文館），我會以身作則，絕對自律遵守以下重大安全紀律守則：
-          </p>
-          <ul class="space-y-2 list-none text-slate-700 font-medium pl-1">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-shield-cat text-amber-600 mt-1"></i>
-              <span><strong>落實三人成行：</strong> 隨時隨地與同組組員集體行動，絕對不以任何理由私自脫隊、落單冒險。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-train-subway text-amber-600 mt-1"></i>
-              <span><strong>大眾運輸鐵律：</strong> 捷運黃線內不飲食、不搶門卡門、手扶梯站穩握扶手、後背包一律改前背。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-mobile-screen-button text-amber-600 mt-1"></i>
-              <span><strong>夜間手機集中保管：</strong> 晚間查房點名時準時繳交手機由老師集中保管，絕不熬夜玩手遊、杜絕不良用途；翌日早餐點名統一領回。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-hotel text-amber-600 mt-1"></i>
-              <span><strong>飯店門禁與防護：</strong> 進房即扣緊安全防盜鏈、確認逃生梯；房內嚴禁跳床與枕頭戰；嚴禁私自開門串門換房與偷溜外出。</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-kit-medical text-amber-600 mt-1"></i>
-              <span><strong>緊急黃金自救：</strong> 遇到突發狀況或走散時，留在原地並立即向制服服務人員或打電話向老師求助。</span>
-            </li>
-          </ul>
-          <p class="text-rose-700 font-black text-xs sm:text-sm pt-2 border-t border-amber-200">
-            若有違反上述任何一條安全規矩，我自願接受重大校規處分、停權後續自由活動及安全紀律再教育，絕無任何異議！
-          </p>
-        </div>
-
-        <!-- 手寫數位簽名板 -->
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-signature text-blue-600 text-sm"></i>
-              <span>立約人親筆數位手寫簽名（請用手指、觸控筆或滑鼠在此手寫全名）：</span>
-            </label>
-            <button onclick="clearSignature()" type="button" class="text-xs text-rose-600 hover:text-rose-800 font-bold underline">
-              清除重簽
-            </button>
-          </div>
-          <div class="border-2 border-dashed border-slate-300 rounded-2xl bg-slate-50 relative overflow-hidden h-36">
-            <canvas id="signatureCanvas" class="w-full h-full block cursor-crosshair"></canvas>
-            <div id="signPlaceholder" class="absolute inset-0 flex items-center justify-center pointer-events-none text-slate-400 text-xs sm:text-sm font-medium">
-              <i class="fa-solid fa-pencil mr-1"></i> 在此框線內親筆手寫簽名
-            </div>
-          </div>
-        </div>
-
-        <!-- 勾選確認條款與送出 -->
-        <div class="space-y-4 pt-2">
-          <label class="flex items-center gap-2.5 p-3 rounded-xl bg-blue-50 border border-blue-200 cursor-pointer">
-            <input type="checkbox" id="pledgeCheckbox" class="rounded text-blue-600 focus:ring-blue-500 w-4 h-4 flex-shrink-0">
-            <span class="text-xs sm:text-sm text-blue-950 font-bold">
-              我已逐字詳細閱讀全部安全誓詞，並承諾在四天畢旅中全力遵守，做一個自律負責的成熟畢業生！
-            </span>
-          </label>
-
-          <button onclick="generateCertificate()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 active:scale-98 text-white font-black text-base py-3.5 px-6 rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-stamp"></i>
-            <span>完成宣誓！生成畢業旅行安全榮譽准考證書</span>
-          </button>
-        </div>
-
-        <!-- 最終正式榮譽證書 (生成後顯示) -->
-        <div id="certificateContainer" class="hidden pt-6">
-          <div id="printableCertificate" class="bg-gradient-to-b from-amber-50/50 via-white to-amber-50/40 border-8 border-double border-amber-600 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-            <!-- 證書角裝飾 -->
-            <div class="absolute top-2 left-2 text-amber-500/30 text-4xl"><i class="fa-solid fa-certificate"></i></div>
-            <div class="absolute top-2 right-2 text-amber-500/30 text-4xl"><i class="fa-solid fa-certificate"></i></div>
-            <div class="text-center space-y-4">
-              <div class="inline-flex items-center gap-2 bg-amber-500 text-white font-black text-xs px-3 py-1 rounded-full uppercase">
-                ★ 畢旅安全檢定最高榮譽 ★
-              </div>
-              <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-wide font-serif">
-                畢業旅行安全通關榮譽證書
-              </h2>
-              <p class="text-xs sm:text-sm text-slate-500">Certificate of Graduation Trip Safety Qualification</p>
-              
-              <div class="py-4 space-y-2 border-y border-amber-200">
-                <p class="text-sm sm:text-lg text-slate-800">
-                  茲證明 <span id="certClassText" class="font-bold text-indigo-700">六年甲班</span> 
-                  座號 <span id="certSeatText" class="font-bold text-indigo-700">01</span> 號 
-                  學生 <span id="certNameText" class="text-xl sm:text-2xl font-black text-blue-900 underline underline-offset-4 decoration-amber-500">王小明</span> 同學
-                </p>
-                <p class="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
-                  順利通過本次畢業旅行全部 10 道大眾運輸、故宮、晚間收手機查房、夜市百貨與高空貓纜之安全紀律考驗，獲得 <b>100 分滿分</b>，並已親筆宣誓落實團隊自律守則，特頒此證，准予參加畢業旅行！
-                </p>
-              </div>
-
-              <div class="flex flex-wrap items-end justify-between gap-4 pt-4 px-2">
-                <div class="text-left text-xs text-slate-600 space-y-1">
-                  <p><strong>核發單位：</strong>六年級畢業旅行安全小組</p>
-                  <p><strong>誓約簽署日：</strong><span id="certDateText">2026 年 11 月 04 日</span></p>
-                  <p><strong>安全認證碼：</strong><span class="font-mono text-slate-400">SAFE-2026-TRIP-100</span></p>
-                </div>
-
-                <!-- 學生親筆簽名輸出區 -->
-                <div class="text-center">
-                  <div class="border-b-2 border-slate-700 w-44 h-16 flex items-center justify-center overflow-hidden">
-                    <img id="certSignatureImage" class="max-h-full max-w-full object-contain" alt="親筆簽名">
-                  </div>
-                  <span class="text-xs text-slate-500 font-bold block mt-1">【立誓人數位親筆簽名】</span>
-                </div>
-
-                <!-- 審核合格印章 -->
-                <div class="w-20 h-20 rounded-full border-4 border-rose-600 text-rose-600 flex flex-col items-center justify-center font-black transform -rotate-12 select-none shadow-sm mx-auto sm:mx-0">
-                  <span class="text-[10px]">畢旅檢定</span>
-                  <span class="text-sm">滿分合格</span>
-                  <span class="text-[9px]">安全出發</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 列印或儲存操作 -->
-          <div class="pt-5 flex flex-wrap justify-center gap-3">
-            <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow flex items-center gap-2">
-              <i class="fa-solid fa-print"></i>
-              <span>列印 / 另存為 PDF 證書</span>
-            </button>
-            <button onclick="alert('提示：請使用手機或平板內建截圖功能（電源鍵+音量下鍵），將證書截圖傳給老師檢查並出示給家長！')" class="bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow flex items-center gap-2">
-              <i class="fa-solid fa-camera"></i>
-              <span>截圖交給老師檢查</span>
-            </button>
-          </div>
-        </div>
-      </div>
     </section>
+
   </main>
 
-  <!-- SOS 緊急應變彈窗 Modal -->
-  <div id="sosModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+  <!-- SOS 緊急應變 Modal -->
+  <div id="sosModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 space-y-5">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="text-lg font-black text-rose-600 flex items-center gap-2">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          緊急走失與意外應變卡
+        <h3 class="text-xl sm:text-2xl font-black text-rose-600 flex items-center gap-2.5">
+          <i class="fa-solid fa-life-ring"></i>
+          緊急走失與意外應變指南
         </h3>
-        <button onclick="closeSosModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+        <button onclick="closeSosModal()" class="text-slate-400 hover:text-slate-600 text-2xl">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="space-y-3 text-xs sm:text-sm text-slate-700">
-        <div class="p-3 bg-rose-50 rounded-2xl border border-rose-200 space-y-1">
-          <span class="font-bold text-rose-900 block">走失黃金三守則：</span>
-          <p>1. <strong>留在原地不亂跑</strong>：停止移動，千萬不要自行搭車或走出大樓。</p>
-          <p>2. <strong>尋求穿制服人員</strong>：找捷運站務員、博物館服務台或警察協助。</p>
-          <p>3. <strong>電話直撥老師或帶隊組長</strong>：說出身旁柱子編號或明顯招牌。</p>
+      <div class="space-y-4 text-base text-slate-700">
+        <div class="p-4 bg-rose-50 rounded-2xl border border-rose-200 space-y-2">
+          <span class="font-black text-rose-900 text-lg block">走失黃金三守則：</span>
+          <p>1. <strong>留在原地不亂走</strong>：停在安全明亮處，千萬不要自行嘗試搭車或走出館外。</p>
+          <p>2. <strong>尋求制服人員</strong>：找捷運站務員、博物館服務台或警察協助。</p>
+          <p>3. <strong>電話直撥老師或帶隊組長</strong>：說出身旁柱子號碼或明顯招牌。</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
-            <span class="text-slate-500 block">緊急救護 / 報案</span>
-            <span class="font-bold text-slate-800 text-sm">119 / 110</span>
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+            <span class="text-slate-500 block text-xs font-bold">緊急救護 / 報案</span>
+            <span class="font-black text-slate-900 text-lg font-eng">119 / 110</span>
           </div>
-          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
-            <span class="text-slate-500 block">臺北捷運 24H 客服</span>
-            <span class="font-bold text-slate-800 text-sm">02-218-12345</span>
-          </div>
-        </div>
-
-        <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-start gap-2">
-          <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5"></i>
-          <div>
-            <strong>小提醒：</strong> 若迷路請記住身旁最近的『柱子編號』、『店家招牌』或『捷運出口編號』，回報老師最能精確獲救。
+          <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+            <span class="text-slate-500 block text-xs font-bold">臺北捷運 24H 客服</span>
+            <span class="font-black text-slate-900 text-base font-eng">02-218-12345</span>
           </div>
         </div>
       </div>
 
-      <div class="pt-2">
-        <button onclick="closeSosModal()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 rounded-xl transition text-sm">
-          確認並關閉指南
-        </button>
-      </div>
+      <button onclick="closeSosModal()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-3.5 rounded-2xl transition shadow">
+        我知道了，關閉指南
+      </button>
     </div>
   </div>
 
-  <!-- 【新功能】答對 / 答錯 滿版大卡片詳細說明與懲罰抽取 Modal -->
-  <div id="resultBigModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden overflow-y-auto">
-    <div id="bigModalCard" class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border-4 transition-all duration-300 relative my-auto">
+  <!-- 答對/答錯 滿版大卡片詳細說明與懲罰抽籤 Modal -->
+  <div id="resultBigModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 hidden overflow-y-auto">
+    <div id="bigModalCard" class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-9 shadow-2xl border-4 transition-all duration-300 relative my-auto space-y-5">
       
       <!-- 頂部狀態 Header -->
-      <div class="flex items-center gap-3 sm:gap-4 pb-4 border-b border-slate-100">
-        <div id="bigModalIconBox" class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl flex-shrink-0 shadow-inner">
-          <!-- 圖示動態替換 -->
+      <div class="flex items-center gap-4 pb-4 border-b border-slate-100">
+        <div id="bigModalIconBox" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl flex-shrink-0 shadow-inner">
+          <!-- 圖示 -->
         </div>
         <div>
-          <span id="bigModalBadge" class="text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block mb-1">
-            關卡安全審查回饋
+          <span id="bigModalBadge" class="text-xs sm:text-sm font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-1">
+            安全審查結果
           </span>
-          <h3 id="bigModalTitle" class="text-lg sm:text-2xl font-black text-slate-900 leading-tight">
+          <h3 id="bigModalTitle" class="text-xl sm:text-3xl font-black text-slate-900 leading-tight">
             <!-- 標題 -->
           </h3>
         </div>
       </div>
 
-      <!-- 核心解析內文 -->
-      <div class="py-5 space-y-4">
-        <!-- 學生剛才選的選項回顧 -->
-        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
-          <span class="text-[11px] font-bold text-slate-400 block uppercase mb-1">你剛才選擇的決策：</span>
-          <p id="bigModalUserChoice" class="text-xs sm:text-sm font-semibold text-slate-700 italic">
+      <!-- 解析內文 -->
+      <div class="space-y-4">
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+          <span class="text-xs font-bold text-slate-400 block uppercase mb-1">剛才做出的選擇：</span>
+          <p id="bigModalUserChoice" class="text-base font-bold text-slate-700 italic">
             <!-- 選擇文字 -->
           </p>
         </div>
 
-        <!-- 深度安全叮嚀 -->
-        <div class="space-y-1.5">
-          <h4 class="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-            <i class="fa-solid fa-bullhorn text-indigo-600"></i> 帶隊師長與安全小組的關鍵提醒：
+        <div class="space-y-2">
+          <h4 class="text-sm font-black uppercase tracking-wider text-slate-500 flex items-center gap-2">
+            <i class="fa-solid fa-lightbulb text-amber-500"></i> 安全背後的重要原理：
           </h4>
-          <p id="bigModalExplanation" class="text-xs sm:text-sm text-slate-700 leading-relaxed bg-indigo-50/50 p-3.5 rounded-2xl border border-indigo-100">
+          <p id="bigModalExplanation" class="text-base sm:text-lg text-slate-800 leading-relaxed bg-amber-50/70 p-4 sm:p-5 rounded-2xl border border-amber-200/80 font-medium">
             <!-- 詳細原因 -->
           </p>
         </div>
 
-        <!-- 答錯時顯示：抽懲罰卡專區 -->
-        <div id="penaltyCardSection" class="hidden space-y-3 pt-2">
+        <!-- 答錯時：抽懲罰卡專區 -->
+        <div id="penaltyCardSection" class="hidden space-y-3 pt-1">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-black text-rose-600 flex items-center gap-1.5">
-              <i class="fa-solid fa-triangle-exclamation animate-bounce"></i> 違規警示！抽籤領取紀律懲罰卡
+            <span class="text-sm sm:text-base font-black text-rose-600 flex items-center gap-2">
+              <i class="fa-solid fa-triangle-exclamation animate-bounce"></i> 違規警示！教室現場紀律懲罰卡
             </span>
-            <span class="text-[11px] bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">
-              六年級實施中
+            <span class="text-xs font-black bg-rose-100 text-rose-800 px-3 py-1 rounded-lg">
+              課堂現場執行
             </span>
           </div>
 
-          <div id="penaltyDisplayCard" class="penalty-card-anim bg-gradient-to-br from-rose-500 via-rose-600 to-amber-600 text-white p-4 sm:p-5 rounded-2xl shadow-lg border-2 border-rose-300 relative overflow-hidden">
-            <div class="relative z-10 flex items-start gap-3">
-              <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl flex-shrink-0">
+          <div id="penaltyDisplayCard" class="penalty-card-anim bg-gradient-to-br from-rose-500 via-orange-500 to-amber-500 text-white p-5 sm:p-6 rounded-2xl shadow-xl border-2 border-rose-300 relative overflow-hidden glow-coral">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl flex-shrink-0">
                 <i id="penaltyIcon" class="fa-solid fa-pen-nib"></i>
               </div>
-              <div class="space-y-1">
-                <div class="flex items-center gap-2">
-                  <span class="text-[11px] font-black bg-yellow-400 text-slate-900 px-2 py-0.5 rounded uppercase">懲罰項目</span>
-                  <span id="penaltyTitle" class="font-black text-sm sm:text-base">手寫抄寫安全規矩 3 遍</span>
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-xs font-black bg-amber-200 text-slate-900 px-2.5 py-0.5 rounded-md uppercase">處罰項目</span>
+                  <span id="penaltyTitle" class="font-black text-lg sm:text-xl">手寫抄寫安全規矩 3 遍</span>
                 </div>
-                <p id="penaltyDesc" class="text-xs sm:text-sm text-rose-100 leading-relaxed">
-                  拿出筆記本，將本關違反的【安全守則】整齊手抄 3 遍，於今晚住宿查房點名時親自呈交帶隊老師簽名確認！
+                <p id="penaltyDesc" class="text-sm sm:text-base text-rose-50 leading-relaxed font-medium">
+                  拿出筆記本，將本關違反的【安全守則】整齊手抄 3 遍，抄寫完畢立刻呈交講台老師檢查簽名！
                 </p>
               </div>
             </div>
-            <i class="fa-solid fa-gavel absolute -right-4 -bottom-4 text-7xl text-white/10 pointer-events-none"></i>
+            <i class="fa-solid fa-gavel absolute -right-4 -bottom-4 text-8xl text-white/10 pointer-events-none"></i>
           </div>
         </div>
 
-        <!-- 站點軌道異動提醒 -->
-        <div id="bigModalTrackNotice" class="text-xs font-bold p-3 rounded-xl flex items-center justify-between">
+        <!-- 軌道異動狀態 -->
+        <div id="bigModalTrackNotice" class="text-sm sm:text-base font-black p-4 rounded-2xl flex items-center justify-between">
           <!-- 前進或退後狀態 -->
         </div>
       </div>
 
-      <!-- 底部關閉 / 推進 按鈕 -->
+      <!-- 推進按鈕 -->
       <div class="pt-2">
-        <button id="bigModalConfirmBtn" onclick="handleBigModalAction()" class="w-full font-black text-sm sm:text-base py-3.5 px-6 rounded-2xl transition shadow-lg active:scale-95 flex items-center justify-center gap-2 text-white">
+        <button id="bigModalConfirmBtn" onclick="handleBigModalAction()" class="w-full font-black text-base sm:text-lg py-4 px-6 rounded-2xl transition shadow-xl active:scale-95 flex items-center justify-center gap-2.5 text-white">
           <span id="bigModalBtnLabel">我已深刻反省，接受退後與懲罰 ➔</span>
         </button>
       </div>
@@ -974,14 +737,17 @@
   </div>
 
   <!-- 頁尾 -->
-  <footer class="bg-slate-900 text-slate-400 py-6 text-center text-xs border-t border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 space-y-2">
-      <p class="font-medium text-slate-300">六年級畢業旅行專用・大眾運輸與夜間住宿安全互動管理系統</p>
-      <p class="text-slate-500">臺東出發 ➔ 臺北捷運 ➔ 故宮・書展・樂園・夜市百貨・動物園貓纜・天文館 ➔ 快樂平安歸</p>
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-sm text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+        <span class="font-bold text-slate-700">六年級畢業旅行專用・陽光安全互動管理系統</span>
+      </div>
+      <p class="text-xs text-slate-400">平安出發・快樂探索・滿分歸來</p>
     </div>
   </footer>
 
-  <!-- 核心互動邏輯與音效合成 -->
+  <!-- 互動邏輯 JavaScript -->
   <script>
     // Web Audio 音效產生器
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -993,15 +759,15 @@
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(523.25, now); // C5
-        osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
-        osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.08);
+        osc.frequency.setValueAtTime(783.99, now + 0.16);
         gain.gain.setValueAtTime(0.2, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start(now);
-        osc.stop(now + 0.45);
+        osc.stop(now + 0.4);
       } catch (e) {}
     }
 
@@ -1013,17 +779,46 @@
         const gain = audioCtx.createGain();
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(280, now);
-        osc.frequency.linearRampToValueAtTime(140, now + 0.35);
-        gain.gain.setValueAtTime(0.3, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.frequency.linearRampToValueAtTime(140, now + 0.3);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start(now);
-        osc.stop(now + 0.35);
+        osc.stop(now + 0.3);
       } catch (e) {}
     }
 
-    // 地圖 10 大站點規劃 (0 ~ 10，共 10 道前進關卡)
+    // 教室現場可執行的懲罰卡清單
+    const penaltyRulesList = [
+      {
+        title: "手抄本關安全規矩 3 遍",
+        desc: "拿出課堂筆記本，將剛才選錯的【本關安全手冊守則】一字不漏手寫抄寫 3 遍，抄完立即呈交老師蓋章！",
+        icon: "fa-pen-clip"
+      },
+      {
+        title: "手抄大眾運輸五不原則 5 遍",
+        desc: "立即在筆記本上抄寫：『黃線內不飲食、鈴響不衝門、走路不滑手機、不碰緊急鈕、車廂不喧嘩』完整 5 遍！",
+        icon: "fa-book-open"
+      },
+      {
+        title: "手抄夜間收手機保管規定 3 遍",
+        desc: "手寫抄寫：『晚上查房點名主動繳交手機保管、翌日早餐歸還，私藏備用機者將沒收至畢旅結束』3 遍！",
+        icon: "fa-mobile-screen-button"
+      },
+      {
+        title: "向全班大聲朗讀錯誤檢討 1 次",
+        desc: "立刻起立面向全班同學，用清晰洪亮的聲音朗讀剛剛題目的正確觀念與錯誤後果，提醒大家不要犯同樣錯誤！",
+        icon: "fa-bullhorn"
+      },
+      {
+        title: "上講台示範大眾運輸標準禮儀",
+        desc: "走到講台前向全班示範：『後背包正確前背姿勢』以及『捷運排隊先下後上、禮讓下車乘客』之標準動作！",
+        icon: "fa-person-walking"
+      }
+    ];
+
+    // 地圖 10 大站點清單
     const mapStations = [
       { name: "臺東火車站", icon: "fa-train", stageLabel: "出發起點" },
       { name: "臺鐵長途車廂", icon: "fa-train-subway", stageLabel: "關卡 1" },
@@ -1038,655 +833,382 @@
       { name: "天文館&平安歸程", icon: "fa-award", stageLabel: "關卡 10" }
     ];
 
-    // 完整 10 關主題題庫資料庫：包含「主關卡題」與答錯退後時自動抽取的「類似替補題(Alt)」
+    // 10 關卡題庫資料庫（包含退後補考救援題）
     const stagePool = [
-      // 關卡 1: 臺東出發與臺鐵長途紀律
+      // 關卡 1: 臺鐵長途
       {
-        stationIdx: 1,
         mainQuestion: {
           stageTag: "關卡 1",
-          location: "臺鐵長途對號列車",
-          category: "火車乘車紀律",
+          location: "臺東 ➔ 臺北 臺鐵自強號上",
+          category: "長途列車安全",
           icon: "fa-train",
-          question: "【關卡 1 臺鐵出發】從臺東出發的火車車程很長。同學提議：『火車直線加速很穩，我們只要穿著襪子不發出腳步聲，去走道快速玩鬼抓人跟拍短影片，列車長來就裝睡，不會吵到人。』你該怎麼做？",
+          question: "火車高速行駛過山洞與彎道時，同學提議拿保溫瓶去車廂飲水機裝滾燙熱水泡麵，你該怎麼做？",
           options: [
-            {
-              text: "覺得這招很聰明，只要有同學在兩端車門負責把風，就可以輪流去走道拍奔跑特效影片",
-              correct: false,
-              feedbackTitle: "⚠️ 心存僥倖！極度危險！",
-              feedbackText: "火車隨時可能因號誌或彎道緊急減速！穿襪子摩擦力更低，重心不穩會直接撞翻走道旁乘客的熱咖啡或摔斷門牙！"
-            },
-            {
-              text: "嚴正拒絕！列車高速過彎與煞車時重心極度不穩，走道奔跑極易跌倒骨折或撞翻熱水，應在座位安靜休息或欣賞風景",
-              correct: true,
-              feedbackTitle: "🎉 答對！守護車廂秩序與乘車安全！",
-              feedbackText: "正確！長途列車常有乘客端熱茶熱湯，任何在走道的嬉鬧都是拿全車乘客的安危開玩笑！"
-            },
-            {
-              text: "為了安全，改約大家去兩節車廂中間的車門通道玩，那裡沒有其他乘客座位",
-              correct: false,
-              feedbackTitle: "🚨 致命錯誤！高危險禁區！",
-              feedbackText: "車廂交接處是全列車機械晃動最劇烈、最容易夾手夾腳的高危險區，絕對禁止逗留！"
-            }
+            { text: "趁列車停靠中途大站時再小心裝熱水，或請隨車老師協助，行駛中絕對不在走道端熱水跑動", correct: true, feedbackTitle: "判斷正確！防範重大燙傷", feedbackText: "列車過彎與緊急煞車時晃動劇烈，端熱水極易翻覆在自己或鄰座乘客身上造成二度燙傷！" },
+            { text: "只要雙手握緊保溫瓶快步跑過去，就不會被搖晃影響", correct: false, feedbackTitle: "危險違規！極易釀成嚴重燙傷", feedbackText: "火車過彎瞬間晃動無法人體預測，快跑只會加速摔倒並被滾燙熱水淋身！" },
+            { text: "請走道兩側同學幫忙護送傳遞裝滿熱水的泡麵碗", correct: false, feedbackTitle: "盲目冒險！波及其他同伴", feedbackText: "在晃動車廂內傳遞熱水只會連累更多同學被燙傷，行駛中嚴禁此類行為。" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 1 (退後救援題)",
-          location: "火車車廂與行李架",
-          category: "乘車財物與禮儀",
-          icon: "fa-suitcase",
-          question: "【關卡 1 補考救援題】在火車上整理隨身物品與使用 3C 產品時，哪一個做法才是真正符合規範的？",
+          stageTag: "關卡 1 (救援題)",
+          location: "臺鐵長途車廂通道",
+          category: "長途列車安全",
+          icon: "fa-train-subway",
+          question: "坐車時間長達 4 小時，有同學無聊提議在第 5 與第 6 節車廂的接合連接處聊天玩牌，你的態度是？",
           options: [
-            {
-              text: "隨身小包（含健保卡與錢包）隨時前背或貼身保管；戴耳機聽音樂且音量適中，絕不擴音影響他人",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！觀念正確！",
-              feedbackText: "太棒了！行李架物品容易在過彎時掉落，貼身保管貴重物品並戴耳機是優良素養！"
-            },
-            {
-              text: "只要把手機音量調到兩格以下，即使不戴耳機直接外放遊戲聲音，別人應該聽不太到所以沒關係",
-              correct: false,
-              feedbackTitle: "⚠️ 投機盲點！依然違規！",
-              feedbackText: "車廂環境密閉安靜，任何遊戲電子音效都會造成嚴重噪音干擾，必須全程使用耳機！"
-            }
+            { text: "堅決拒絕！車廂連接通道晃動大且為逃生通道，嚴禁在此逗留嬉戲，應回座位安靜休息", correct: true, feedbackTitle: "觀念正確！遠離機械夾角", feedbackText: "車廂交接處風琴褶與地面金屬板隨軌道強力扭動，極易夾傷手腳或撞擊頭部！" },
+            { text: "只要兩腳跨站在金屬板兩邊保持平衡就很有趣", correct: false, feedbackTitle: "玩命舉動！極易夾斷腳趾骨折", feedbackText: "轉彎時鐵板急速錯動，具有強大剪切力道，嚴禁踩踏踏板邊緣！" },
+            { text: "只要不大聲說話吵到別的乘客就可以", correct: false, feedbackTitle: "忽略根本危險！安全才是第一", feedbackText: "即便不吵鬧，該處依然是機械動態高危險區，不能在此逗留。" }
           ]
         }
       },
-
-      // 關卡 2: 臺北捷運與故宮博物院
+      // 關卡 2: 捷運與故宮
       {
-        stationIdx: 2,
         mainQuestion: {
           stageTag: "關卡 2",
-          location: "臺北捷運轉乘站",
-          category: "大眾運輸守則",
-          icon: "fa-train-subway",
-          question: "【關卡 2 捷運轉乘】在臺北車站轉乘捷運時人潮洶湧，離站警鈴已急促響起、車門黃燈正在狂閃。前面同學回頭大喊：『快！門還沒完全合上，側身滑壘衝進來！不然會被大家丟包！』這時你該如何應對？",
+          location: "臺北捷運轉乘 ➔ 故宮博物院",
+          category: "大眾運輸與展館",
+          icon: "fa-landmark",
+          question: "在捷運士林站換乘公車時，全組已經排進長長人龍，但前面一班車快滿了，同學想硬擠上去，怎麼辦？",
           options: [
-            {
-              text: "用背包側身擋一下門感應防夾，同時拉著身後落後同學一起加速衝刺滑進車廂",
-              correct: false,
-              feedbackTitle: "🚨 致命違規！觸發被夾拖行災難！",
-              feedbackText: "捷運門力道極大且可能直接鎖死發車！強行用背包擋門或滑壘會導致被夾拖行，甚至使列車全線斷電停駛，違法重罰！"
-            },
-            {
-              text: "立刻大喊煞車並抓住同學退回黃線外，等下一班車；隨即用手機向車內組長報備『我們等下一班，在下一站月台集合』",
-              correct: true,
-              feedbackTitle: "🎉 冷靜沉著！化解致命夾人危機！",
-              feedbackText: "太棒了！捷運尖峰 2~3 分鐘就有一班，『鈴響不搶進』是鐵則，通訊報備才是真成熟！"
-            },
-            {
-              text: "只要嘴巴含著薄荷糖解渴不咀嚼、不把飲料拿出來，就可以快速跟著衝上去",
-              correct: false,
-              feedbackTitle: "⚠️ 觀念全錯！兩重違規！",
-              feedbackText: "衝門極度危險！且捷運黃線內『口含糖果、嚼口香糖』通通屬於違法飲食範圍！"
-            }
+            { text: "勸阻同學遵守秩序！不推擠硬上，等候下一班公車，全組緊跟組長依序上車", correct: true, feedbackTitle: "守秩序！避免擠門夾傷", feedbackText: "公車門邊擁擠推擠容易被車門夾傷，全組分散反而增加走失風險，下一班車幾分鐘就到。" },
+            { text: "組員一人先擠上去用書包佔 3 個位子，等其他人從後門溜上來", correct: false, feedbackTitle: "嚴重違規！自私且違反規定", feedbackText: "用書包佔位引發乘客糾紛，更違反公共交通秩序，讓學校蒙羞！" },
+            { text: "趁司機要關門前硬卡在門口，司機就不得不讓全班都上車", correct: false, feedbackTitle: "危險卡門！可能觸法並受傷", feedbackText: "強行卡門會導致車門防夾故障或司機視線死角起步拖行，極度危險！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 2 (退後救援題)",
-          location: "捷運月台與故宮展廳",
-          category: "大眾運輸與展館守則",
-          icon: "fa-landmark",
-          question: "【關卡 2 補考救援題】在捷運行駛中與故宮博物院展廳內，下列哪一項行為『完全符合團隊安全與禮儀規範』？",
+          stageTag: "關卡 2 (救援題)",
+          location: "故宮博物院展廳內",
+          category: "展覽參觀禮儀",
+          icon: "fa-monument",
+          question: "參觀故宮翠玉白菜與毛公鼎時，展櫃前擠滿各國觀光客，後背包很鼓，該怎麼做？",
           options: [
-            {
-              text: "後背大背包一律改為胸前抱持或手提，在故宮展場保持輕聲細語，與展示櫃保持安全距離不倚靠",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！觀念精準！",
-              feedbackText: "完美！前背背包可以避免轉身打到人，故宮保持距離更是愛護國寶與自我防護的展現！"
-            },
-            {
-              text: "後背包只要拉鍊拉緊就可以繼續後背，轉身時稍微側身就不會撞到故宮的展示玻璃玻璃櫃",
-              correct: false,
-              feedbackTitle: "⚠️ 僥倖違規！依然危險！",
-              feedbackText: "人潮擁擠時人轉身有盲點，後背包非常容易撞擊脆弱展櫃與身旁幼童，必須胸前背負！"
-            }
+            { text: "依規定將後背包前胸背負或手提，放輕腳步低聲交談，絕不推擠前排觀眾", correct: true, feedbackTitle: "典雅端莊！標準文明小公民", feedbackText: "前背包能防止轉身時意外掃中他人或撞擊文物展櫃，展現高素質修養！" },
+            { text: "把背包掛在背後單肩甩動，墊腳尖硬鑽到最前面玻璃前拍照", correct: false, feedbackTitle: "粗魯衝撞！極易撞擊展櫃玻璃", feedbackText: "擠壓與甩包極易引發保全警報，甚至撞傷老弱婦孺！" },
+            { text: "用自拍棒拉長伸到展櫃最上方空拍，避開人群", correct: false, feedbackTitle: "嚴重違規！館內禁止自拍棒", feedbackText: "故宮全面嚴禁使用自拍棒，以免揮擊砸破防彈玻璃或毀損國寶文物！" }
           ]
         }
       },
-
-      // 關卡 3: 晚間查房收手機（新增重點）
+      // 關卡 3: 查房收手機
       {
-        stationIdx: 3,
         mainQuestion: {
           stageTag: "關卡 3",
-          location: "飯店查房點名時刻",
-          category: "夜間手機集中保管",
+          location: "飯店晚間查房點名（21:30）",
+          category: "夜間紀律與收手機",
           icon: "fa-mobile-screen-button",
-          question: "【關卡 3 晚上收手機紀律】晚上 21:30 查房收手機。室友自信滿滿地拿出妙計：『我把舊手機交出去，新手機開飛航模式藏在枕頭底下，只要不上網發文、不開聲音玩單機遊戲，就不算違規！』身為同房室友的你該怎麼做？",
+          question: "老師敲門進房查房並收繳手機集中保管，室友想拿沒插 SIM 卡的舊平板交差，把 iPhone 藏在枕頭下通宵打手遊，該怎麼做？",
           options: [
-            {
-              text: "覺得這不算真正違規，只要他承諾半夜借自己玩半小時，就答應互相掩護不告發",
-              correct: false,
-              feedbackTitle: "🚨 投機作弊！連帶嚴重處分！",
-              feedbackText: "繳交假手機屬惡意欺瞞！熬夜玩單機遊戲一樣會使視力受損、隔日嚴重恍神暈眩，包庇者同罪記大過！"
-            },
-            {
-              text: "偷偷把自己的手機跟行動電源一起藏在衣櫃衣服夾層裡，假裝跟老師說『手機沒電關機忘在遊覽車上』",
-              correct: false,
-              feedbackTitle: "🚨 荒謬撒謊！嚴厲警告！",
-              feedbackText: "老師會即刻查驗遊覽車與包包！說謊不但讓全組蒙羞，更會立刻被通知家長到校處理！"
-            },
-            {
-              text: "堅決拒絕投機！要求室友老實繳出真實手機，自己也主動關機交由老師保管，配合隔天『早餐時間』領回",
-              correct: true,
-              feedbackTitle: "🎉 正直自律！展現最高品格！",
-              feedbackText: "太讚了！不搞小聰明才是真成熟！充足睡眠才能保證第二天在各大景點有充沛體力與敏銳反應！"
-            }
+            { text: "當場制止室友！說服大家誠實繳出所有手機設備，今晚好好休息，隔天早餐就能精神飽滿領回", correct: true, feedbackTitle: "自律模範！真正的好朋友", feedbackText: "熬夜通宵會讓隔天精神恍惚、頭暈中暑甚至在捷運月台踩空。誠實自律才是成熟的表現！" },
+            { text: "幫室友打掩護，只要戴耳機開飛航模式不發出聲音，就不算違規", correct: false, feedbackTitle: "包庇違規！害同學睡眠不足", feedbackText: "用小聰明包庇違規，隔天體力透支影響全組行程，一旦被查獲將沒收至畢旅結束！" },
+            { text: "跟室友約定一人輪流睡一小時、另一人負責看守房門盯防老師回馬槍", correct: false, feedbackTitle: "本末倒置！將整組置於重大懲戒風險", feedbackText: "通宵熬夜看門嚴重破壞畢旅紀律，查房後全組將記大過並通知家長！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 3 (退後救援題)",
-          location: "飯店客房內",
-          category: "夜間生活與睡眠規範",
-          icon: "fa-bed",
-          question: "【關卡 3 補考救援題】關於畢旅『夜間手機集中保管與發放』制度，下列哪一種理解完全沒有漏洞？",
+          stageTag: "關卡 3 (救援題)",
+          location: "翌日清晨 07:00 早餐時間",
+          category: "手機保管與領取",
+          icon: "fa-bell",
+          question: "早上 6:30 起床後，有同學迫不及待想打手遊，提議私下敲老師房門討回手機，正確作法是什麼？",
           options: [
-            {
-              text: "查房點名時手機全數關機繳交老師集中保管，隔天在飯店『早餐時間』點名完畢後統一發回，杜絕不良用途",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！制度完全掌握！",
-              feedbackText: "非常正確！白天開心拍照聯絡、晚上好好睡覺充電，這才是安全畢旅的最高準則！"
-            },
-            {
-              text: "如果晚上突然想查明天天氣或設鬧鐘，可以用『需要當鬧鐘』為由申請把手機留在房間床頭",
-              correct: false,
-              feedbackTitle: "⚠️ 藉口漏洞！不予採納！",
-              feedbackText: "飯店皆有 Morning Call 與老師巡迴敲門服務，絕不可藉故留置手機在房內！"
-            }
+            { text: "依規定洗漱並整理行李，到餐廳等候老師於早餐時間點名後統一領回", correct: true, feedbackTitle: "守時守規！守信用的小大人", feedbackText: "遵守約定是班級團隊運作的基石，早餐點名確認全體清醒後發還最安全！" },
+            { text: "清晨狂敲老師房門要求先拿回手機好查攻略", correct: false, feedbackTitle: "打擾師長休息！嚴重缺乏禮貌", feedbackText: "老師通宵看守全班安全極其辛勞，清晨敲門非常無禮！" },
+            { text: "趁老師在餐廳忙著張羅時自己伸手進保管箱拿", correct: false, feedbackTitle: "私自翻動公物！形同竊盜行為", feedbackText: "未經許可翻動師長保管箱是重大違規，會招致嚴肅校規處分。" }
           ]
         }
       },
-
-      // 關卡 4: 飯店防滑、門禁與防盜鏈
+      // 關卡 4: 飯店防滑與門禁
       {
-        stationIdx: 4,
         mainQuestion: {
           stageTag: "關卡 4",
-          location: "飯店住宿客房",
-          category: "夜間住宿安全",
+          location: "飯店客房內（洗澡與就寢前）",
+          category: "住宿安全防護",
           icon: "fa-hotel",
-          question: "【關卡 4 住宿門禁與禁忌】深夜 22:30 房門突然傳來規律敲門聲，外面有人小聲說：『哈囉！我們是隔壁班的，我們有點多買的珍珠奶茶要分你們喝，開一下門！』此時房間的正確SOP是：",
+          question: "洗完澡後浴室地板濕滑，室友提議在兩張雙人床之間跳躍比賽看誰跳得遠，你應該？",
           options: [
-            {
-              text: "先解開防盜鏈把門打開一條縫，確認外表真的是穿校服的同學後，再放他們進來喝飲料聊天",
-              correct: false,
-              feedbackTitle: "🚨 重大人身漏洞！門鏈防不住硬推！",
-              feedbackText: "絕對禁止開門！門外可能被陌生外人尾隨挾持，開縫極易被強行推入！深夜私自串門換房更是重大違規！"
-            },
-            {
-              text: "不開門、不解防盜鏈，先透過貓眼觀察，並大聲回應『請回自己房間，有事請聯絡老師』；若對方持續逗留立刻打內線給櫃檯與巡房老師",
-              correct: true,
-              feedbackTitle: "🎉 防衛意識滿分！標準安全應變！",
-              feedbackText: "無懈可擊！進房後防盜鏈鎖死、陌生或未預約敲門一律不開，是保護自身安全的黃金法則！"
-            },
-            {
-              text: "把門打開，大家站在房門口走廊把飲料喝完，這樣不算『進房間』就沒有違反串門規定",
-              correct: false,
-              feedbackTitle: "⚠️ 鑽字眼漏洞！走廊群聚大喧嘩！",
-              feedbackText: "走廊逗留會吵醒全樓層旅客，引來投訴甚至安全疑慮，一樣屬於嚴重違紀！"
-            }
+            { text: "堅決喝止！鋪好防滑地墊並擦乾水漬，嚴禁跳床嬉鬧，避免撞擊床角造成頭部重大外傷", correct: true, feedbackTitle: "保護生命！杜絕飯店頭號殺手", feedbackText: "跳床是學生畢業旅行送醫急診最常見原因！撞破頭皮或骨折將直接中斷畢旅送醫縫針！" },
+            { text: "把枕頭和被子鋪在兩床之間當緩衝墊，就可以放心地跳", correct: false, feedbackTitle: "自欺欺人！緩衝墊根本無法防撞", feedbackText: "跳躍失控踩空滑倒，被子只會讓人更易打滑，撞擊堅硬木床頭！" },
+            { text: "只要猜拳輸的人去當人肉肉墊在中間擋著就可以", correct: false, feedbackTitle: "危險加倍！可能造成頸椎重傷", feedbackText: "重力加速度踩在同學身上會造成嚴重的內臟或脊椎傷害，絕對禁止！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 4 (退後救援題)",
-          location: "飯店客房走廊與浴室",
-          category: "房內生活安全防護",
-          icon: "fa-shower",
-          question: "【關卡 4 補考救援題】在飯店洗澡與房內活動時，下列哪一項行為『最能有效避免送急診』？",
+          stageTag: "關卡 4 (救援題)",
+          location: "飯店客房門口（深夜 22:30）",
+          category: "門禁防盜安全",
+          icon: "fa-door-closed",
+          question: "晚上 10 點半，房門突然傳來急促敲門聲，外面的人輕聲說：『我們是隔壁班的，借一下吹風機！』你該怎麼做？",
           options: [
-            {
-              text: "洗澡務必鋪妥乾濕防滑地墊且拉好浴簾，先開冷水再開熱水防燙傷；房內嚴禁跳床與枕頭大戰",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！遠離急診意外！",
-              feedbackText: "非常棒！飯店浴室大理石與瓷磚極滑，跳床容易撞擊床頭櫃尖角造成顱骨受傷，務必防範！"
-            },
-            {
-              text: "洗澡如果覺得地板滑，只要穿著飯店提供的拋棄式紙拖鞋進去淋浴就不會滑倒了",
-              correct: false,
-              feedbackTitle: "🚨 玩命常識錯誤！滑上加滑！",
-              feedbackText: "拋棄式紙拖鞋沾水後摩擦力趨近於零，穿進浴室淋浴必摔無疑！地墊才是正確防滑工具！"
-            }
+            { text: "扣緊防盜門鏈，透過貓眼查看確認，若無法核實或不是本班老師，絕不開門並打電話給班導", correct: true, feedbackTitle: "高度警覺！落實防盜金鐘罩", feedbackText: "深夜不開門、防盜鏈不放，這能防範外人闖入或宵禁後私下違規串門！" },
+            { text: "直接把防盜鏈拆掉，門大開熱情招呼同學進來聊天吃宵夜", correct: false, feedbackTitle: "門戶大開！極端危險行為", feedbackText: "若有心人士冒充或深夜喧嘩被飯店投訴，全組將連帶受重大紀律懲處！" },
+            { text: "不看貓眼，直接隔著門把吹風機從門縫推出去", correct: false, feedbackTitle: "粗心大意！可能給外人可乘之機", feedbackText: "深夜切勿理會陌生敲門，任何需求應統一由飯店櫃檯或隨隊老師處理。" }
           ]
         }
       },
-
-      // 關卡 5: 世貿國際書展防走失
+      // 關卡 5: 世貿國際書展
       {
-        stationIdx: 5,
         mainQuestion: {
           stageTag: "關卡 5",
-          location: "臺北世貿國際書展展館",
-          category: "大型展場防走失",
+          location: "臺北世貿一館（國際書展展場）",
+          category: "人潮防走散",
           icon: "fa-book-open",
-          question: "【關卡 5 世貿國際書展】世貿展場宛如迷宮。組內有位同學想看限定輕小說，但人潮堵死走不動。他提議：『既然規定三人成行，那我單獨去排隊買書，你們兩個留在這家文具攤幫我看包包，這樣全隊依然維持聯絡，不算脫隊！』小隊該如何決定？",
+          question: "書展現場人山人海，你想看 A 區輕小說動漫展位，另一位組員想看 D 區科學科普區，該如何處理？",
           options: [
-            {
-              text: "覺得他說得很有道理，三人成行本來就可以彈性分工，只要隨時用語音通話保持連線就同意他去",
-              correct: false,
-              feedbackTitle: "⚠️ 狡猾的假團隊！嚴重違規！",
-              feedbackText: "『三人成行』是指三人肉體必須在彼此視線可及範圍內同步移動！語音通話一旦在吵鬧展館斷線或沒電，立刻淪為落單走失！"
-            },
-            {
-              text: "嚴厲糾正他的狡辯！三人成行必須『同進同退、視線不分離』，要買就三人一起前往並事先約定大會出口柱號作為會合點",
-              correct: true,
-              feedbackTitle: "🎉 拆穿話術！落實鐵血團隊紀律！",
-              feedbackText: "太強了！展場人潮移動迅速，落單幾秒就會被人群沖散，三人緊密一體才是真安全！"
-            },
-            {
-              text: "請他跟隨其他班級看起來順路的同學一起走過去，這樣他身邊也有人陪",
-              correct: false,
-              feedbackTitle: "⚠️ 卸責心態！",
-              feedbackText: "別班同學沒有照顧他的責任，一旦分散責任歸屬不清，將引發更大混亂！"
-            }
+            { text: "堅持三人成行！大家先商量順序，全組一起去 A 區再一起去 D 區，絕不可分散落單", correct: true, feedbackTitle: "團隊合作！三人成行不落單", feedbackText: "世貿展場佔地極大且地下室與展位動線複雜，一旦拆夥落單走散將浪費全班集合時間！" },
+            { text: "各奔東西自己看自己的，約定 3 小時後在火車站見面", correct: false, feedbackTitle: "嚴重脫隊！絕對禁止各自行動", feedbackText: "小六學生嚴禁單獨跨區自由行動，若在捷運迷路將引發全校緊急搜尋！" },
+            { text: "把最瘦小的同學留在會合柱子看包包，另外兩人各自狂奔去買", correct: false, feedbackTitle: "拋棄隊友！違背團隊精神", feedbackText: "留下單一人員看包包等於製造落單風險，嚴重缺乏同理心與安全意識。" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 5 (退後救援題)",
-          location: "展場服務諮詢台",
-          category: "迷路走散應變",
+          stageTag: "關卡 5 (救援題)",
+          location: "世貿展場走道人流中",
+          category: "走散緊急應變",
           icon: "fa-compass",
-          question: "【關卡 5 補考救援題】如果在世貿展館不小心被人潮推擠沖散，手邊手機突然沒電，下列哪一個反應是『最聰明且唯一正確的自救法』？",
+          question: "在書展人潮中一個轉角，你發現同組的另外兩位同學不見了，身邊全是陌生大人，此時第一步該做什麼？",
           options: [
-            {
-              text: "停止在走道慌張亂跑，立刻尋找穿背心的大會服務台或展警求助，借電話通報帶隊老師在約定柱號會合",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！危機處理教科書等級！",
-              feedbackText: "卓越！慌張亂跑只會越走越遠，認明大會官方諮詢台（Information）求助最安全！"
-            },
-            {
-              text: "憑記憶快步走出世貿一館大門，在信義路大馬路邊等候全班遊覽車經過",
-              correct: false,
-              feedbackTitle: "🚨 極度危險！可能遭遇交通事故！",
-              feedbackText: "擅自走出建築物跑到車水馬龍的戶外大街，會讓搜尋範圍暴增數倍，危險度飆升！"
-            }
+            { text: "立即停在原地最近的樑柱旁（看清柱子編號），拿出手機直撥老師電話，絕不盲目亂竄", correct: true, feedbackTitle: "臨危不亂！原地定錨最快獲救", feedbackText: "留在原地記住柱號（例如 C-12 柱），老師與隊長能以最快速度在 3 分鐘內精準找到你！" },
+            { text: "拔腿狂奔衝出世貿大門，試圖在馬路上追趕他們", correct: false, feedbackTitle: "盲目亂跑！信義區路況危險", feedbackText: "衝出展館只會讓走失事態升級，信義商圈車水馬龍極易發生交通事故！" },
+            { text: "坐下來哭泣等別人來發現你，不打任何電話", correct: false, feedbackTitle: "消極被動！延誤救援黃金時間", feedbackText: "小六生具備主動求助能力，應主動報警、找志工或電話聯絡老師。" }
           ]
         }
       },
-
-      // 關卡 6: 兒童新樂園遊樂設施安全
+      // 關卡 6: 兒童新樂園
       {
-        stationIdx: 6,
         mainQuestion: {
           stageTag: "關卡 6",
-          location: "兒童新樂園高空設施",
-          category: "遊樂設施與安全防護",
+          location: "臺北市立兒童新樂園",
+          category: "刺激遊樂設施安全",
           icon: "fa-ticket",
-          question: "【關卡 6 兒童新樂園】坐上海盜船即將啟動，前面同學拿出手機掛繩套在脖子上說：『我有掛繩跟防摔殼，保證不會掉！我趁盪到最高點時偷偷開前鏡頭錄尖叫限動，老師在地面絕對看不到！』你該怎麼做？",
+          question: "登上高速擺盪的海盜船與魔法星際飛車時，有同學偷偷把手機掛在胸前自拍棒上，想要拍短影音發 TikTok，你應該？",
           options: [
-            {
-              text: "既然有掛脖防摔繩，在物理上確實掉不下去，只要提醒他抓緊胸前扶手就可以讓他錄",
-              correct: false,
-              feedbackTitle: "🚨 致命物理盲點！繩子會勒喉窒息！",
-              feedbackText: "海盜船高速下墜強大風阻與擺盪，手機猛烈甩動會直接撞爛臉部或勒住脖子窒息！脫落更會砸死下方遊客！"
-            },
-            {
-              text: "要求他立刻將手機收妥放進拉鍊內袋，並舉手告知工作人員協助制止；搭乘刺激設施雙手務必抓緊壓桿與扶手",
-              correct: true,
-              feedbackTitle: "🎉 救人一命！展現最高安全責任感！",
-              feedbackText: "滿分！高空設施重力加速度極大，任何隨身物品脫落都是致命兇器，嚴格遵守規範才玩得安心！"
-            },
-            {
-              text: "跟他說手機不要拿出來，但可以把眼鏡跟帽子拿在手上揮舞搶鏡頭",
-              correct: false,
-              feedbackTitle: "⚠️ 異想天開！帽子眼鏡同樣會飛落！",
-              feedbackText: "所有易鬆脫配件（帽子、眼鏡、圍巾）搭乘前均應妥善摘下收好！"
-            }
+            { text: "立刻喝止並通報隨車安全員！手機在高空甩落將形成如子彈般致命重力加速度，砸傷下方遊客", correct: true, feedbackTitle: "見義勇為！預防高空拋物重傷害", feedbackText: "高空墜落的手機曾導致下方排隊兒童頭骨破裂！樂園嚴禁手持攝影設備搭乘刺激設施。" },
+            { text: "只要自拍棒的手腕繩有套好，偷偷錄一下帥氣鏡頭沒關係", correct: false, feedbackTitle: "麻痺大意！離心力強大無比", feedbackText: "高空強風與離心力能輕易扯斷手腕繩，手機飛出將面臨民事賠償與刑事過失責任！" },
+            { text: "幫他用身體擋住工作人員視線，讓他趕快按下錄影鍵", correct: false, feedbackTitle: "同謀違規！罔顧他人性命", feedbackText: "掩護違規等於助紂為虐，嚴重違反畢旅行前安全紀律！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 6 (退後救援題)",
-          location: "兒童新樂園月台",
-          category: "遊樂設施乘載限制",
-          icon: "fa-shield-halved",
-          question: "【關卡 6 補考救援題】在排隊玩雲霄飛車或旋轉飛椅時，同組有位同學臉色發白、表示剛吃完午餐胃很不舒服，但他又怕被笑膽小不敢退縮。這時你該如何？",
+          stageTag: "關卡 6 (救援題)",
+          location: "兒童新樂園熱門設施排隊區",
+          category: "排隊與身體健康",
+          icon: "fa-circle-exclamation",
+          question: "剛吃完午餐不到 10 分鐘，烈日當空，同學就催促你一起去排隊玩連續翻轉的雲霄飛車，此時你感覺有點頭暈想吐，該怎麼做？",
           options: [
-            {
-              text: "主動陪同他退出排隊隊伍，在陰涼處休息喝水並回報老師，說明『身體不適絕不逞強』才是真正成熟勇敢",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！溫暖又正確的團隊守護者！",
-              feedbackText: "非常正確！身體不適硬上高空設施極易引發高空劇烈嘔吐或休克昏厥，及時煞車才是大智慧！"
-            },
-            {
-              text: "跟他說深呼吸就不會吐了，六年級畢旅一生只有一次，閉著眼睛撐過去就不會遺憾",
-              correct: false,
-              feedbackTitle: "⚠️ 盲目義氣！釀成醫療意外！",
-              feedbackText: "無視身體警訊硬撐，容易導致高空休克或嘔吐物噎住呼吸道，絕不能冒險！"
-            }
+            { text: "坦白告知同組隊長與老師自己身體不適，在陰涼處休息補充水分，絕不逞強搭乘刺激設施", correct: true, feedbackTitle: "理性自制！誠實面對身體訊號", feedbackText: "剛吃飽加中暑前兆若硬上劇烈翻轉設施，極易在空中引發劇烈嘔吐窒息或休克昏厥！" },
+            { text: "為了不掃大家的興致，忍住頭暈硬著頭皮跟著上車", correct: false, feedbackTitle: "拿生命開玩笑！可能引發休克", feedbackText: "畢旅途中身體不適切忌逞強，一旦空中暈倒需要緊急叫救護車！" },
+            { text: "喝一大瓶冰可樂壓壓驚，馬上衝去排隊", correct: false, feedbackTitle: "雪上加霜！腸胃劇烈痙攣", feedbackText: "氣泡飲料加上劇烈震盪會導致急性胃痙攣與劇烈胃食道逆流！" }
           ]
         }
       },
-
-      // 關卡 7: 觀光夜市人潮、防燙與防竊
+      // 關卡 7: 觀光夜市安全
       {
-        stationIdx: 7,
         mainQuestion: {
           stageTag: "關卡 7",
-          location: "觀光夜市小吃街",
-          category: "夜市防燙與防竊",
+          location: "臺北觀光夜市小吃街",
+          category: "夜市防燙防竊",
           icon: "fa-utensils",
-          question: "【關卡 7 夜市人潮大考驗】夜市裡香氣四溢、摩肩擦踵。同學買了剛出油鍋的滾燙炸雞排和一串長竹籤糖葫蘆，興奮地說：『排隊好累！我們邊走邊吃，錢包插在運動褲深口袋很緊不會掉啦！』身為隊友的你該：",
+          question: "夜市攤位前人潮前胸貼後背，同學買了剛出油鍋的炸雞排與熱湯，邊拿著銳利竹籤邊低頭看手機吃，你該如何提醒他？",
           options: [
-            {
-              text: "只要手拿竹籤朝上舉高，避開路人肩膀，就可以邊走邊吃省時間",
-              correct: false,
-              feedbackTitle: "🚨 巨大危險！可能戳瞎路人眼睛！",
-              feedbackText: "夜市隨時有人突然停下或轉身！舉高的長竹籤極易直接刺向迎面而來學童的眼睛！後果不堪設想！"
-            },
-            {
-              text: "強烈要求：『食物與熱湯在攤位旁定點吃完、長竹籤折斷妥善丟棄才起步』；錢包收進背包內層暗袋並將背包前抱在胸前",
-              correct: true,
-              feedbackTitle: "🎉 警覺心爆棚！夜市防身第一名！",
-              feedbackText: "太強了！夜市『定點食用防刺防燙、隨身包前背防扒竊』是六年級逛街最完美的典範！"
-            },
-            {
-              text: "把錢包跟手機直接拿在手上抓緊，這樣小偷就絕對偷不走",
-              correct: false,
-              feedbackTitle: "⚠️ 破綻百出！明搶目標！",
-              feedbackText: "整晚抓在手上容易被擠撞脫手飛出，或在買飲料找零時隨手置放遺忘在攤位！"
-            }
+            { text: "拉他到走道旁的定點用餐區！吃完尖銳竹籤立刻丟垃圾桶再走，熱湯端穩防燙，背包前背防扒", correct: true, feedbackTitle: "完全命中要害！夜市安全大師", feedbackText: "夜市人推人，邊走邊拿尖竹籤極易刺傷迎面而來的路人眼睛或自己，熱湯潑出更會造成重度燙傷！" },
+            { text: "只要把竹籤拿平朝向前方，別人看見就會主動閃開讓路", correct: false, feedbackTitle: "極度自私危險！形同持凶器衝撞", feedbackText: "在視線死角的小孩或矮個子路人可能直接撞上竹籤，後果不堪設想！" },
+            { text: "把裝滿零錢的皮夾插在屁股口袋，方便隨時掏錢買飲料", correct: false, feedbackTitle: "小偷的最愛！三秒鐘就被扒走", feedbackText: "夜市擁擠時後口袋錢包極易被扒竊集團秒偷，遺失健保卡與畢旅所有零用錢！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 7 (退後救援題)",
-          location: "夜市集合地點",
-          category: "夜市防走失與飲食安全",
-          icon: "fa-triangle-exclamation",
-          question: "【關卡 7 補考救援題】在熱鬧的夜市小吃街，小組約定在晚上 20:30 集合。下列哪一種集合觀念最保險？",
+          stageTag: "關卡 7 (救援題)",
+          location: "夜市人潮密集十字路口",
+          category: "夜市人流走散防範",
+          icon: "fa-users-slash",
+          question: "在夜市買地瓜球時，同組隊員突然說：『我看到前面的玩具攤很好玩，我過去看一下馬上回來！』你該怎麼做？",
           options: [
-            {
-              text: "提前 10 分鐘抵達約定的明顯大標誌（如夜市主牌樓派出所前），全員清點確認無誤後向帶隊老師報到",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！時間守則滿分！",
-              feedbackText: "太棒了！夜市人多移動緩慢，提前預留步程回到大目標會合才是守時好學生！"
-            },
-            {
-              text: "時間到了如果還在排隊買排隊名店，可以傳訊息給老師說『我們快排到了，大家先等我們20分鐘』",
-              correct: false,
-              feedbackTitle: "⚠️ 自私違規！延誤全班行程！",
-              feedbackText: "團體行動時間是鐵律，全車等幾個人買小吃是極度缺乏公德心與紀律的行為！"
-            }
+            { text: "立刻拉住他！堅持『三人整組一起移動』，絕對嚴禁個人脫隊單飛，並隨時注意集合倒數時間", correct: true, feedbackTitle: "紀律嚴明！守住團隊底線", feedbackText: "夜市巷弄錯綜複雜，脫隊幾步路就可能被湧入的人潮沖散，導致全組失聯延誤返程！" },
+            { text: "揮手跟他說『快去快回，我們在這裡等你 5 分鐘』", correct: false, feedbackTitle: "嚴重失職！製造落單機會", feedbackText: "夜市攤販流動快、人潮擁擠，一旦走散在嘈雜環境下根本聽不到手機鈴聲！" },
+            { text: "跟著一起脫隊，只留下組長一人孤獨守在原地", correct: false, feedbackTitle: "團隊瓦解！徹底違背集體原則", feedbackText: "讓組長落單更是嚴重錯誤，全組必須保持集體行動！" }
           ]
         }
       },
-
-      // 關卡 8: 百貨公司動線與電扶梯安全
+      // 關卡 8: 百貨公司手扶梯
       {
-        stationIdx: 8,
         mainQuestion: {
           stageTag: "關卡 8",
-          location: "大型連鎖百貨公司",
-          category: "百貨手扶梯與動線安全",
+          location: "臺北百貨商場跨樓層手扶梯",
+          category: "商場安全與動線禮貌",
           icon: "fa-bag-shopping",
-          question: "【關卡 8 百貨商圈安全】在挑高百貨公司搭乘超長電扶梯時，同學為了在同學群組炫耀，提議：『大家鞋帶鬆鬆垂著比較帥，而且我們在向下電扶梯上往上逆向跑，拍起來像時光倒流！只要看到電扶梯緊急按鈕在旁邊，有危險按下去就好啦！』此時你的反應是：",
+          question: "在百貨公司搭乘通往 5 樓的超長電扶梯時，同學為了拍帥氣背影，提議在向上運行的手扶梯上『逆向往下跑』，你該怎麼做？",
           options: [
-            {
-              text: "覺得這招拍短影音很有梗，只要確認電扶梯上沒有推嬰兒車的家長，就可以快速跑一次拍完",
-              correct: false,
-              feedbackTitle: "🚨 玩命惡作劇！恐釀重大骨牌踩踏！",
-              feedbackText: "逆向奔跑極易踩空滾落！垂落的鞋帶會被梳齒板捲入撕裂腳趾！任意按緊急停止更會讓後方乘客全部前傾摔傷，觸犯刑責！"
-            },
-            {
-              text: "嚴厲制止！命令全員把鞋帶繫緊、站穩踏階緊握黃色扶手，嚴禁逆向嬉鬧與跨階拍照；換樓層嚴守三人同行並向老師報備",
-              correct: true,
-              feedbackTitle: "🎉 破除愚蠢挑戰！守護公共安全！",
-              feedbackText: "太棒了！電扶梯捲入事故極其殘酷，把公共設施當特技舞台是極度幼稚危險的行為，及時制止值得嘉許！"
-            },
-            {
-              text: "雖然不跑電扶梯，但改坐在電扶梯黃色把手上滑下去，比較省力",
-              correct: false,
-              feedbackTitle: "🚨 高空墜落死亡風險！",
-              feedbackText: "坐電扶梯扶手會直接翻出天井摔落一樓大廳，絕不可做出如此駭人舉動！"
-            }
+            { text: "嚴正制止！手扶梯逆向奔跑極易踩空摔落滾下數十階梯，且鬆脫鞋帶會捲入梳齒板釀成斷指事故", correct: true, feedbackTitle: "救人一命！守護手扶梯底線", feedbackText: "手扶梯踏階邊緣銳利如刀，摔倒滾落會造成嚴重的撕裂傷與踩踏事故，各百貨公司嚴格禁止！" },
+            { text: "幫他看前後有沒有警衛，沒有人的話讓他快速跑一次就好", correct: false, feedbackTitle: "縱容玩命！危及全手扶梯乘客", feedbackText: "逆向奔跑一旦跌倒，會將後方正常搭乘的顧客骨牌式撞倒，面臨巨額賠償！" },
+            { text: "脫掉球鞋穿著襪子跑，以為這樣就不會捲入鞋帶", correct: false, feedbackTitle: "荒謬無知！更易打滑捲入皮膚", feedbackText: "沒有鞋子保護，踏階縫隙會直接夾捲腳趾，造成不可逆的嚴重截指殘疾！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 8 (退後救援題)",
-          location: "百貨服務諮詢台",
-          category: "百貨走失會合點",
-          icon: "fa-circle-info",
-          question: "【關卡 8 補考救援題】在樓層複雜的百貨公司內，如果跟組長走散、且手機突然收不到訊號，下列哪種做法能最快且最安全回到隊伍？",
+          stageTag: "關卡 8 (救援題)",
+          location: "百貨公司樓層逛街時",
+          category: "跨樓層集合管理",
+          icon: "fa-building",
+          question: "在百貨公司自由參觀時，同學提議私自搭乘升降電梯到頂樓看動漫特展，但集合地點在一樓大廳，時間只剩 15 分鐘，你該如何決定？",
           options: [
-            {
-              text: "搭電梯直達一樓『顧客服務諮詢台』，請穿制服的客服員協助廣播學校名稱、班級與姓名，在服務台等候老師",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！百貨自救最佳捷徑！",
-              feedbackText: "無可挑剔！一樓服務台是百貨維安中樞，有制服保全與廣播系統，是唯一認證的黃金會合點！"
-            },
-            {
-              text: "跑到地下美食街一間一間餐廳找，因為同學最後一定會去吃甜點",
-              correct: false,
-              feedbackTitle: "⚠️ 憑空瞎猜！盲目亂竄！",
-              feedbackText: "美食街人潮洶湧更易走失迷失，瞎猜只會浪費寶貴救援時間！"
-            }
+            { text: "堅決反對！時間已接近集合時刻，全組應提前抵達一樓大廳清點人數，嚴禁未經老師報備跨樓層逛街", correct: true, feedbackTitle: "守時自律！具有大局觀的領袖", feedbackText: "百貨電梯尖峰時段極難等候，擅自去高樓層必定導致全班在大廳苦等遲到，嚴重破壞後續行程！" },
+            { text: "搭乘緊急逃生樓梯狂奔上頂樓快速掃描一眼，再狂奔下來", correct: false, feedbackTitle: "危險違規！可能觸動安全門警報", feedbackText: "許多逃生門單向反鎖，一旦被鎖在逃生梯內將無法出來甚至觸動全棟警報！" },
+            { text: "派一個人上去買限量商品，其他人假裝在服務台旁集合打掩護", correct: false, feedbackTitle: "欺瞞集體！逃避不了點名", feedbackText: "老師點名一對一唱名，缺席者立刻被揪出，還會害隊友連帶受罰！" }
           ]
         }
       },
-
-      // 關卡 9: 木柵動物園與貓空纜車高空規範
+      // 關卡 9: 動物園與貓空纜車
       {
-        stationIdx: 9,
         mainQuestion: {
           stageTag: "關卡 9",
-          location: "貓空纜車車廂內",
-          category: "高空纜車紀律",
+          location: "貓空纜車站與高空車廂中",
+          category: "高空纜車極限安全",
           icon: "fa-mountain",
-          question: "【關卡 9 貓空纜車高空體驗】貓空纜車行駛到數十公尺高的山谷上方。車廂同學為了測試纜車平衡極限，提議：『大家數到三同時往同一邊用力跳，看車廂會不會晃！而且把自拍棒完全伸出通風氣窗外拍懸崖，我有抓緊自拍棒不怕摔！』小隊應該：",
+          question: "纜車運行至幾十公尺的高空深谷上方，山風吹拂車廂輕微晃動，有同學因為興奮開始在車廂內起立跳躍搖晃車體，你該怎麼做？",
           options: [
-            {
-              text: "只要大家輪流跳，不要同時跳，纜車電腦系統就不會感應到劇烈震動停機",
-              correct: false,
-              feedbackTitle: "🚨 玩命迷思！纜繩脫軌全車墜谷！",
-              feedbackText: "高空纜車靠重力配平，任何刻意跳動搖晃都會使懸掛臂金屬疲勞，甚至觸發安全剎車鎖死半空中動彈不得！"
-            },
-            {
-              text: "大聲制止並要求所有人平穩坐好！說明車廂內嚴禁起跳搖晃與倚靠車門，自拍棒或肢體絕不可伸出窗外防碰撞纜塔",
-              correct: true,
-              feedbackTitle: "🎉 鎮定冷靜！化解高空災難性危機！",
-              feedbackText: "正確無誤！纜車高空運行必須保持平穩重心，伸出自拍棒極易在經過支柱時被絞碎扯斷，平穩乘坐才是王道！"
-            },
-            {
-              text: "為了好玩，把吃剩的水果果皮偷偷從氣窗丟下去，看會不會砸到下面的猴子",
-              correct: false,
-              feedbackTitle: "🚨 嚴重違法與破壞生態！",
-              feedbackText: "高空拋物會重傷地面登山步道的遊客，且嚴重破壞山林生態，必遭移送法辦！"
-            }
+            { text: "立刻厲聲制止室友！要求全體安靜坐好抓住扶手，車廂劇烈跳動搖晃可能觸發纜索脫軌安全煞車，將全車人吊在高空數小時！", correct: true, feedbackTitle: "挽救重大危機！高空安全第一名", feedbackText: "纜車鋼索精密敏感，車廂內劇烈跳動會引發纜線共振異常，電腦一旦啟動緊急制動將造成全線大停擺！" },
+            { text: "跟著一起左右有節奏地搖晃，假裝在坐大怒神", correct: false, feedbackTitle: "玩命愚蠢！可能導致出軌墜落", feedbackText: "這是極其危險的自毀行為，若造成鋼索受損將面臨巨額公共安全訴訟！" },
+            { text: "打開車窗把頭伸出去大喊大叫釋放恐懼", correct: false, feedbackTitle: "嚴重違規！極易撞擊支架塔柱", feedbackText: "車窗外的金屬纜車塔柱距離車廂僅數十公分，探頭極易遭遇致命撞擊！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 9 (退後救援題)",
-          location: "木柵動物園步道",
+          stageTag: "關卡 9 (救援題)",
+          location: "木柵動物園非洲動物區坡道",
           category: "戶外防護與動物禮儀",
           icon: "fa-paw",
-          question: "【關卡 9 補考救援題】在木柵動物園炎熱的戶外步道參觀時，下列哪一項行為是『保護動物又保護自己』的正解？",
+          question: "在動物園參觀斑馬與長頸鹿時，同學拿出吃剩的洋芋片想丟過圍欄餵食動物，並想爬上欄杆拍近照，你該怎麼做？",
           options: [
-            {
-              text: "隨時補滿水壺預防熱衰竭，穿著好走的球鞋結伴同行，嚴禁拍打玻璃、投餵人類零食或跨越護欄",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！動物園守則完美過關！",
-              feedbackText: "非常正確！動物園步道坡度大，防曬補水不可少；不餵食、不拍打玻璃是身為現代公民的基本素養！"
-            },
-            {
-              text: "只要動物躲在陰涼處不動，可以用吃剩的洋芋片丟牠吸引牠走過來拍照",
-              correct: false,
-              feedbackTitle: "🚨 惡劣違規！毒害野生動物！",
-              feedbackText: "人類加工食品高鹽高油會導致動物內臟衰竭死亡，投餵者依法可處重罰！"
-            }
+            { text: "立即制止同學！不可投餵人體零食危害動物生命，更嚴禁攀爬欄杆防跌入獸壕", correct: true, feedbackTitle: "愛護生命！遵守動物園法規", feedbackText: "人類零食中的調味料會導致野生動物腸胃炎猝死，翻越護欄跌落壕溝更是致命重傷！" },
+            { text: "幫他拍照看誰丟得準，丟進斑馬嘴巴裡算贏", correct: false, feedbackTitle: "傷害動物！違反野生動物保育法", feedbackText: "惡意投餵將被園方驅逐並處以高額罰款，給學校帶來極大負面污名！" },
+            { text: "自己也買一包爆米花一起過去丟", correct: false, feedbackTitle: "盲從作惡！完全缺乏公民素養", feedbackText: "身為小六畢業生應展現文明素養，共同制止不良行為。" }
           ]
         }
       },
-
-      // 關卡 10: 天文科學館與臺北車站平安歸程
+      // 關卡 10: 天文館與返程北車
       {
-        stationIdx: 10,
         mainQuestion: {
           stageTag: "關卡 10",
-          location: "臺北火車站月台大廳",
-          category: "返程集合與防走失",
+          location: "臺北車站大廳（返程發車前 20 分鐘）",
+          category: "返程集合與收假紀律",
           icon: "fa-award",
-          question: "【關卡 10 最終考驗・平安返程】參觀完天文館回到臺北火車站，離回臺東的發車時間僅剩 18 分鐘。同組好友突然發現忘記買臺北限定甜甜圈，哀求說：『地下街就在手扶梯下面，我腳程超快，衝下去 3 分鐘買完跑回來！你們幫我把行李箱推上火車站著等我就好！』這時候小組該怎麼辦？",
+          question: "最後一天返程在臺北車站，距離開往臺東的火車發車只剩 20 分鐘，隊友突然說忘記買某家知名甜甜圈，想自己衝下地下街買，你該怎麼做？",
           options: [
-            {
-              text: "同理心爆發！答應幫他顧行李，並派另一位跑得快的同學陪他一起衝下去買，這樣也算落實『結伴同行』",
-              correct: false,
-              feedbackTitle: "🚨 致命同儕陷阱！北車地下迷宮慘案！",
-              feedbackText: "北車地下街號稱全臺最大迷宮！18 分鐘光是結帳排隊與找手扶梯就必死無疑！火車準點開車不等人，兩人將直接被丟包北車！"
-            },
-            {
-              text: "斷然拒絕！火車發車前 20 分鐘全員必須在閘門口整隊待命，絕不因個人口腹之慾冒險脫隊，全隊依序驗票平安上車回臺東",
-              correct: true,
-              feedbackTitle: "🎉 完美決策！全隊百分之百平安返鄉！",
-              feedbackText: "太傑出了！真正的好朋友懂得在關鍵時刻踩剎車！不脫隊、重紀律、準時集合，你們是本屆最優秀的畢業生！"
-            },
-            {
-              text: "大家一起把行李放月台，全組五個人一起衝下去買，要被罰大家一起被罰",
-              correct: false,
-              feedbackTitle: "🚨 全組陣亡！全隊錯過火車！",
-              feedbackText: "集體違規不僅讓月台行李成為無人看管可疑危險物，更會導致全組錯過對號列車，在北車痛哭！"
-            }
+            { text: "全力攔下他！北車地下動線極易迷路，發車前20分鐘全員集合待命不可離開，美食再誘人也比不上全體平安上車準時回家！", correct: true, feedbackTitle: "大局觀守護者！完美把關最後一哩路", feedbackText: "臺北地下街是全臺灣最容易迷路之處！發車倒數一旦迷失方向將被留在臺北，造成全班火車延宕的重大事故！" },
+            { text: "看在同學情面上，派跑得最快的組員陪他下去狂奔，其他人幫忙扛行李", correct: false, feedbackTitle: "盲目義氣！害隊友錯過火車丟包北車", feedbackText: "盲目的義氣害人害己！火車是不等人的，遲到將導致兩人滯留臺北車站，家長師長急死！" },
+            { text: "跟隨隊老師說謊說他去上廁所，幫他爭取偷跑去買的時間", correct: false, feedbackTitle: "欺瞞師長！情節極其惡劣", feedbackText: "謊報行蹤讓老師無法掌握學生真實安全，這是畢業旅行最不能容忍的欺詐行為！" }
           ]
         },
         altQuestion: {
-          stageTag: "關卡 10 (退後救援題)",
-          location: "天文館與臺東歸程火車",
-          category: "參觀禮儀與收假清點",
-          icon: "fa-user-astronaut",
-          question: "【關卡 10 補考救援題】在回臺東的長途火車上，旅程即將畫下句點。下列哪一項行為最能展現六年級學生的成熟與自律？",
+          stageTag: "關卡 10 (救援題)",
+          location: "臺鐵返程車廂抵達臺東前",
+          category: "隨身物品清點與收假平安",
+          icon: "fa-suitcase-rolling",
+          question: "火車即將抵達臺東火車站，組員紛紛開始收拾行李，但有人隨身健保卡、錢包與飯店房卡不知道塞到哪裡去了，你該如何協助？",
           options: [
-            {
-              text: "在座位安靜休息聊天，提前檢查隨身背包、健保卡及伴手禮無遺漏；抵達臺東站聽從引導下車並向老師與接送家長報平安",
-              correct: true,
-              feedbackTitle: "🎉 補考成功！圓滿順利完成畢旅！",
-              feedbackText: "太棒了！有始有終，展現臺東孩子的自信與優良家教，為小學生涯留下最美好的安全回憶！"
-            },
-            {
-              text: "為了慶祝畢旅結束，在火車抵達臺東前 10 分鐘，在走道全班開香檳汽水互相噴灑歡呼",
-              correct: false,
-              feedbackTitle: "🚨 嚴重缺乏公德心！弄髒車廂！",
-              feedbackText: "火車車廂為大眾公共財，噴灑液體會讓地板濕滑導致乘客摔傷，且需支付高額清潔賠償金！"
-            }
+            { text: "安撫同學不慌張，協助他逐一徹底清查後背包暗袋、座位前後網袋與外套口袋，確認全部齊全後回報老師", correct: true, feedbackTitle: "細緻體貼！完美的團隊收尾", feedbackText: "冷靜逐層排查能避免物品遺忘在臺鐵座椅網袋中，確保每位同伴順利平安回家交差！" },
+            { text: "跟他說『丟了就算了，回家再叫媽媽幫你補辦健保卡』", correct: false, feedbackTitle: "敷衍卸責！缺乏責任感", feedbackText: "重要證件遺失若被有心人撿走冒用後果嚴重，下車前必須徹底清點！" },
+            { text: "不管他，自己背著包包先擠到門口卡位第一個衝下車", correct: false, feedbackTitle: "缺乏同儕情誼！不顧隊友安危", feedbackText: "畢業旅行是一體同心的回憶，互相關照到最後一刻才是真朋友。" }
           ]
         }
       }
     ];
 
-    // 遊戲狀態變數
-    let currentStationIndex = 0; // 目前所在站點 (0 ~ 10)
+    // 全域變數
+    let currentStationIndex = 0; // 0 ~ 10
     let teamScore = 100;
-    let isRetryMode = false;     // 是否處於退後補考救援題狀態
     let correctCount = 0;
-    let hasFailedAny = false;    // 是否曾有答錯扣分記錄 (用以判斷能否拿 100 分)
-    let autoNextTimeout = null;  // 自動跳下一題計時器
+    let hasFailedAny = false;
+    let isRetryMode = false;
+    let autoNextTimeout = null;
+    let nextActionType = "FORWARD";
 
-    // 【班級行前宣講專用】教室內可立即執行之紀律懲罰庫
-    const penaltyRulesList = [
-      {
-        title: "罰抄寫本關安全規矩 3 遍",
-        desc: "拿出隨堂筆記本，立刻將本關違反的【安全守則與正確做法】工整手抄 3 遍，抄寫完畢立刻呈交講台老師檢查簽名！",
-        icon: "fa-pen-nib"
-      },
-      {
-        title: "罰抄寫大眾運輸五不原則 5 遍",
-        desc: "在筆記本上手抄 5 遍：『捷運黃線內不飲食、不搶門卡門、手扶梯不奔跑、背包一律改前背、三人成行嚴禁落單』，下課前收繳！",
-        icon: "fa-book"
-      },
-      {
-        title: "起立面向全班大聲朗讀 1 遍",
-        desc: "請起立面向全班同學，用清楚宏亮的聲音大聲朗讀本關安全規矩及剛才的錯誤選項分析，提醒所有同學引以為戒！",
-        icon: "fa-bullhorn"
-      },
-      {
-        title: "罰抄寫夜間查房收手機規定 3 遍",
-        desc: "手抄 3 遍：『晚間查房點名時手機全數關機繳交老師集中保管，翌日早餐時間統一發放，嚴禁藏匿備用機』，字體需端正！",
-        icon: "fa-mobile-screen-button"
-      },
-      {
-        title: "上講台示範大眾運輸禮儀",
-        desc: "請走到講台前，背上書包向全班同學示範正確的『背包胸前背負防碰撞』以及『捷運候車排隊先下後上』標準動作！",
-        icon: "fa-person-chalkboard"
-      }
-    ];
-
-    window.onload = function() {
-      initMap();
-      renderCurrentChallenge();
-    };
-
-    // 洗牌演算法 (Fisher-Yates Shuffle)，確保每次題目選項亂數出現，避免抄襲
+    // 隨機洗牌演算法 (Fisher-Yates)
     function shuffleArray(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+        [copy[i], copy[j]] = [copy[j], copy[i]];
       }
-      return arr;
+      return copy;
     }
 
-    // 初始化地圖站點 DOM (11個節點，10段路徑)
+    // 頁籤切換
+    function switchTab(tabId) {
+      ['itinerary', 'hotel', 'transit', 'simulation'].forEach(id => {
+        const section = document.getElementById(`tab-${id}`);
+        const btn = document.getElementById(`tabBtn-${id}`);
+        if (!section || !btn) return;
+
+        if (id === tabId) {
+          section.classList.remove('hidden');
+          btn.className = "tab-btn flex-1 min-w-[140px] py-3.5 px-4 rounded-2xl font-black text-base text-center flex items-center justify-center gap-2.5 transition-all bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-md glow-sky";
+        } else {
+          section.classList.add('hidden');
+          btn.className = "tab-btn flex-1 min-w-[140px] py-3.5 px-4 rounded-2xl font-bold text-base text-center flex items-center justify-center gap-2.5 transition-all text-slate-600 hover:bg-slate-100";
+        }
+      });
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    // 地圖站點初始化
     function initMap() {
       const container = document.getElementById('mapStationsContainer');
+      if (!container) return;
       container.innerHTML = '';
       mapStations.forEach((st, idx) => {
         const node = document.createElement('div');
         node.id = `mapStationNode-${idx}`;
-        node.className = "flex flex-col items-center text-center w-24 select-none transition-all duration-300";
-        
-        let markerClass = "bg-slate-200 text-slate-500 border-2 border-white shadow-sm";
+        node.className = "flex flex-col items-center text-center w-28 select-none transition-all duration-300";
+
+        let markerClass = "bg-white text-slate-400 border-2 border-slate-200 shadow-sm";
         if (idx === 0) {
-          markerClass = "bg-blue-600 text-white ring-4 ring-blue-200 scale-110 shadow-md";
+          markerClass = "bg-gradient-to-br from-amber-400 to-orange-400 text-white ring-4 ring-amber-200 scale-110 shadow-md glow-sunny";
         }
 
         node.innerHTML = `
-          <div id="markerCircle-${idx}" class="w-10 h-10 rounded-full ${markerClass} flex items-center justify-center text-base mb-2 transition-transform">
+          <div id="markerCircle-${idx}" class="w-12 h-12 rounded-2xl ${markerClass} flex items-center justify-center text-lg mb-2 transition-transform">
             <i class="fa-solid ${st.icon}"></i>
           </div>
-          <span class="text-[10px] font-bold text-slate-400 block uppercase">${st.stageLabel}</span>
-          <span class="text-xs font-bold text-slate-700 leading-tight">${st.name}</span>
+          <span class="text-[11px] font-black text-slate-400 block uppercase tracking-wider">${st.stageLabel}</span>
+          <span class="text-xs font-black text-slate-700 leading-tight mt-0.5">${st.name}</span>
         `;
         container.appendChild(node);
       });
       updateMapVisuals();
     }
 
-    // 更新地圖進度軌跡與高亮站點
+    // 更新地圖進度
     function updateMapVisuals() {
       const totalSteps = mapStations.length - 1; // 10
       const pct = (currentStationIndex / totalSteps) * 100;
-      document.getElementById('mapTrackLine').style.width = `${pct}%`;
+      const trackLine = document.getElementById('mapTrackLine');
+      if (trackLine) trackLine.style.width = `${pct}%`;
 
       mapStations.forEach((_, idx) => {
         const circle = document.getElementById(`markerCircle-${idx}`);
         if (!circle) return;
 
         if (idx < currentStationIndex) {
-          // 已過關站點
-          circle.className = "w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-base mb-2 shadow-sm";
+          circle.className = "w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-lg mb-2 shadow-sm glow-mint";
           circle.innerHTML = `<i class="fa-solid fa-check"></i>`;
         } else if (idx === currentStationIndex) {
-          // 當前站點
-          circle.className = "w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg mb-2 ring-4 ring-blue-300 shadow-lg scale-110";
-          circle.innerHTML = `<i class="fa-solid ${mapStations[idx].icon} animate-pulse"></i>`;
+          circle.className = "w-13 h-13 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-400 text-white flex items-center justify-center text-xl mb-2 ring-4 ring-amber-300 shadow-xl glow-sunny scale-110";
+          circle.innerHTML = `<i class="fa-solid ${mapStations[idx].icon} anim-float"></i>`;
         } else {
-          // 未達站點
-          circle.className = "w-10 h-10 rounded-full bg-slate-200 text-slate-500 border-2 border-white flex items-center justify-center text-base mb-2 shadow-sm";
+          circle.className = "w-12 h-12 rounded-2xl bg-white text-slate-400 border-2 border-slate-200 flex items-center justify-center text-lg mb-2 shadow-sm";
           circle.innerHTML = `<i class="fa-solid ${mapStations[idx].icon}"></i>`;
         }
       });
 
-      document.getElementById('mapProgressText').innerText = 
-        `當前進度：${mapStations[currentStationIndex].name} (站點 ${currentStationIndex} / ${totalSteps})`;
-      document.getElementById('correctCounter').innerText = correctCount;
+      const progText = document.getElementById('mapProgressText');
+      if (progText) {
+        progText.innerText = `當前：${mapStations[currentStationIndex].name} (${currentStationIndex} / ${totalSteps})`;
+      }
+      const cnt = document.getElementById('correctCounter');
+      if (cnt) cnt.innerText = correctCount;
     }
 
-    // 取得當前關卡的考題 (若為救援模式則出 altQuestion，否則 mainQuestion)
     function getCurrentStageData() {
       const poolIdx = Math.min(currentStationIndex, stagePool.length - 1);
       const stage = stagePool[poolIdx];
       return isRetryMode ? stage.altQuestion : stage.mainQuestion;
     }
 
-    // 渲染當前題目前景
+    // 渲染題目與隨機選項
     function renderCurrentChallenge() {
       if (autoNextTimeout) {
         clearTimeout(autoNextTimeout);
@@ -1700,7 +1222,7 @@
 
       const q = getCurrentStageData();
       const targetStation = mapStations[currentStationIndex + 1];
-      
+
       document.getElementById('scenarioDayTag').innerText = q.stageTag;
       document.getElementById('scenarioLocation').innerText = q.location;
       document.getElementById('scenarioCategory').innerText = q.category;
@@ -1714,49 +1236,36 @@
         retryBadge.classList.add('hidden');
       }
 
-      // Icon
       const iconBox = document.getElementById('scenarioIconBox');
       iconBox.innerHTML = `<i class="fa-solid ${q.icon}"></i>`;
-      iconBox.className = "w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-blue-50 border-2 border-blue-200 flex items-center justify-center text-4xl sm:text-5xl text-blue-600 flex-shrink-0 transition-transform";
 
-      // 選項：採用亂數洗牌防作弊
+      // 選項亂數洗牌 (防作弊)
       const optionsContainer = document.getElementById('optionsGrid');
       optionsContainer.innerHTML = '';
+      const randomized = shuffleArray(q.options);
 
-      const randomizedOptions = shuffleArray(q.options);
-
-      randomizedOptions.forEach((opt, idx) => {
+      randomized.forEach((opt, idx) => {
         const btn = document.createElement('button');
-        btn.className = "text-left p-4 rounded-2xl border-2 border-slate-200 bg-slate-50/70 hover:bg-blue-50/50 hover:border-blue-400 active:scale-[0.99] transition flex items-start gap-3 text-xs sm:text-sm text-slate-700 font-medium group";
+        btn.className = "text-left p-5 rounded-2xl border-2 border-slate-200/90 bg-white hover:bg-amber-50/70 hover:border-amber-400 active:scale-[0.99] transition flex items-start gap-4 text-base sm:text-lg text-slate-800 font-medium group shadow-sm hover:shadow-md";
         btn.innerHTML = `
-          <span class="w-6 h-6 rounded-full bg-slate-200 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center text-xs font-bold flex-shrink-0 transition">
+          <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-amber-400 group-hover:text-white flex items-center justify-center text-sm font-black flex-shrink-0 transition">
             ${String.fromCharCode(65 + idx)}
           </span>
-          <span class="leading-relaxed">${opt.text}</span>
+          <span class="leading-relaxed flex-grow">${opt.text}</span>
         `;
         btn.onclick = () => selectOption(opt);
         optionsContainer.appendChild(btn);
       });
-
-      // 隱藏反饋區塊
-      const feedbackBox = document.getElementById('feedbackBox');
-      if (feedbackBox) {
-        feedbackBox.className = "hidden rounded-2xl p-4 sm:p-5 transition-all duration-300";
-      }
     }
 
-    // 學生點選答案 (直接傳入被點擊的選項物件)
     function selectOption(selectedOpt) {
       const q = getCurrentStageData();
       const optionsButtons = document.querySelectorAll('#optionsGrid button');
-
       optionsButtons.forEach(btn => btn.disabled = true);
-
-      // 跳出滿版大卡片詳細說明
       openBigResultModal(selectedOpt, q);
     }
 
-    // 【新增】開啟滿版大卡片說明
+    // 滿版大卡片顯示
     function openBigResultModal(selected, currentQuestionData) {
       const modal = document.getElementById('resultBigModal');
       const card = document.getElementById('bigModalCard');
@@ -1774,25 +1283,24 @@
       explanation.innerText = selected.feedbackText;
 
       if (selected.correct) {
-        // 答對情境
         playSuccessSound();
-        card.className = "bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border-4 border-emerald-400 transition-all duration-300 relative my-auto";
-        iconBox.className = "w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl flex-shrink-0 bg-emerald-100 text-emerald-600 shadow-inner";
+        card.className = "bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-9 shadow-2xl border-4 border-emerald-400 transition-all duration-300 relative my-auto space-y-5 glow-mint";
+        iconBox.className = "w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl flex-shrink-0 bg-emerald-100 text-emerald-600 shadow-inner";
         iconBox.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-        badge.className = "text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block mb-1 bg-emerald-100 text-emerald-800";
+        badge.className = "text-xs sm:text-sm font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-1 bg-emerald-100 text-emerald-800";
         badge.innerText = "✓ 審查通過・決策正確";
-        title.className = "text-lg sm:text-2xl font-black text-emerald-950 leading-tight";
+        title.className = "text-xl sm:text-3xl font-black text-slate-800 leading-tight";
         title.innerText = selected.feedbackTitle;
 
         penaltySection.classList.add('hidden');
 
-        trackNotice.className = "text-xs font-bold p-3 rounded-xl flex items-center justify-between bg-emerald-50 text-emerald-900 border border-emerald-200";
+        trackNotice.className = "text-sm sm:text-base font-black p-4 rounded-2xl flex items-center justify-between bg-emerald-50 text-emerald-900 border border-emerald-200";
         trackNotice.innerHTML = `
-          <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-arrow-up text-emerald-600"></i> 地圖推進：前進 1 站！</span>
+          <span class="flex items-center gap-2"><i class="fa-solid fa-circle-arrow-up text-emerald-600 text-lg"></i> 軌道推進：順利前進 1 站！</span>
           <span class="text-emerald-700 font-mono">信譽分：${teamScore} 分 (零失誤)</span>
         `;
 
-        confirmBtn.className = "w-full font-black text-sm sm:text-base py-3.5 px-6 rounded-2xl transition shadow-lg active:scale-95 flex items-center justify-center gap-2 text-white bg-emerald-600 hover:bg-emerald-700";
+        confirmBtn.className = "w-full font-black text-base sm:text-lg py-4 px-6 rounded-2xl transition shadow-xl active:scale-95 flex items-center justify-center gap-2.5 text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 glow-mint";
         btnLabel.innerText = "太棒了！關閉說明並前進下一關 ➔";
         nextActionType = "FORWARD";
 
@@ -1800,26 +1308,25 @@
         isRetryMode = false;
 
         try {
-          confetti({ particleCount: 40, spread: 70, origin: { y: 0.5 } });
+          confetti({ particleCount: 45, spread: 75, origin: { y: 0.5 } });
         } catch(e){}
 
       } else {
-        // 答錯情境：扣分、震動、跳出隨機懲罰卡
         playWarningSound();
         hasFailedAny = true;
         teamScore = Math.max(0, teamScore - 10);
         document.getElementById('scoreBadge').innerText = teamScore;
-        document.getElementById('scoreBadge').classList.add('text-rose-400');
+        document.getElementById('scoreBadge').classList.add('text-rose-500');
 
-        card.className = "bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border-4 border-rose-500 transition-all duration-300 relative my-auto shake-danger";
-        iconBox.className = "w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl flex-shrink-0 bg-rose-100 text-rose-600 shadow-inner";
+        card.className = "bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-9 shadow-2xl border-4 border-rose-400 transition-all duration-300 relative my-auto space-y-5 shake-danger glow-coral";
+        iconBox.className = "w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl flex-shrink-0 bg-rose-100 text-rose-600 shadow-inner";
         iconBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation animate-bounce"></i>`;
-        badge.className = "text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-block mb-1 bg-rose-100 text-rose-800";
-        badge.innerText = "✕ 嚴重違規・扣除信譽分 10 分";
-        title.className = "text-lg sm:text-2xl font-black text-rose-950 leading-tight";
+        badge.className = "text-xs sm:text-sm font-black px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-1 bg-rose-100 text-rose-800";
+        badge.innerText = "✕ 違規判斷・扣除信譽分 10 分";
+        title.className = "text-xl sm:text-3xl font-black text-slate-800 leading-tight";
         title.innerText = selected.feedbackTitle;
 
-        // 抽取懲罰卡 (必定優先確保「抄寫規矩」有機率或保證被抽到)
+        // 隨機抽取懲罰卡
         const randomPenalty = penaltyRulesList[Math.floor(Math.random() * penaltyRulesList.length)];
         document.getElementById('penaltyTitle').innerText = randomPenalty.title;
         document.getElementById('penaltyDesc').innerText = randomPenalty.desc;
@@ -1827,14 +1334,14 @@
         penaltySection.classList.remove('hidden');
 
         const prevStation = currentStationIndex > 0 ? mapStations[currentStationIndex - 1].name : "出發起點";
-        trackNotice.className = "text-xs font-bold p-3 rounded-xl flex items-center justify-between bg-rose-50 text-rose-900 border border-rose-200";
+        trackNotice.className = "text-sm sm:text-base font-black p-4 rounded-2xl flex items-center justify-between bg-rose-50 text-rose-900 border border-rose-200";
         trackNotice.innerHTML = `
-          <span class="flex items-center gap-1.5 text-rose-700"><i class="fa-solid fa-backward-step"></i> 【退後懲罰】退回上一站：${prevStation}</span>
+          <span class="flex items-center gap-2 text-rose-700"><i class="fa-solid fa-backward-step text-lg"></i> 【退後懲罰】退回上一站：${prevStation}</span>
           <span class="text-rose-700 font-mono">剩餘信譽分：${teamScore} 分</span>
         `;
 
-        confirmBtn.className = "w-full font-black text-sm sm:text-base py-3.5 px-6 rounded-2xl transition shadow-lg active:scale-95 flex items-center justify-center gap-2 text-white bg-rose-600 hover:bg-rose-700";
-        btnLabel.innerText = "我已知錯，接受退後與抽中的懲罰 ➔";
+        confirmBtn.className = "w-full font-black text-base sm:text-lg py-4 px-6 rounded-2xl transition shadow-xl active:scale-95 flex items-center justify-center gap-2.5 text-white bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 glow-coral";
+        btnLabel.innerText = "我已知錯，接受退後與課堂懲罰 ➔";
         nextActionType = "BACKWARD";
         isRetryMode = true;
       }
@@ -1842,67 +1349,57 @@
       modal.classList.remove('hidden');
     }
 
-    // 大卡片確認按鈕點擊
     function handleBigModalAction() {
       document.getElementById('resultBigModal').classList.add('hidden');
       nextQuestionStep();
     }
 
-    let nextActionType = "FORWARD";
-
-    // 處理下一步按鈕 (前進或退後)
     function nextQuestionStep() {
-      const quizContainer = document.getElementById('quizContainer');
-      quizContainer.classList.remove('shake-danger', 'warning-glow');
-
       if (nextActionType === "FORWARD") {
         currentStationIndex++;
       } else {
-        // 退後 1 站 (最低為 0)
         currentStationIndex = Math.max(0, currentStationIndex - 1);
       }
-
       updateMapVisuals();
       renderCurrentChallenge();
     }
 
-    // 通關結算 (判定是否 100 分)
+    // 通關結算 (100分滿分合格，未達100嚴肅重來)
     function showFinalBadge() {
       const container = document.getElementById('quizContainer');
 
       if (teamScore === 100 && !hasFailedAny) {
-        // 滿分合格！準許進入安全宣言承諾書
         try {
           confetti({
-            particleCount: 120,
-            spread: 80,
+            particleCount: 130,
+            spread: 90,
             origin: { y: 0.6 }
           });
         } catch(e){}
 
         container.innerHTML = `
-          <div class="p-8 sm:p-12 text-center space-y-6">
-            <div class="w-24 h-24 mx-auto bg-gradient-to-tr from-emerald-500 to-teal-400 text-white rounded-3xl flex items-center justify-center text-5xl shadow-xl floating-badge">
+          <div class="p-8 sm:p-14 text-center space-y-7">
+            <div class="w-28 h-28 mx-auto bg-gradient-to-tr from-amber-400 via-orange-400 to-rose-400 text-white rounded-3xl flex items-center justify-center text-6xl shadow-xl glow-sunny anim-float">
               <i class="fa-solid fa-trophy"></i>
             </div>
             <div>
-              <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full uppercase tracking-wider">
-                10關 100分 完美通關・審查合格
+              <span class="text-sm font-black text-amber-900 bg-amber-100 px-4 py-1.5 rounded-full uppercase tracking-wider inline-block border border-amber-300">
+                10關 100分 完美通關・全能合格
               </span>
-              <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
-                恭喜！獲頒【畢旅全能安全小隊長】最高資格！
+              <h2 class="text-3xl sm:text-4xl font-black text-slate-800 mt-3 tracking-tight">
+                恭喜！獲頒【畢旅全能安全小隊長】最高認證！
               </h2>
-              <p class="text-base font-bold text-emerald-600 mt-1">最終安全信譽評分：100 / 100 滿分</p>
+              <p class="text-xl sm:text-2xl font-black text-amber-600 mt-2 font-eng">最終安全信譽評分：100 / 100 滿分</p>
             </div>
-            <p class="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
-              太厲害了！面對大眾捷運、故宮、晚間收手機與防盜鏈、國際書展、兒童樂園、夜市防燙防竊、百貨手扶梯以及高空貓纜等全部 10 大考驗，你全程保持高度自律與警戒，答題零失誤！你們已經完全具備保護自己與同伴的能力，<strong>准予搭上火車出發參加畢業旅行！</strong>
+            <p class="text-base sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              太出色了！面對臺鐵長途、捷運故宮、晚間準時收手機與飯店防滑、世貿書展、兒童樂園、夜市防燙防竊、百貨手扶梯以及高空貓纜等全部 10 大考驗，你展現了高度自律與警戒，答題零失誤！你們已經完全具備保護自己與同伴的能力，<strong>准予搭上火車出發參加畢業旅行！</strong>
             </p>
-            <div class="pt-4 flex flex-wrap justify-center gap-3">
-              <button onclick="openPledgeModal()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-sm px-7 py-3 rounded-2xl transition shadow-lg active:scale-95 flex items-center gap-2 animate-bounce">
-                <i class="fa-solid fa-file-signature text-lg"></i>
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+              <button onclick="openPledgeModal()" class="bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 hover:opacity-95 text-white font-black text-base sm:text-lg px-8 py-4 rounded-2xl transition shadow-xl glow-sunny active:scale-95 flex items-center gap-2.5 animate-bounce">
+                <i class="fa-solid fa-file-signature text-xl"></i>
                 <span>簽署安全宣言並領取榮譽證書 ➔</span>
               </button>
-              <button onclick="location.reload()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow active:scale-95 flex items-center gap-2">
+              <button onclick="location.reload()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-base sm:text-lg px-7 py-3.5 rounded-2xl transition shadow-sm active:scale-95 flex items-center gap-2">
                 <i class="fa-solid fa-rotate-left"></i>
                 <span>重新模擬挑戰</span>
               </button>
@@ -1910,41 +1407,40 @@
           </div>
         `;
       } else {
-        // 未滿 100 分 -> 嚴格警告：不適合參加畢業旅行，必須重新測驗！
         playWarningSound();
         container.innerHTML = `
-          <div class="p-8 sm:p-12 text-center space-y-6 bg-rose-50/40">
-            <div class="w-24 h-24 mx-auto bg-gradient-to-tr from-rose-600 to-red-500 text-white rounded-3xl flex items-center justify-center text-5xl shadow-xl animate-pulse">
-              <i class="fa-solid fa-ban"></i>
+          <div class="p-8 sm:p-14 text-center space-y-7 bg-rose-50/40">
+            <div class="w-28 h-28 mx-auto bg-gradient-to-tr from-rose-500 to-orange-400 text-white rounded-3xl flex items-center justify-center text-6xl shadow-xl glow-coral">
+              <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <div>
-              <span class="text-xs font-black text-rose-700 bg-rose-100 px-3 py-1 rounded-full uppercase tracking-wider">
-                審查未通過・未達 100 分滿分門檻
+              <span class="text-sm font-black text-rose-800 bg-rose-100 px-4 py-1.5 rounded-full uppercase tracking-wider inline-block border border-rose-300">
+                審查未通過・未達 100 分滿分標準
               </span>
-              <h2 class="text-2xl sm:text-3xl font-black text-rose-900 mt-2">
-                【抱歉！目前不適合參加畢業旅行】
+              <h2 class="text-3xl sm:text-4xl font-black text-slate-800 mt-3 tracking-tight">
+                【安全無折扣：目前尚不適合參加畢業旅行】
               </h2>
-              <p class="text-base font-bold text-rose-700 mt-1">你的安全信譽分僅有：${teamScore} 分（合格標準：100分）</p>
+              <p class="text-xl sm:text-2xl font-black text-rose-600 mt-2 font-eng">安全信譽分僅得：${teamScore} 分（合格門檻：100分）</p>
             </div>
-            <div class="max-w-lg mx-auto bg-white p-4 rounded-2xl border-2 border-rose-200 text-xs sm:text-sm text-slate-700 leading-relaxed text-left space-y-2">
-              <p class="font-bold text-rose-900 flex items-center gap-1.5">
-                <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> 帶隊師長的嚴正叮嚀：
+            <div class="max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-3xl border border-rose-200 text-base sm:text-lg text-slate-700 leading-relaxed text-left space-y-3 shadow-sm">
+              <p class="font-black text-rose-900 text-lg flex items-center gap-2">
+                <i class="fa-solid fa-heart-pulse text-rose-500"></i> 帶隊師長的關切叮嚀：
               </p>
               <p>
-                畢業旅行要從臺東搭火車遠赴臺北，面對數萬人潮的大眾捷運、人擠人的夜市、以及晚間自律收手機。你在闖關中曾發生違規判斷或企圖藏匿手機等僥倖心理，代表<strong>在突發狀況下可能將自己或同組好友置於危險之中</strong>！
+                畢業旅行要從臺東搭車遠赴臺北，面對數萬人潮的大眾捷運、人擠人的夜市與高空纜車。剛才的闖關中曾有違規判斷或企圖藏匿手機等心態，代表<strong>在陌生環境的突發狀況下，可能將自己或同伴置於危險之中</strong>！
               </p>
-              <p class="font-semibold text-slate-900">
-                『安全是回家唯一的路』。請立刻重新複習安全手冊，並重新挑戰全部 10 關地圖，直到拿下 100 分滿分為止！
+              <p class="font-black text-slate-800 pt-1">
+                『安全是回家唯一的路』。請立刻重新複習安全手冊，並重新挑戰 10 關地圖，直到獲得 100 分滿分為止！
               </p>
             </div>
-            <div class="pt-4 flex flex-wrap justify-center gap-3">
-              <button onclick="location.reload()" class="bg-rose-600 hover:bg-rose-700 text-white font-black text-sm px-7 py-3 rounded-xl transition shadow-lg active:scale-95 flex items-center gap-2">
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+              <button onclick="location.reload()" class="bg-gradient-to-r from-rose-500 to-orange-500 hover:opacity-95 text-white font-black text-base sm:text-lg px-8 py-4 rounded-2xl transition shadow-xl glow-coral active:scale-95 flex items-center gap-2.5">
                 <i class="fa-solid fa-rotate-right"></i>
                 <span>重新接受 100 分考驗</span>
               </button>
-              <button onclick="switchTab('hotel')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition shadow active:scale-95 flex items-center gap-2">
+              <button onclick="switchTab('hotel')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-base sm:text-lg px-7 py-3.5 rounded-2xl transition shadow glow-sunny active:scale-95 flex items-center gap-2">
                 <i class="fa-solid fa-book-bookmark"></i>
-                <span>複習夜間收手機與住宿守則</span>
+                <span>複習住宿與收手機守則</span>
               </button>
             </div>
           </div>
@@ -1952,325 +1448,142 @@
       }
     }
 
-    // 解鎖安全宣言區塊並初始化手寫簽名板
-    function unlockPledgeSection() {
-      const pledge = document.getElementById('pledgeSection');
-      pledge.classList.remove('hidden');
-      pledge.scrollIntoView({ behavior: 'smooth' });
-
-      // 即時同步姓名到宣言文字中
-      const nameInput = document.getElementById('pledgeName');
-      nameInput.addEventListener('input', (e) => {
-        document.getElementById('pledgeEchoName').innerText = e.target.value.trim() || '______';
-      });
-
-      initSignaturePad();
-    }
-
-    // 手寫簽名板邏輯
-    let signCanvas, signCtx, isSigning = false, hasDrawnSignature = false;
-
-    function initSignaturePad() {
-      signCanvas = document.getElementById('signatureCanvas');
-      if (!signCanvas) return;
-      signCtx = signCanvas.getContext('2d');
-
-      // 依據容器寬高調整真實畫布解析度
-      signCanvas.width = signCanvas.parentElement.clientWidth;
-      signCanvas.height = signCanvas.parentElement.clientHeight;
-
-      signCtx.strokeStyle = '#1e3a8a';
-      signCtx.lineWidth = 3;
-      signCtx.lineCap = 'round';
-      signCtx.lineJoin = 'round';
-
-      function getPos(e) {
-        const rect = signCanvas.getBoundingClientRect();
-        if (e.touches && e.touches[0]) {
-          return {
-            x: e.touches[0].clientX - rect.left,
-            y: e.touches[0].clientY - rect.top
-          };
-        }
-        return {
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        };
-      }
-
-      function startDraw(e) {
-        isSigning = true;
-        const pos = getPos(e);
-        signCtx.beginPath();
-        signCtx.moveTo(pos.x, pos.y);
-        document.getElementById('signPlaceholder').classList.add('hidden');
-        hasDrawnSignature = true;
-      }
-
-      function draw(e) {
-        if (!isSigning) return;
-        e.preventDefault();
-        const pos = getPos(e);
-        signCtx.lineTo(pos.x, pos.y);
-        signCtx.stroke();
-      }
-
-      function endDraw() {
-        isSigning = false;
-      }
-
-      signCanvas.addEventListener('mousedown', startDraw);
-      signCanvas.addEventListener('mousemove', draw);
-      signCanvas.addEventListener('mouseup', endDraw);
-      signCanvas.addEventListener('mouseleave', endDraw);
-
-      signCanvas.addEventListener('touchstart', startDraw, { passive: false });
-      signCanvas.addEventListener('touchmove', draw, { passive: false });
-      signCanvas.addEventListener('touchend', endDraw);
-    }
-
-    function clearSignature() {
-      if (!signCtx || !signCanvas) return;
-      signCtx.clearRect(0, 0, signCanvas.width, signCanvas.height);
-      document.getElementById('signPlaceholder').classList.remove('hidden');
-      hasDrawnSignature = false;
-    }
-
-    // 生成正式安全榮譽證書
-    function generateCertificate() {
-      const cls = document.getElementById('pledgeClass').value.trim();
-      const seat = document.getElementById('pledgeSeat').value.trim();
-      const name = document.getElementById('pledgeName').value.trim();
-      const checked = document.getElementById('pledgeCheckbox').checked;
-
-      if (!cls || !seat || !name) {
-        alert('請完整輸入【班級、座號與學生姓名】！');
-        return;
-      }
-
-      if (!hasDrawnSignature) {
-        alert('請在簽名框內完成【數位手寫簽名】，以示鄭重承諾！');
-        return;
-      }
-
-      if (!checked) {
-        alert('請勾選【我已逐字詳細閱讀全部安全誓詞】確認方塊！');
-        return;
-      }
-
-      // 將資料注入榮譽證書
-      document.getElementById('certClassText').innerText = cls;
-      document.getElementById('certSeatText').innerText = seat;
-      document.getElementById('certNameText').innerText = name;
-
-      const now = new Date();
-      document.getElementById('certDateText').innerText = 
-        `${now.getFullYear()} 年 ${now.getMonth() + 1} 月 ${now.getDate()} 日`;
-
-      // 轉換簽名為圖片放入證書
-      const sigData = signCanvas.toDataURL('image/png');
-      document.getElementById('certSignatureImage').src = sigData;
-
-      const certBox = document.getElementById('certificateContainer');
-      certBox.classList.remove('hidden');
-      certBox.scrollIntoView({ behavior: 'smooth' });
-
-      try {
-        confetti({
-          particleCount: 150,
-          spread: 90,
-          origin: { y: 0.7 }
-        });
-      } catch(e){}
-    }
-
-    // 頁籤切換邏輯
-    function switchTab(tabId) {
-      const tabs = ['itinerary', 'hotel', 'transit', 'simulation'];
-      tabs.forEach(t => {
-        const section = document.getElementById(`tab-${t}`);
-        const btn = document.getElementById(`tabBtn-${t}`);
-        if (t === tabId) {
-          section.classList.remove('hidden');
-          btn.className = "tab-btn flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 transition bg-blue-600 text-white shadow-sm";
-        } else {
-          section.classList.add('hidden');
-          btn.className = "tab-btn flex-1 min-w-[120px] py-2.5 px-3 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 transition text-slate-600 hover:bg-slate-100";
-        }
-      });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // 緊急求助 Modal
-    function openSosModal() {
-      document.getElementById('sosModal').classList.remove('hidden');
-    }
-    function closeSosModal() {
-      document.getElementById('sosModal').classList.add('hidden');
-    }
-
-    // 儲存已簽名圖片資料與學生資訊
-    let currentSignatureDataUrl = '';
-    let pledgeStudentInfo = { className: '', seatNum: '', studentName: '' };
-
-    // 開啟安全宣言與簽名 Modal
-    function openPledgeModal() {
-      let modal = document.getElementById('pledgeModal');
-      if (!modal) {
-        createPledgeModalDOM();
-        modal = document.getElementById('pledgeModal');
-      }
-      modal.classList.remove('hidden');
-      initSignaturePad();
-    }
-
-    // 關閉安全宣言 Modal
-    function closePledgeModal() {
-      const modal = document.getElementById('pledgeModal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    // 動態建立安全宣言與證書的 Modal 結構
+    // 安全宣言與榮譽證書 Modal DOM
     function createPledgeModalDOM() {
       const wrapper = document.createElement('div');
       wrapper.id = 'pledgeModal';
-      wrapper.className = "fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto";
+      wrapper.className = "fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto";
       wrapper.innerHTML = `
-        <div class="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-slate-200 space-y-6 my-auto">
+        <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-10 shadow-2xl border border-slate-100 space-y-7 my-auto glow-soft">
           
           <!-- 步驟一：簽署介面 -->
-          <div id="pledgeSignStep" class="space-y-5">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div class="flex items-center gap-2.5">
-                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold">
+          <div id="pledgeSignStep" class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-bold">
                   <i class="fa-solid fa-file-signature"></i>
                 </div>
                 <div>
-                  <h3 class="text-lg font-black text-slate-900">畢業旅行安全紀律承諾書</h3>
-                  <p class="text-xs text-slate-500">落實誠信簽署・做個成熟自律的小六畢業生</p>
+                  <h3 class="text-xl sm:text-2xl font-black text-slate-800">畢業旅行安全紀律承諾書</h3>
+                  <p class="text-sm text-slate-500">做個有責任心、值得信賴的六年級畢業生</p>
                 </div>
               </div>
-              <button onclick="closePledgeModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+              <button onclick="closePledgeModal()" class="text-slate-400 hover:text-slate-600 text-2xl">
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
 
             <!-- 基本資料輸入 -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label class="block text-xs font-bold text-slate-600 mb-1">班級</label>
-                <input id="inputClass" type="text" placeholder="例：六年甲班" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none">
+                <label class="block text-sm font-bold text-slate-700 mb-1.5">班級</label>
+                <input id="inputClass" type="text" placeholder="例：六年甲班" class="w-full text-base sm:text-lg px-4 py-3 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none font-medium">
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-600 mb-1">座號</label>
-                <input id="inputSeat" type="text" placeholder="例：05 號" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none">
+                <label class="block text-sm font-bold text-slate-700 mb-1.5">座號</label>
+                <input id="inputSeat" type="text" placeholder="例：08 號" class="w-full text-base sm:text-lg px-4 py-3 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none font-medium">
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-600 mb-1">學生姓名</label>
-                <input id="inputName" oninput="updatePledgePreviewName()" type="text" placeholder="例：陳小明" class="w-full text-xs sm:text-sm px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none font-bold">
+                <label class="block text-sm font-bold text-slate-700 mb-1.5">學生姓名</label>
+                <input id="inputName" oninput="updatePledgePreviewName()" type="text" placeholder="例：林晨陽" class="w-full text-base sm:text-lg px-4 py-3 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-amber-400 outline-none font-black text-amber-900">
               </div>
             </div>
 
-            <!-- 誓詞內文 -->
-            <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 text-xs sm:text-sm text-amber-950 space-y-2 leading-relaxed">
-              <p class="font-black text-amber-900 text-sm">
-                我，<span id="pledgeNamePreview" class="underline decoration-amber-600 decoration-2 font-black text-rose-600">__________</span>，即將代表學校出發前往臺北參加畢業旅行，在此鄭重承諾：
+            <!-- 誓詞內容 -->
+            <div class="bg-amber-50/70 border border-amber-200/90 rounded-3xl p-6 text-base sm:text-lg text-amber-950 space-y-3 leading-relaxed">
+              <p class="font-black text-amber-950 text-lg sm:text-xl">
+                我，<span id="pledgeNamePreview" class="underline decoration-amber-500 decoration-3 font-black text-amber-700 text-xl sm:text-2xl">__________</span>，即將代表學校出發前往臺北參加畢業旅行，在此鄭重承諾：
               </p>
-              <ul class="list-disc list-inside space-y-1 text-xs text-slate-700">
+              <ul class="list-disc list-inside space-y-2 text-slate-700 font-medium">
                 <li>全程落實<strong>「三人成行、絕不脫隊」</strong>，互相關照提醒安全。</li>
-                <li>搭乘臺鐵、捷運與大眾運輸，遵守排隊先下後上、<strong>後背包一律前背</strong>。</li>
-                <li>夜間查房點名時，<strong>主動準時繳交手機由師長保管</strong>，翌日早餐時間領回，絕不私藏備用機通宵遊玩。</li>
+                <li>搭乘臺鐵、捷運與公車，遵守排隊先下後上、<strong>後背包一律前背</strong>。</li>
+                <li>夜間查房點名時，<strong>主動繳交手機由師長集中保管</strong>，翌日早餐歸還，絕不私藏備用機通宵遊玩。</li>
                 <li>回飯店進房立即<strong>扣上防盜門鏈</strong>，不私自外出、不串門、不跳床、注意浴室防滑。</li>
-                <li>若有違規或投機行為，願坦然接受校規處分與抄寫懲罰，絕無異議。</li>
+                <li>若有違規或僥倖行為，願坦然接受校規處分與課堂罰抄，絕無異議。</li>
               </ul>
             </div>
 
-            <!-- 數位手寫簽名板 -->
-            <div class="space-y-1.5">
+            <!-- 觸控手寫簽名板 -->
+            <div class="space-y-2">
               <div class="flex items-center justify-between">
-                <label class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <i class="fa-solid fa-signature text-amber-600"></i> 立誓人親筆簽名（請在下方手寫或用滑鼠簽名）：
+                <label class="text-sm sm:text-base font-bold text-slate-700 flex items-center gap-2">
+                  <i class="fa-solid fa-signature text-amber-500 text-lg"></i> 立誓人親筆簽名（請在下方手寫或用滑鼠簽署）：
                 </label>
-                <button onclick="clearSignaturePad()" class="text-[11px] text-slate-500 hover:text-rose-600 font-bold underline">
-                  清除重寫
+                <button onclick="clearSignaturePad()" class="text-xs sm:text-sm text-slate-500 hover:text-rose-600 font-bold underline">
+                  清除重簽
                 </button>
               </div>
               <div class="border-2 border-dashed border-amber-300 rounded-2xl bg-amber-50/30 overflow-hidden relative touch-none">
-                <canvas id="signatureCanvas" class="w-full h-32 block bg-transparent cursor-crosshair"></canvas>
-                <div id="signHint" class="absolute inset-0 flex items-center justify-center text-slate-400 text-xs pointer-events-none">
-                  請在此區域簽名（手指觸控或滑鼠）
+                <canvas id="signatureCanvas" class="w-full h-36 block bg-transparent cursor-crosshair"></canvas>
+                <div id="signHint" class="absolute inset-0 flex items-center justify-center text-slate-400 text-sm font-medium pointer-events-none">
+                  在此區域簽名（支援手指觸控與滑鼠）
                 </div>
               </div>
             </div>
 
-            <button onclick="generateCertificate()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-sm sm:text-base py-3.5 px-6 rounded-2xl transition shadow-lg active:scale-95 flex items-center justify-center gap-2">
-              <i class="fa-solid fa-stamp"></i>
-              <span>立誓完成・生成榮譽安全證書 ➔</span>
+            <button onclick="generateCertificate()" class="w-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:opacity-95 text-white font-black text-lg py-4 px-6 rounded-2xl transition shadow-xl glow-sunny active:scale-95 flex items-center justify-center gap-2.5">
+              <i class="fa-solid fa-stamp text-xl"></i>
+              <span>立誓完成・生成正式榮譽證書 ➔</span>
             </button>
           </div>
 
-          <!-- 步驟二：正式榮譽證書展現介面 -->
-          <div id="pledgeCertStep" class="hidden space-y-5">
-            <!-- 證書卡片本體 -->
-            <div id="certificateCard" class="bg-gradient-to-b from-amber-50 via-white to-amber-50 p-6 sm:p-8 rounded-3xl border-4 border-amber-600 shadow-xl relative overflow-hidden">
-              <!-- 雙線內框 -->
-              <div class="border-2 border-amber-400/80 rounded-2xl p-5 sm:p-7 relative z-10 space-y-4 text-center">
+          <!-- 步驟二：正式榮譽證書展示 (陽光金框卡片) -->
+          <div id="pledgeCertStep" class="hidden space-y-6">
+            <div id="certificateCard" class="bg-gradient-to-b from-amber-50/60 via-white to-amber-50/60 p-6 sm:p-10 rounded-3xl border-4 border-amber-400 shadow-2xl relative overflow-hidden">
+              <div class="border-2 border-amber-300/80 rounded-2xl p-6 sm:p-8 relative z-10 space-y-5 text-center">
                 
-                <div class="flex items-center justify-center gap-2 text-amber-700 font-black text-xs sm:text-sm tracking-widest uppercase">
-                  <i class="fa-solid fa-star"></i>
-                  <span>六年級畢業旅行・安全認證金榜</span>
-                  <i class="fa-solid fa-star"></i>
+                <div class="flex items-center justify-center gap-2 text-amber-700 font-black text-sm tracking-widest uppercase">
+                  <i class="fa-solid fa-sun"></i>
+                  <span>六年級畢業旅行・安全認證榮譽榜</span>
+                  <i class="fa-solid fa-sun"></i>
                 </div>
 
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-wide">
+                <h2 class="text-2xl sm:text-4xl font-black text-slate-900 tracking-wide font-serif">
                   安全誓言榮譽證書
                 </h2>
 
-                <p class="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
-                  茲證明 <span id="certClassText" class="font-black text-amber-900 underline">六年甲班</span> 
-                  座號 <span id="certSeatText" class="font-black text-amber-900 underline">01</span> 
-                  學生 <span id="certNameText" class="font-black text-rose-600 text-base sm:text-lg underline">王小明</span>，
-                  已全數通過畢業旅行 10 關嚴格安全檢定，獲得 100 分滿分，並親筆完成安全誓約簽署，具備高度自律與自我防護能力，獲准參加畢業旅行！
+                <p class="text-base sm:text-xl text-slate-700 max-w-xl mx-auto leading-relaxed">
+                  茲證明 <span id="certClassText" class="font-black text-amber-900 underline text-lg sm:text-2xl">六年甲班</span> 
+                  座號 <span id="certSeatText" class="font-black text-amber-900 underline text-lg sm:text-2xl">01</span> 
+                  學生 <span id="certNameText" class="font-black text-amber-700 text-2xl sm:text-3xl underline">林晨陽</span>，
+                  已全數通過畢業旅行 10 關嚴格安全考驗，榮獲 100 分滿分，並親筆完成安全誓約簽署，具備自主保護與關照同伴的能力，准予啟程參加畢業旅行！
                 </p>
 
-                <!-- 誓言簽署與印章 -->
-                <div class="pt-4 border-t border-amber-200/80 flex flex-wrap items-end justify-between gap-4 text-left">
+                <!-- 證書簽名與印章列 -->
+                <div class="pt-5 border-t border-amber-200 flex flex-wrap items-end justify-between gap-4 text-left">
                   <div>
-                    <span class="text-[10px] text-slate-400 block font-mono">CERTIFICATE ID: SAF-2026-100</span>
-                    <span class="text-xs text-slate-500">立誓日期：<span id="certDateText">2026-11-04</span></span>
+                    <span class="text-xs text-slate-400 block font-mono">CERTIFICATE ID: SAF-2026-100</span>
+                    <span class="text-sm font-bold text-slate-600">立誓日期：<span id="certDateText">2026-11-05</span></span>
                   </div>
 
-                  <!-- 簽名圖案與蓋印 -->
-                  <div class="flex items-center gap-3">
+                  <div class="flex items-center gap-4">
                     <div class="text-right">
-                      <span class="text-[10px] text-slate-400 block font-bold">立誓人親筆簽署：</span>
-                      <img id="certSignatureImg" class="h-10 sm:h-12 border-b-2 border-slate-700 inline-block" alt="親筆簽名">
+                      <span class="text-xs text-slate-500 block font-bold mb-1">立誓人親筆簽署：</span>
+                      <img id="certSignatureImg" class="h-12 sm:h-14 border-b-2 border-slate-700 inline-block" alt="親筆簽名">
                     </div>
-                    <!-- 仿印章效果 -->
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-rose-600 text-rose-600 flex flex-col items-center justify-center font-black text-[10px] sm:text-xs rotate-[-12deg] shadow-inner select-none flex-shrink-0">
+                    <!-- 仿印章 -->
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-rose-500 text-rose-500 flex flex-col items-center justify-center font-black text-xs sm:text-sm rotate-[-10deg] shadow-inner select-none flex-shrink-0">
                       <span>安全審查</span>
-                      <span class="text-xs sm:text-sm font-black">合格</span>
-                      <span class="text-[8px]">准予出發</span>
+                      <span class="text-base sm:text-lg font-black">合格</span>
+                      <span class="text-[9px] sm:text-[10px]">准予出發</span>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- 裝飾浮水印 -->
-              <i class="fa-solid fa-award absolute -right-6 -bottom-8 text-9xl text-amber-500/10 pointer-events-none"></i>
+              <i class="fa-solid fa-award absolute -right-6 -bottom-8 text-9xl text-amber-400/10 pointer-events-none"></i>
             </div>
 
-            <!-- 操作按鈕列 -->
-            <div class="flex flex-wrap items-center justify-between gap-2.5 pt-1">
-              <button onclick="backToPledgeSign()" class="text-xs text-slate-500 hover:text-slate-800 font-bold px-3 py-2">
-                <i class="fa-solid fa-arrow-left mr-1"></i> 修改資料或重簽
+            <!-- 兩大功能按鈕：列印/PDF 與 高畫質截圖下載 -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <button onclick="backToPledgeSign()" class="text-sm sm:text-base text-slate-600 hover:text-slate-900 font-bold px-4 py-2.5">
+                <i class="fa-solid fa-arrow-left mr-1.5"></i> 修改資料或重簽
               </button>
-              <div class="flex items-center gap-2">
-                <button onclick="printCertificate()" id="printCertBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition active:scale-95 flex items-center gap-1.5">
+              <div class="flex items-center gap-3">
+                <button onclick="printCertificate()" id="printCertBtn" class="bg-gradient-to-r from-sky-500 to-blue-500 hover:opacity-95 text-white font-black text-sm sm:text-base px-5 py-3 rounded-2xl shadow-md glow-sky transition active:scale-95 flex items-center gap-2">
                   <i class="fa-solid fa-print"></i>
                   <span>列印 / 另存為 PDF 證書</span>
                 </button>
-                <button onclick="downloadCertificateImage()" id="downloadCertBtn" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition active:scale-95 flex items-center gap-1.5">
+                <button onclick="downloadCertificateImage()" id="downloadCertBtn" class="bg-slate-900 hover:bg-slate-800 text-white font-black text-sm sm:text-base px-5 py-3 rounded-2xl shadow-lg transition active:scale-95 flex items-center gap-2">
                   <i class="fa-solid fa-camera"></i>
                   <span id="downloadCertBtnText">截圖交給老師檢查</span>
                 </button>
@@ -2283,127 +1596,99 @@
       document.body.appendChild(wrapper);
     }
 
-    // 簽名板畫布繪圖邏輯
-    let signCanvas, signCtx, isDrawing = false, hasSigned = false;
+    // 簽名板畫布邏輯
+    let sigCanvas, sigCtx, isDrawing = false, hasDrawn = false;
 
-    function initSignaturePad() {
-      signCanvas = document.getElementById('signatureCanvas');
-      if (!signCanvas) return;
-      signCtx = signCanvas.getContext('2d');
+    function initSignatureCanvas() {
+      sigCanvas = document.getElementById('signatureCanvas');
+      if (!sigCanvas) return;
+      sigCtx = sigCanvas.getContext('2d');
 
-      // 依據容器寬高設定實際畫布解析度
-      const rect = signCanvas.getBoundingClientRect();
-      signCanvas.width = rect.width * 2;
-      signCanvas.height = rect.height * 2;
-      signCtx.scale(2, 2);
-      signCtx.lineCap = 'round';
-      signCtx.lineJoin = 'round';
-      signCtx.lineWidth = 2.5;
-      signCtx.strokeStyle = '#0f172a'; // 深色筆觸
+      const rect = sigCanvas.getBoundingClientRect();
+      sigCanvas.width = rect.width;
+      sigCanvas.height = rect.height;
 
-      // 滑鼠事件
-      signCanvas.onmousedown = (e) => startDrawing(getPos(e));
-      signCanvas.onmousemove = (e) => draw(getPos(e));
-      window.addEventListener('mouseup', stopDrawing);
+      sigCtx.lineWidth = 3.5;
+      sigCtx.lineCap = 'round';
+      sigCtx.lineJoin = 'round';
+      sigCtx.strokeStyle = '#0f172a';
 
-      // 觸控事件
-      signCanvas.ontouchstart = (e) => {
+      function getPos(e) {
+        const r = sigCanvas.getBoundingClientRect();
+        if (e.touches && e.touches.length > 0) {
+          return {
+            x: e.touches[0].clientX - r.left,
+            y: e.touches[0].clientY - r.top
+          };
+        }
+        return {
+          x: e.clientX - r.left,
+          y: e.clientY - r.top
+        };
+      }
+
+      function startDraw(e) {
         e.preventDefault();
-        if (e.touches.length > 0) startDrawing(getTouchPos(e.touches[0]));
-      };
-      signCanvas.ontouchmove = (e) => {
+        isDrawing = true;
+        hasDrawn = true;
+        const hint = document.getElementById('signHint');
+        if (hint) hint.style.display = 'none';
+        const p = getPos(e);
+        sigCtx.beginPath();
+        sigCtx.moveTo(p.x, p.y);
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
         e.preventDefault();
-        if (e.touches.length > 0) draw(getTouchPos(e.touches[0]));
-      };
-      window.addEventListener('touchend', stopDrawing);
-    }
+        const p = getPos(e);
+        sigCtx.lineTo(p.x, p.y);
+        sigCtx.stroke();
+      }
 
-    function getPos(e) {
-      const rect = signCanvas.getBoundingClientRect();
-      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    }
-
-    function getTouchPos(touch) {
-      const rect = signCanvas.getBoundingClientRect();
-      return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
-    }
-
-    function startDrawing(pos) {
-      isDrawing = true;
-      hasSigned = true;
-      const hint = document.getElementById('signHint');
-      if (hint) hint.classList.add('hidden');
-      signCtx.beginPath();
-      signCtx.moveTo(pos.x, pos.y);
-    }
-
-    function draw(pos) {
-      if (!isDrawing) return;
-      signCtx.lineTo(pos.x, pos.y);
-      signCtx.stroke();
-    }
-
-    function stopDrawing() {
-      if (isDrawing) {
-        signCtx.closePath();
+      function endDraw(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
         isDrawing = false;
       }
+
+      sigCanvas.addEventListener('mousedown', startDraw);
+      sigCanvas.addEventListener('mousemove', draw);
+      window.addEventListener('mouseup', endDraw);
+
+      sigCanvas.addEventListener('touchstart', startDraw, { passive: false });
+      sigCanvas.addEventListener('touchmove', draw, { passive: false });
+      sigCanvas.addEventListener('touchend', endDraw, { passive: false });
     }
 
     function clearSignaturePad() {
-      if (!signCtx || !signCanvas) return;
-      signCtx.clearRect(0, 0, signCanvas.width, signCanvas.height);
-      hasSigned = false;
+      if (!sigCanvas || !sigCtx) return;
+      sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+      hasDrawn = false;
       const hint = document.getElementById('signHint');
-      if (hint) hint.classList.remove('hidden');
+      if (hint) hint.style.display = 'flex';
     }
 
     function updatePledgePreviewName() {
-      const name = document.getElementById('inputName').value.trim();
-      document.getElementById('pledgeNamePreview').innerText = name || '__________';
+      const val = document.getElementById('inputName').value.trim();
+      document.getElementById('pledgeNamePreview').innerText = val ? val : "__________";
     }
 
-    // 驗證並產生證書
-    function generateCertificate() {
-      const className = document.getElementById('inputClass').value.trim();
-      const seatNum = document.getElementById('inputSeat').value.trim();
-      const name = document.getElementById('inputName').value.trim();
-
-      if (!name) {
-        alert("請在學生姓名欄位填寫你的姓名！");
-        document.getElementById('inputName').focus();
-        return;
+    function openPledgeModal() {
+      let modal = document.getElementById('pledgeModal');
+      if (!modal) {
+        createPledgeModalDOM();
+        modal = document.getElementById('pledgeModal');
       }
-      if (!hasSigned) {
-        alert("請在下方簽名板親筆簽署你的姓名！");
-        return;
-      }
+      modal.classList.remove('hidden');
+      document.getElementById('pledgeSignStep').classList.remove('hidden');
+      document.getElementById('pledgeCertStep').classList.add('hidden');
+      setTimeout(initSignatureCanvas, 100);
+    }
 
-      pledgeStudentInfo = {
-        className: className || "六年級",
-        seatNum: seatNum || "00",
-        studentName: name
-      };
-
-      currentSignatureDataUrl = signCanvas.toDataURL("image/png");
-
-      // 填入證書文字與圖片
-      document.getElementById('certClassText').innerText = pledgeStudentInfo.className;
-      document.getElementById('certSeatText').innerText = pledgeStudentInfo.seatNum;
-      document.getElementById('certNameText').innerText = pledgeStudentInfo.studentName;
-      document.getElementById('certSignatureImg').src = currentSignatureDataUrl;
-      
-      const today = new Date();
-      const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-      document.getElementById('certDateText').innerText = dateStr;
-
-      // 切換至證書步驟
-      document.getElementById('pledgeSignStep').classList.add('hidden');
-      document.getElementById('pledgeCertStep').classList.remove('hidden');
-
-      try {
-        confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
-      } catch(e){}
+    function closePledgeModal() {
+      const modal = document.getElementById('pledgeModal');
+      if (modal) modal.classList.add('hidden');
     }
 
     function backToPledgeSign() {
@@ -2411,51 +1696,103 @@
       document.getElementById('pledgeSignStep').classList.remove('hidden');
     }
 
+    // 生成證書
+    function generateCertificate() {
+      const className = document.getElementById('inputClass').value.trim() || "六年級";
+      const seatNo = document.getElementById('inputSeat').value.trim() || "--";
+      const studentName = document.getElementById('inputName').value.trim();
+
+      if (!studentName) {
+        const nameInput = document.getElementById('inputName');
+        nameInput.focus();
+        nameInput.classList.add('ring-2', 'ring-rose-500');
+        setTimeout(() => nameInput.classList.remove('ring-2', 'ring-rose-500'), 1500);
+        return;
+      }
+
+      if (!hasDrawn) {
+        const hint = document.getElementById('signHint');
+        if (hint) {
+          hint.innerText = "請務必在此親筆手寫簽名！";
+          hint.classList.add('text-rose-500', 'font-black');
+        }
+        return;
+      }
+
+      document.getElementById('certClassText').innerText = className;
+      document.getElementById('certSeatText').innerText = seatNo;
+      document.getElementById('certNameText').innerText = studentName;
+
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      document.getElementById('certDateText').innerText = dateStr;
+
+      const dataUrl = sigCanvas.toDataURL('image/png');
+      document.getElementById('certSignatureImg').src = dataUrl;
+
+      document.getElementById('pledgeSignStep').classList.add('hidden');
+      document.getElementById('pledgeCertStep').classList.remove('hidden');
+
+      try {
+        confetti({ particleCount: 70, spread: 80, origin: { y: 0.55 } });
+      } catch (e) {}
+    }
+
     // 1. 列印 / 另存為 PDF
     function printCertificate() {
       window.print();
     }
 
-    // 2. 截圖交給老師檢查（使用 html2canvas 產生 PNG 並觸發下載）
-    async function downloadCertificateImage() {
-      const card = document.getElementById('certificateCard');
-      const btn = document.getElementById('downloadCertBtn');
+    // 2. html2canvas 高畫質截圖下載 PNG
+    function downloadCertificateImage() {
+      const certCard = document.getElementById('certificateCard');
+      const downloadBtn = document.getElementById('downloadCertBtn');
       const btnText = document.getElementById('downloadCertBtnText');
-      if (!card || !window.html2canvas) return;
+      if (!certCard) return;
 
-      const originalText = btnText.innerText;
-      btn.disabled = true;
-      btnText.innerText = "截圖生成中...";
+      const studentName = document.getElementById('certNameText').innerText.trim() || "學生";
+      const className = document.getElementById('certClassText').innerText.trim() || "六年級";
 
-      try {
-        const canvas = await html2canvas(card, {
-          scale: 2, // 高解析度
-          useCORS: true,
-          backgroundColor: '#fffbeb'
-        });
+      downloadBtn.disabled = true;
+      btnText.innerText = "生成截圖中...";
 
-        const imageUri = canvas.toDataURL("image/png");
-        const downloadLink = document.createElement('a');
-        const fileName = `畢旅安全證書_${pledgeStudentInfo.className}_${pledgeStudentInfo.seatNum}號_${pledgeStudentInfo.studentName}.png`;
-        
-        downloadLink.href = imageUri;
-        downloadLink.download = fileName;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+      html2canvas(certCard, {
+        scale: 2.5,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      }).then(canvas => {
+        const image = canvas.toDataURL("image/png");
+        const a = document.createElement('a');
+        a.href = image;
+        a.download = `畢旅安全宣言榮譽證書_${className}_${studentName}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
 
-        btnText.innerText = "截圖已下載！";
+        downloadBtn.disabled = false;
+        btnText.innerText = "截圖下載完成！";
         setTimeout(() => {
-          btnText.innerText = originalText;
-          btn.disabled = false;
-        }, 2000);
-      } catch (err) {
-        console.error("截圖生成失敗:", err);
-        alert("截圖產生失敗，建議直接使用手機或平板內建截圖功能保留畫面！");
-        btnText.innerText = originalText;
-        btn.disabled = false;
-      }
+          btnText.innerText = "截圖交給老師檢查";
+        }, 3000);
+      }).catch(err => {
+        downloadBtn.disabled = false;
+        btnText.innerText = "截圖交給老師檢查";
+      });
     }
+
+    // SOS Modal
+    function openSosModal() {
+      document.getElementById('sosModal').classList.remove('hidden');
+    }
+    function closeSosModal() {
+      document.getElementById('sosModal').classList.add('hidden');
+    }
+
+    // 啟動入口
+    window.onload = function() {
+      initMap();
+      renderCurrentChallenge();
+    };
   </script>
 </body>
 </html>
